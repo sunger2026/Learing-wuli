@@ -794,33 +794,6 @@
                         </button>
                     </div>
                 </div>
-                <div class="video-script">
-                    <h3>📜 视频脚本（王者荣耀版）</h3>
-                    <div class="script-item active" id="script1">
-                        <span class="script-time">00:00</span>
-                        <p>欢迎来到王者峡谷！今天我们要学习的是——<strong>速度</strong>！</p>
-                    </div>
-                    <div class="script-item" id="script2">
-                        <span class="script-time">00:08</span>
-                        <p>看，鲁班七号从泉水出发了！他的<strong>移速是380</strong>，这意味着...</p>
-                    </div>
-                    <div class="script-item" id="script3">
-                        <span class="script-time">00:15</span>
-                        <p>速度 = 路程 ÷ 时间！鲁班走了<strong>10秒</strong>，走了多远呢？</p>
-                    </div>
-                    <div class="script-item" id="script4">
-                        <span class="script-time">00:25</span>
-                        <p>s = v × t = 380 × 10 = <strong>3800像素</strong>！正好到达一塔！</p>
-                    </div>
-                    <div class="script-item" id="script5">
-                        <span class="script-time">00:35</span>
-                        <p>开<strong>疾跑技能</strong>！速度提升30%，变成 380 × 1.3 = <strong>494</strong>！</p>
-                    </div>
-                    <div class="script-item" id="script6">
-                        <span class="script-time">00:45</span>
-                        <p>记住公式：<strong>v = s/t</strong>，在王者峡谷和物理世界都一样！</p>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -1591,6 +1564,55 @@
             ctx.stroke();
         }
 
+        // 场景脚本文字
+        const sceneScripts = [
+            "欢迎来到王者峡谷！今天我们要学习的是——速度！",
+            "看，鲁班七号从泉水出发了！他的移速是380...",
+            "速度 = 路程 ÷ 时间！鲁班走了10秒，走了多远呢？",
+            "s = v × t = 380 × 10 = 3800像素！正好到达一塔！",
+            "开疾跑技能！速度提升30%，变成 380 × 1.3 = 494！",
+            "记住公式：v = s/t，在王者峡谷和物理世界都一样！"
+        ];
+
+        // 在 Canvas 上绘制字幕
+        function drawSubtitle(text) {
+            // 字幕背景
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(50, 340, 700, 45);
+            
+            // 字幕文字
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            // 文字换行处理
+            const maxWidth = 680;
+            const words = text.split('');
+            let line = '';
+            const lines = [];
+            
+            for (let i = 0; i < words.length; i++) {
+                const testLine = line + words[i];
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && i > 0) {
+                    lines.push(line);
+                    line = words[i];
+                } else {
+                    line = testLine;
+                }
+            }
+            lines.push(line);
+            
+            // 绘制文字（居中）
+            const lineHeight = 22;
+            const startY = 350 + (45 - lines.length * lineHeight) / 2 + lineHeight / 2;
+            
+            lines.forEach((line, index) => {
+                ctx.fillText(line, 400, startY + index * lineHeight);
+            });
+        }
+
         // 主动画循环
         function animate(timestamp) {
             if (!isPlaying) return;
@@ -1623,24 +1645,6 @@
             const totalProgress = Math.min(elapsed / totalDuration, 1);
             document.getElementById('videoProgress').style.width = (totalProgress * 100) + '%';
             
-            // 更新脚本高亮
-            document.querySelectorAll('.script-item').forEach((item, i) => {
-                if (i === currentScene) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-            
-            // 语音讲解（每3秒播报一次，避免重复）
-            if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
-                const scriptText = document.querySelector(`#script${currentScene + 1} p`);
-                if (scriptText) {
-                    speakScript(scriptText.textContent);
-                    scene.spoken = true;
-                }
-            }
-            
             // 场景逻辑
             switch(scene.name) {
                 case 'intro':
@@ -1656,7 +1660,6 @@
                     drawSpeedIndicator(luban.baseSpeed);
                     drawLuban(luban.x, luban.y);
                     drawDistanceMarker(luban.x, Math.floor((luban.x - 50) * 10));
-                    drawTextBubble('我以380的速度跑了' + Math.floor(sceneElapsed) + '秒', luban.x, 220);
                     break;
                     
                 case 'calculate':
@@ -1675,7 +1678,6 @@
                     // 鲁班到达终点
                     luban.x = 720;
                     drawLuban(luban.x, luban.y);
-                    drawTextBubble('正好到达一塔！', luban.x, 220);
                     
                     // 庆祝特效
                     if (Math.floor(sceneElapsed * 10) % 5 === 0) {
@@ -1701,7 +1703,6 @@
                     drawSpeedIndicator(sprintSpeed);
                     drawSprintEffect(luban.x, luban.y);
                     drawLuban(luban.x, luban.y);
-                    drawTextBubble('疾跑开启！速度+30%！', luban.x, 220);
                     
                     // 红色加速特效
                     ctx.fillStyle = 'rgba(255, 107, 53, 0.3)';
@@ -1711,7 +1712,6 @@
                 case 'formula':
                     drawFormula();
                     drawLuban(400, 250, 1.2);
-                    drawTextBubble('记住 v=s/t，我们峡谷见！', 400, 200);
                     
                     // 闪烁公式
                     if (Math.floor(sceneElapsed * 5) % 2 === 0) {
@@ -1722,6 +1722,9 @@
                     }
                     break;
             }
+            
+            // 绘制字幕
+            drawSubtitle(sceneScripts[currentScene]);
             
             // 检查动画结束
             if (totalProgress < 1) {

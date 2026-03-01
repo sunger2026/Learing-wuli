@@ -906,29 +906,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="video-script">
-                    <h3>📜 视频脚本</h3>
-                    <div class="script-item active" id="script1">
-                        <span class="script-time">00:00</span>
-                        <p>声音是由<strong>振动</strong>产生的！看音叉振动产生声波。</p>
-                    </div>
-                    <div class="script-item" id="script2">
-                        <span class="script-time">00:08</span>
-                        <p>声波以<strong>波的形式</strong>向四周传播，需要介质。</p>
-                    </div>
-                    <div class="script-item" id="script3">
-                        <span class="script-time">00:16</span>
-                        <p><strong>音调高低</strong>由频率决定：波形越密，频率越高，音调越高。</p>
-                    </div>
-                    <div class="script-item" id="script4">
-                        <span class="script-time">00:24</span>
-                        <p><strong>响度大小</strong>由振幅决定：波形越高，振幅越大，响度越大。</p>
-                    </div>
-                    <div class="script-item" id="script5">
-                        <span class="script-time">00:32</span>
-                        <p>真空<strong>不能传声</strong>！宇航员在月球必须用无线电。</p>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -1271,6 +1248,54 @@
             ctx.fillText(text, x, y);
         }
 
+        // 场景脚本文字
+        const sceneScripts = [
+            "声音是由振动产生的！看音叉振动产生声波。",
+            "声波以波的形式向四周传播，需要介质。",
+            "音调高低由频率决定：波形越密，频率越高，音调越高。",
+            "响度大小由振幅决定：波形越高，振幅越大，响度越大。",
+            "真空不能传声！宇航员在月球必须用无线电。"
+        ];
+
+        // 在 Canvas 上绘制字幕
+        function drawSubtitle(text) {
+            // 字幕背景
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(50, 340, 700, 45);
+            
+            // 字幕文字
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            // 文字换行处理
+            const maxWidth = 680;
+            const words = text.split('');
+            let line = '';
+            const lines = [];
+            
+            for (let i = 0; i < words.length; i++) {
+                const testLine = line + words[i];
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && i > 0) {
+                    lines.push(line);
+                    line = words[i];
+                } else {
+                    line = testLine;
+                }
+            }
+            lines.push(line);
+            
+            // 绘制文字（居中）
+            const lineHeight = 22;
+            const startY = 350 + (45 - lines.length * lineHeight) / 2 + lineHeight / 2;
+            
+            lines.forEach((line, index) => {
+                ctx.fillText(line, 400, startY + index * lineHeight);
+            });
+        }
+
         // 主动画循环
         function animate(timestamp) {
             if (!isPlaying) return;
@@ -1311,11 +1336,8 @@
             
             // 语音讲解
             if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
-                const scriptText = document.querySelector(`#script${currentScene + 1} p`);
-                if (scriptText) {
-                    speakScript(scriptText.textContent);
-                    scene.spoken = true;
-                }
+                speakScript(sceneScripts[currentScene]);
+                scene.spoken = true;
             }
             
             // 场景逻辑
@@ -1411,6 +1433,9 @@
                     drawText('真空不能传声！', 400, 375, 14, '#aaa');
                     break;
             }
+            
+            // 绘制字幕
+            drawSubtitle(sceneScripts[currentScene]);
             
             // 检查动画结束
             if (totalProgress < 1) {
