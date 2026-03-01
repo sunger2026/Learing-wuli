@@ -3,433 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电流·欧姆 - 光现象 | 物理王者</title>
+    <title>电流·欧姆 - 电学基础 | 物理王者</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* 样式与hero-speed.html相同，省略以节省空间 */
-        :root {
-            --bronze: #cd7f32; --silver: #c0c0c0; --gold: #ffd700;
-            --platinum: #3eb489; --diamond: #b9f2ff; --star: #e6e6fa;
-            --king: #ff6b35; --dark-bg: #0a0e1a; --card-bg: rgba(20, 25, 45, 0.95);
-            --accent: #00d4ff; --accent-gold: #ffb800;
-            --success: #32cd32; --error: #ff4444;
-            --basic-purple: #9370db;
-        }
+        :root { --bronze: #cd7f32; --silver: #c0c0c0; --gold: #ffd700; --platinum: #3eb489; --diamond: #b9f2ff; --star: #e6e6fa; --king: #ff6b35; --dark-bg: #0a0e1a; --card-bg: rgba(20, 25, 45, 0.95); --accent: #00d4ff; --accent-gold: #ffb800; --success: #32cd32; --error: #ff4444; --basic-purple: #9370db; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background: var(--dark-bg);
-            min-height: 100vh;
-            color: #fff;
-            overflow-x: hidden;
-        }
-        .header {
-            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
-        .logo-icon {
-            width: 45px; height: 45px;
-            background: linear-gradient(135deg, var(--accent-gold), var(--king));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: 900;
-        }
-        .logo-text {
-            font-size: 24px;
-            font-weight: 900;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .back-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 25px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .back-btn:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateX(-5px);
-        }
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 40px 60px;
-        }
-        .hero-header {
-            background: linear-gradient(135deg, rgba(147,112,219,0.15), rgba(255,215,0,0.15));
-            border: 1px solid rgba(255,215,0,0.3);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-title-section {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            position: relative;
-            z-index: 1;
-        }
-        .hero-avatar {
-            width: 120px; height: 120px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
-        }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark-bg); min-height: 100vh; color: #fff; overflow-x: hidden; }
+        .header { background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--accent-gold), var(--king)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; }
+        .logo-text { font-size: 24px; font-weight: 900; background: linear-gradient(90deg, var(--accent-gold), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .back-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; color: #fff; text-decoration: none; font-weight: 600; }
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 40px 60px; }
+        .hero-header { background: linear-gradient(135deg, rgba(138,43,226,0.15), rgba(0,212,255,0.15)); border: 1px solid rgba(138,43,226,0.3); border-radius: 20px; padding: 40px; margin-bottom: 30px; }
+        .hero-title-section { display: flex; align-items: center; gap: 30px; }
+        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, #8a2be2, #00d4ff); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; }
         .hero-meta { flex: 1; }
-        .hero-name-large {
-            font-size: 36px;
-            font-weight: 900;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .hero-tag {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(147,112,219,0.2);
-            color: var(--basic-purple);
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .hero-desc-large {
-            font-size: 16px;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.6;
-        }
-        .hero-progress-large {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .progress-bar-large {
-            flex: 1;
-            max-width: 300px;
-            height: 10px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .progress-fill-large {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
-            border-radius: 5px;
-        }
-        .progress-text-large {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-        .learning-section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .section-icon {
-            width: 45px; height: 45px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-        }
-        .video-container {
-            background: rgba(0,0,0,0.5);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .video-player {
-            position: relative;
-            background: linear-gradient(135deg, #1a1f3a, #0d1020);
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        #electricityAnimation {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        .video-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 20px;
-            background: rgba(0,0,0,0.5);
-        }
-        .play-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 25px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
-            border: none;
-            border-radius: 25px;
-            color: #000;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0,212,255,0.4);
-        }
-        .progress-bar-video {
-            flex: 1;
-            height: 6px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 3px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .progress-fill-video {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent-gold));
-            border-radius: 3px;
-            transition: width 0.1s linear;
-        }
-        .mute-btn {
-            padding: 10px 15px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 18px;
-        }
-        .knowledge-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .knowledge-card {
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .knowledge-card.important {
-            border-color: var(--accent-gold);
-            background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3));
-        }
-        .knowledge-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-        .knowledge-content {
-            font-size: 15px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.7;
-        }
-        .formula-box {
-            background: rgba(147,112,219,0.1);
-            border-left: 4px solid var(--basic-purple);
-            padding: 15px 20px;
-            margin: 15px 0;
-            border-radius: 0 12px 12px 0;
-            font-family: 'Times New Roman', serif;
-            font-size: 20px;
-            color: var(--basic-purple);
-            text-align: center;
-        }
-        .example-box {
-            background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3));
-            border: 1px solid rgba(255,184,0,0.3);
-            border-radius: 16px;
-            padding: 25px;
-            margin: 20px 0;
-        }
-        .example-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-        .example-question {
-            background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        .example-answer {
-            background: rgba(50,205,50,0.1);
-            border: 1px solid rgba(50,205,50,0.3);
-            padding: 20px;
-            border-radius: 12px;
-        }
-        .example-answer.hidden { display: none; }
-        .toggle-answer {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--accent), var(--platinum));
-            border: none;
-            border-radius: 25px;
-            color: #000;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .quiz-item {
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .quiz-number {
-            display: inline-block;
-            width: 30px; height: 30px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: #000;
-            margin-bottom: 15px;
-        }
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .quiz-option {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 15px 20px;
-            background: rgba(255,255,255,0.05);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .quiz-option:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--basic-purple);
-        }
-        .quiz-option.correct {
-            border-color: var(--success);
-            background: rgba(50,205,50,0.1);
-        }
-        .quiz-option.wrong {
-            border-color: var(--error);
-            background: rgba(255,68,68,0.1);
-        }
-        .quiz-feedback {
-            margin-top: 15px;
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            display: none;
-        }
-        .quiz-feedback.show { display: block; }
-        .quiz-feedback.correct {
-            background: rgba(50,205,50,0.2);
-            color: var(--success);
-        }
-        .action-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
-            color: #000;
-        }
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-        }
-        @media (max-width: 768px) {
-            .main-container { padding: 20px; }
-            .hero-title-section { flex-direction: column; text-align: center; }
-            .hero-name-large { font-size: 24px; flex-direction: column; }
-            .knowledge-grid { grid-template-columns: 1fr; }
-        }
+        .hero-name-large { font-size: 36px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
+        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(138,43,226,0.2); color: #9370db; border-radius: 20px; font-size: 14px; font-weight: 600; }
+        .video-container { background: rgba(0,0,0,0.5); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        #electricityAnimation { width: 100%; max-width: 800px; height: auto; display: block; margin: 0 auto; }
+        .video-controls { display: flex; align-items: center; gap: 15px; padding: 15px 20px; background: rgba(0,0,0,0.5); }
+        .play-btn { display: flex; align-items: center; gap: 8px; padding: 10px 25px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border: none; border-radius: 25px; color: #000; font-weight: 700; cursor: pointer; }
+        .progress-bar-video { flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; cursor: pointer; }
+        .progress-fill-video { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-gold)); border-radius: 3px; transition: width 0.1s linear; }
+        .mute-btn { padding: 10px 15px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; cursor: pointer; font-size: 18px; }
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .knowledge-card { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        .knowledge-card.important { border-color: var(--accent-gold); background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3)); }
+        .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+        .formula-box { background: rgba(147,112,219,0.1); border-left: 4px solid var(--basic-purple); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; font-size: 20px; color: var(--basic-purple); text-align: center; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 16px; text-decoration: none; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-gold)); color: #000; }
     </style>
 </head>
 <body>
     <header class="header">
-        <a href="index.html" class="logo">
-            <div class="logo-icon">⚡</div>
-            <div class="logo-text">物理王者</div>
-        </a>
-        <a href="index.html" class="back-btn">
-            <span>←</span>
-            <span>返回英雄列表</span>
-        </a>
+        <a href="index.html" class="logo"><div class="logo-icon">⚡</div><div class="logo-text">物理王者</div></a>
+        <a href="index.html" class="back-btn">← 返回英雄列表</a>
     </header>
 
     <main class="main-container">
@@ -437,268 +48,135 @@
             <div class="hero-title-section">
                 <div class="hero-avatar">⚡</div>
                 <div class="hero-meta">
-                    <h1 class="hero-name-large">
-                        电流·欧姆
-                        <span class="hero-tag">电学系</span>
-                    </h1>
-                    <p class="hero-desc-large">
-                        电流、电压、电阻、欧姆定律
-                        学会光学，就像掌握了后羿的大招！
-                    </p>
-                    <div class="hero-progress-large">
-                        <div class="progress-bar-large">
-                            <div class="progress-fill-large"></div>
-                        </div>
-                        <span class="progress-text-large">学习进度 0%</span>
-                    </div>
+                    <h1 class="hero-name-large">电流·欧姆 <span class="hero-tag">电学系</span></h1>
+                    <p>电流、电压、电阻、欧姆定律。诸葛亮带你探索电学奥秘！</p>
                 </div>
             </div>
         </section>
 
-        <!-- 视频讲解区 -->
         <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">🎬</div>
-                <h2 class="section-title">动画讲解：光的奥秘</h2>
-            </div>
-            
+            <h2>🎬 动画讲解：诸葛亮的电学智慧</h2>
             <div class="video-container">
-                <div class="video-player">
-                    <canvas id="electricityAnimation" width="800" height="400"></canvas>
-                    <div class="video-controls">
-                        <button class="play-btn" onclick="toggleAnimation()">
-                            <span id="playIcon">▶️</span> <span id="playText">播放动画</span>
-                        </button>
-                        <div class="progress-bar-video">
-                            <div class="progress-fill-video" id="videoProgress"></div>
-                        </div>
-                        <button class="mute-btn" onclick="toggleMute()">
-                            <span id="muteIcon">🔊</span>
-                        </button>
-                    </div>
+                <canvas id="electricityAnimation" width="800" height="400"></canvas>
+                <div class="video-controls">
+                    <button class="play-btn" onclick="toggleAnimation()"><span id="playIcon">▶️</span> <span id="playText">播放动画</span></button>
+                    <div class="progress-bar-video" onclick="seekAnimation(event)"><div class="progress-fill-video" id="videoProgress"></div></div>
+                    <button class="mute-btn" onclick="toggleMute()">🔊</button>
                 </div>
             </div>
         </section>
 
-        <!-- 核心知识点 -->
         <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">📖</div>
-                <h2 class="section-title">核心知识点</h2>
-            </div>
-
+            <h2>📖 核心知识点</h2>
             <div class="knowledge-grid">
                 <div class="knowledge-card important">
-                    <div class="knowledge-title">⚡ 电流、电压、电阻、欧姆定律
-                    <div class="knowledge-content">
-                        <p><strong>条件：</strong>在同种均匀介质中</p>
-                        <p><strong>现象：</strong>影子、日食、月食、小孔成像</p>
-                        <p><strong>光速：</strong>真空中 c = 3×10⁸ m/s（最大）</p>
-                        <p style="color: var(--accent-gold); margin-top: 10px;">⚡ 光年：光在一年中传播的距离，是长度单位</p>
-                    </div>
+                    <div class="knowledge-title">⚡ 欧姆定律</div>
+                    <div class="formula-box">I = U / R</div>
+                    <p>I：电流（A）</p>
+                    <p>U：电压（V）</p>
+                    <p>R：电阻（Ω）</p>
                 </div>
-
                 <div class="knowledge-card">
-                    <div class="knowledge-title">🔍 光的反射定律</div>
-                    <div class="knowledge-content">
-                        <div class="formula-box">入射角 = 反射角</div>
-                        <p><strong>三线共面：</strong>入射光线、反射光线、法线在同一平面</p>
-                        <p><strong>两线分居：</strong>入射光线和反射光线分居法线两侧</p>
-                        <p><strong>反射类型：</strong>镜面反射、漫反射</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">🪞 平面镜成像</div>
-                    <div class="knowledge-content">
-                        <ul>
-                            <li>像与物大小相等</li>
-                            <li>像与物到镜面距离相等</li>
-                            <li>像与物连线垂直于镜面</li>
-                            <li>成的是虚像（不能用光屏承接）</li>
-                            <li>像与物左右相反</li>
-                        </ul>
-                        <p style="color: var(--accent-gold);">📝 记忆口诀：等大、等距、垂直、虚像、左右反</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">💧 光的折射</div>
-                    <div class="knowledge-content">
-                        <p><strong>定义：</strong>光从一种介质斜射入另一种介质时传播方向发生偏折</p>
-                        <p><strong>规律：</strong></p>
-                        <ul>
-                            <li>光从空气斜射入水/玻璃：折射角 < 入射角</li>
-                            <li>光从水/玻璃斜射入空气：折射角 > 入射角</li>
-                            <li>垂直入射：传播方向不变</li>
-                        </ul>
-                        <p><strong>现象：</strong>筷子在水中"折断"、池水变浅、彩虹</p>
-                    </div>
+                    <div class="knowledge-title">🔌 电路基础</div>
+                    <p>串联电路：电流处处相等</p>
+                    <p>并联电路：电压处处相等</p>
+                    <p>串联电阻：R = R₁ + R₂</p>
+                    <p>并联电阻：1/R = 1/R₁ + 1/R₂</p>
                 </div>
             </div>
         </section>
 
-        <!-- 经典例题 -->
-        <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">⚡</div>
-                <h2 class="section-title">经典例题</h2>
-            </div>
-
-            <div class="example-box">
-                <div class="example-header">📝 例题1：光的反射作图</div>
-                <div class="example-question">
-                    请画出光线AO经平面镜反射后的反射光线。
-                </div>
-                <button class="toggle-answer" onclick="toggleAnswer('answer1')">👁️ 查看解析</button>
-                <div class="example-answer hidden" id="answer1">
-                    <p><strong>步骤：</strong></p>
-                    <p>1. 过入射点O作法线（垂直于镜面，用虚线）</p>
-                    <p>2. 量出入射角</p>
-                    <p>3. 在法线另一侧画出反射角等于入射角</p>
-                    <p>4. 标出反射光线方向（用箭头）</p>
-                    <p style="color: var(--accent-gold);">⚠️ 注意：法线用虚线，光线用实线带箭头</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 实战演练 -->
-        <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">⚔️</div>
-                <h2 class="section-title">实战演练</h2>
-            </div>
-
-            <div class="quiz-container">
-                <div class="quiz-item">
-                    <div class="quiz-number">1</div>
-                    <div class="quiz-question">光在真空中的传播速度是（　）</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')"><div class="option-letter">A</div><div>3×10⁵ m/s</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')"><div class="option-letter">B</div><div>3×10⁸ m/s</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')"><div class="option-letter">C</div><div>340 m/s</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')"><div class="option-letter">D</div><div>8×10⁸ m/s</div></div>
-                    </div>
-                    <div class="quiz-feedback" id="feedback1"></div>
-                </div>
-            </div>
-        </section>
-
-        <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="alert('📝 笔记已保存！')">✏️ 记笔记</button>
+        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px;">
             <a href="index.html" class="btn btn-primary">✅ 完成学习</a>
         </div>
     </main>
 
     <script>
-        // 简化的动画代码（完整版参考hero-speed.html）
         const canvas = document.getElementById('electricityAnimation');
         const ctx = canvas.getContext('2d');
-        let isPlaying = false;
-        let animationId = null;
-        
+        let isPlaying = false, animationId, startTime = 0, currentScene = 0;
+        let isMuted = false;
+        let electronPos = 0;
+
+        const scenes = [
+            { duration: 6, name: "intro", text: "欢迎来到电流·欧姆！学习电学基础" },
+            { duration: 8, name: "ohm", text: "欧姆定律：I = U/R" },
+            { duration: 8, name: "circuit", text: "串联和并联电路" },
+            { duration: 8, name: "current", text: "电流方向与电子流动" },
+            { duration: 6, name: "end", text: "记住：I = U/R，电流与电压成正比" }
+        ];
+
+        const sceneScripts = [
+            "欢迎来到电流·欧姆！我是诸葛亮，今天带大家学习电学知识！",
+            "欧姆定律：电流等于电压除以电阻，I = U/R！",
+            "电路有串联和并联两种方式！串联电流相等，并联电压相等！",
+            "电流方向规定为正电荷移动方向，与电子流动方向相反！",
+            "记住欧姆定律：电流与电压成正比，与电阻成反比！"
+        ];
+
         function drawBackground() {
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, '#1a1f3a');
-            gradient.addColorStop(1, '#0d1020');
-            ctx.fillStyle = gradient;
+            const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            grad.addColorStop(0, '#1a1f3a');
+            grad.addColorStop(1, '#0d1020');
+            ctx.fillStyle = grad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-        
-        function drawSubtitle(text) {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-            ctx.fillRect(50, 340, 700, 45);
+
+        function drawBattery(x, y) {
+            ctx.fillStyle = '#ffd700';
+            ctx.fillRect(x-30, y-20, 60, 40);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(x-40, y-5, 10, 10);
+            ctx.fillStyle = '#f00';
+            ctx.fillRect(x+30, y-8, 15, 16);
             ctx.fillStyle = '#fff';
-            ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
+            ctx.font = '14px sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText(text, 400, 370);
+            ctx.fillText('+', x+37, y+5);
         }
-        
-        
-        // ========== 音频系统 ==========
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        let isMuted = false;
-        
-        function playSound(type) {
-            if (isMuted) return;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            if (type === 'click') {
-                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-                osc.start(audioCtx.currentTime);
-                osc.stop(audioCtx.currentTime + 0.1);
+
+        function drawResistor(x, y) {
+            ctx.strokeStyle = '#cd853f';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(x-30, y);
+            for (let i = 0; i < 5; i++) {
+                ctx.lineTo(x-20+i*10, y-10);
+                ctx.lineTo(x-10+i*10, y+10);
+            }
+            ctx.lineTo(x+30, y);
+            ctx.stroke();
+        }
+
+        function drawElectrons(x1, y1, x2, y2, offset) {
+            ctx.fillStyle = '#00d4ff';
+            for (let i = 0; i < 5; i++) {
+                const pos = (offset + i * 50) % 200;
+                const ex = x1 + (x2-x1) * pos/200;
+                const ey = y1 + (y2-y1) * pos/200;
+                ctx.beginPath();
+                ctx.arc(ex, ey, 5, 0, Math.PI*2);
+                ctx.fill();
             }
         }
-        
-        // 语音讲解
-        let speechSynthesis = window.speechSynthesis;
-        function speakScript(text) {
-            if (!speechSynthesis || isMuted) return;
-            speechSynthesis.cancel();
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.lang = 'zh-CN';
-            utter.rate = 1.1;
-            speechSynthesis.speak(utter);
-        }
-        
-        function stopSpeech() {
-            if (speechSynthesis) speechSynthesis.cancel();
-        }
-        
-        // 静音切换
-        function toggleMute() {
-            isMuted = !isMuted;
-            document.getElementById('muteIcon').textContent = isMuted ? '🔇' : '🔊';
-        }
-        
-        // 场景脚本
-        const sceneScripts = [
-            "欢迎来到王者峡谷！今天学习物理知识！",
-            "第一个知识点：基础概念",
-            "第二个知识点：重要公式",
-            "第三个知识点：实际应用",
-            "记住这些知识，在考试中取得好成绩！"
-        ];
-        
-        // 字幕绘制
+
         function drawSubtitle(text) {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillStyle = 'rgba(0,0,0,0.7)';
             ctx.fillRect(50, 340, 700, 45);
             ctx.fillStyle = '#fff';
             ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(text, 400, 370);
         }
-        
-        // 主动画循环
-        let isPlaying = false;
-        let animationId = null;
-        let startTime = 0;
-        let currentScene = 0;
-        
-        const scenes = [
-            { duration: 6, name: "intro" },
-            { duration: 6, name: "scene1" },
-            { duration: 6, name: "scene2" },
-            { duration: 6, name: "scene3" },
-            { duration: 6, name: "summary" }
-        ];
-        
+
         function animate(timestamp) {
             if (!isPlaying) return;
-            
             if (!startTime) startTime = timestamp;
             const elapsed = (timestamp - startTime) / 1000;
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawBackground();
-            
-            // 计算场景
+
             let sceneTime = 0;
             for (let i = 0; i < scenes.length; i++) {
                 if (elapsed < sceneTime + scenes[i].duration) {
@@ -707,37 +185,91 @@
                 }
                 sceneTime += scenes[i].duration;
             }
-            
+
             const scene = scenes[currentScene];
             const sceneElapsed = elapsed - sceneTime;
-            
-            // 进度条
             const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
             const totalProgress = Math.min(elapsed / totalDuration, 1);
             document.getElementById('videoProgress').style.width = (totalProgress * 100) + '%';
-            
-            // 语音
+
+            electronPos = (electronPos + 2) % 200;
+
+            switch(scene.name) {
+                case 'intro':
+                    ctx.fillStyle = '#9370db';
+                    ctx.font = 'bold 28px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('⚡ 电流·欧姆 ⚡', 400, 200);
+                    break;
+                case 'ohm':
+                    ctx.fillStyle = '#ffd700';
+                    ctx.font = 'bold 36px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('I = U / R', 400, 200);
+                    ctx.font = '18px sans-serif';
+                    ctx.fillText('电流 = 电压 ÷ 电阻', 400, 250);
+                    break;
+                case 'circuit':
+                    drawBattery(150, 200);
+                    drawResistor(400, 200);
+                    drawBattery(650, 200);
+                    ctx.strokeStyle = '#ffd700';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(150, 200);
+                    ctx.lineTo(370, 200);
+                    ctx.moveTo(430, 200);
+                    ctx.lineTo(650, 200);
+                    ctx.stroke();
+                    drawElectrons(150, 200, 370, 200, electronPos);
+                    drawElectrons(430, 200, 650, 200, electronPos);
+                    break;
+                case 'current':
+                    ctx.strokeStyle = '#ffd700';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(200, 200);
+                    ctx.lineTo(600, 200);
+                    ctx.stroke();
+                    drawElectrons(200, 200, 600, 200, electronPos);
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.beginPath();
+                    ctx.moveTo(550, 190);
+                    ctx.lineTo(570, 200);
+                    ctx.lineTo(550, 210);
+                    ctx.fill();
+                    break;
+                case 'end':
+                    ctx.fillStyle = '#ffd700';
+                    ctx.font = 'bold 28px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('I = U/R', 400, 200);
+                    break;
+            }
+
+            drawSubtitle(sceneScripts[currentScene]);
+
             if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
-                speakScript(sceneScripts[currentScene]);
+                speakText(sceneScripts[currentScene]);
                 scene.spoken = true;
             }
-            
-            // 绘制场景
-            ctx.fillStyle = '#ffd700';
-            ctx.font = 'bold 24px "Noto Sans SC", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('场景 ' + (currentScene + 1) + ': ' + scene.name, 400, 200);
-            
-            // 字幕
-            drawSubtitle(sceneScripts[currentScene]);
-            
+
             if (totalProgress < 1) {
                 animationId = requestAnimationFrame(animate);
             } else {
                 stopAnimation();
             }
         }
-        
+
+        function speakText(text) {
+            if (isMuted || !window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'zh-CN';
+            utter.rate = 1.1;
+            window.speechSynthesis.speak(utter);
+        }
+
         function toggleAnimation() {
             if (isPlaying) {
                 stopAnimation();
@@ -745,58 +277,41 @@
                 startAnimation();
             }
         }
-        
+
         function startAnimation() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
             isPlaying = true;
             startTime = 0;
+            scenes.forEach(s => s.spoken = false);
             document.getElementById('playIcon').textContent = '⏸️';
             document.getElementById('playText').textContent = '暂停';
-            playSound('click');
             animationId = requestAnimationFrame(animate);
         }
-        
+
         function stopAnimation() {
             isPlaying = false;
             if (animationId) cancelAnimationFrame(animationId);
             document.getElementById('playIcon').textContent = '▶️';
             document.getElementById('playText').textContent = '播放动画';
-            stopSpeech();
+            window.speechSynthesis.cancel();
         }
 
-        function animate()
-        
-        function toggleAnimation() {
-            isPlaying = !isPlaying;
-            document.getElementById('playIcon').textContent = isPlaying ? '⏸️' : '▶️';
-            document.getElementById('playText').textContent = isPlaying ? '暂停' : '播放动画';
-            if (isPlaying) animate();
-            else cancelAnimationFrame(animationId);
+        function seekAnimation(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
+            const targetTime = percent * totalDuration;
+            if (isPlaying) startTime = performance.now() - targetTime * 1000;
+            document.getElementById('videoProgress').style.width = (percent * 100) + '%';
         }
-        
+
         function toggleMute() {
-            const icon = document.getElementById('muteIcon');
-            icon.textContent = icon.textContent === '🔊' ? '🔇' : '🔊';
+            isMuted = !isMuted;
+            document.querySelector('.mute-btn').textContent = isMuted ? '🔇' : '🔊';
+            if (isMuted) window.speechSynthesis.cancel();
         }
-        
-        function toggleAnswer(id) {
-            const answer = document.getElementById(id);
-            answer.classList.toggle('hidden');
-        }
-        
-        function checkAnswer(element, selected, isCorrect, feedbackId) {
-            const quizItem = element.closest('.quiz-item');
-            if (quizItem.dataset.answered) return;
-            quizItem.dataset.answered = 'true';
-            
-            element.classList.add(isCorrect ? 'correct' : 'wrong');
-            const feedback = document.getElementById(feedbackId);
-            feedback.className = 'quiz-feedback show ' + (isCorrect ? 'correct' : '');
-            feedback.innerHTML = isCorrect ? '🎉 回答正确！' : '❌ 回答错误';
-        }
-        
+
         drawBackground();
-        drawSubtitle('点击播放开始学习光学知识！');
+        drawSubtitle('点击播放开始学习电学知识！');
     </script>
 </body>
 </html>

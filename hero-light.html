@@ -6,7 +6,6 @@
     <title>光芒·反射 - 光现象 | 物理王者</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* 样式与hero-speed.html相同，省略以节省空间 */
         :root {
             --bronze: #cd7f32; --silver: #c0c0c0; --gold: #ffd700;
             --platinum: #3eb489; --diamond: #b9f2ff; --star: #e6e6fa;
@@ -80,7 +79,7 @@
             padding: 20px 40px 60px;
         }
         .hero-header {
-            background: linear-gradient(135deg, rgba(147,112,219,0.15), rgba(255,215,0,0.15));
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,140,0,0.15));
             border: 1px solid rgba(255,215,0,0.3);
             border-radius: 20px;
             padding: 40px;
@@ -103,7 +102,6 @@
             align-items: center;
             justify-content: center;
             font-size: 60px;
-            box-shadow: 0 20px 40px rgba(255,215,0,0.3);
         }
         .hero-meta { flex: 1; }
         .hero-name-large {
@@ -117,69 +115,11 @@
         .hero-tag {
             display: inline-block;
             padding: 6px 16px;
-            background: rgba(147,112,219,0.2);
-            color: var(--basic-purple);
+            background: rgba(255,215,0,0.2);
+            color: #ffd700;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 600;
-        }
-        .hero-desc-large {
-            font-size: 16px;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.6;
-        }
-        .hero-progress-large {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .progress-bar-large {
-            flex: 1;
-            max-width: 300px;
-            height: 10px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .progress-fill-large {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
-            border-radius: 5px;
-        }
-        .progress-text-large {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent-gold);
-        }
-        .learning-section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .section-icon {
-            width: 45px; height: 45px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-        }
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
         }
         .video-container {
             background: rgba(0,0,0,0.5);
@@ -194,13 +134,7 @@
             overflow: hidden;
             margin-bottom: 20px;
         }
-        #lightAnimation {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
+        #lightAnimation { width: 100%; max-width: 800px; height: auto; display: block; margin: 0 auto; }
         .video-controls {
             display: flex;
             align-items: center;
@@ -219,11 +153,6 @@
             color: #000;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .play-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0,212,255,0.4);
         }
         .progress-bar-video {
             flex: 1;
@@ -268,18 +197,12 @@
             font-weight: 700;
             margin-bottom: 12px;
         }
-        .knowledge-content {
-            font-size: 15px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.7;
-        }
         .formula-box {
             background: rgba(147,112,219,0.1);
             border-left: 4px solid var(--basic-purple);
             padding: 15px 20px;
             margin: 15px 0;
             border-radius: 0 12px 12px 0;
-            font-family: 'Times New Roman', serif;
             font-size: 20px;
             color: var(--basic-purple);
             text-align: center;
@@ -300,55 +223,6 @@
             font-weight: 700;
             color: var(--accent-gold);
         }
-        .example-question {
-            background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        .example-answer {
-            background: rgba(50,205,50,0.1);
-            border: 1px solid rgba(50,205,50,0.3);
-            padding: 20px;
-            border-radius: 12px;
-        }
-        .example-answer.hidden { display: none; }
-        .toggle-answer {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--accent), var(--platinum));
-            border: none;
-            border-radius: 25px;
-            color: #000;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .quiz-item {
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .quiz-number {
-            display: inline-block;
-            width: 30px; height: 30px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: #000;
-            margin-bottom: 15px;
-        }
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
         .quiz-option {
             display: flex;
             align-items: center;
@@ -358,38 +232,14 @@
             border: 2px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            margin: 8px 0;
         }
-        .quiz-option:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--basic-purple);
-        }
-        .quiz-option.correct {
-            border-color: var(--success);
-            background: rgba(50,205,50,0.1);
-        }
-        .quiz-option.wrong {
-            border-color: var(--error);
-            background: rgba(255,68,68,0.1);
-        }
-        .quiz-feedback {
-            margin-top: 15px;
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            display: none;
-        }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--basic-purple); }
+        .quiz-option.correct { border-color: var(--success); background: rgba(50,205,50,0.1); }
+        .quiz-option.wrong { border-color: var(--error); background: rgba(255,68,68,0.1); }
+        .quiz-feedback { margin-top: 15px; padding: 15px 20px; border-radius: 12px; font-weight: 600; display: none; }
         .quiz-feedback.show { display: block; }
-        .quiz-feedback.correct {
-            background: rgba(50,205,50,0.2);
-            color: var(--success);
-        }
-        .action-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-        }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); color: var(--success); }
         .btn {
             display: inline-flex;
             align-items: center;
@@ -403,21 +253,8 @@
             border: none;
             cursor: pointer;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
-            color: #000;
-        }
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-        }
-        @media (max-width: 768px) {
-            .main-container { padding: 20px; }
-            .hero-title-section { flex-direction: column; text-align: center; }
-            .hero-name-large { font-size: 24px; flex-direction: column; }
-            .knowledge-grid { grid-template-columns: 1fr; }
-        }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-gold)); color: #000; }
+        .btn-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
     </style>
 </head>
 <body>
@@ -426,231 +263,319 @@
             <div class="logo-icon">⚡</div>
             <div class="logo-text">物理王者</div>
         </a>
-        <a href="index.html" class="back-btn">
-            <span>←</span>
-            <span>返回英雄列表</span>
-        </a>
+        <a href="index.html" class="back-btn">← 返回英雄列表</a>
     </header>
 
     <main class="main-container">
         <section class="hero-header">
             <div class="hero-title-section">
-                <div class="hero-avatar">💡</div>
+                <div class="hero-avatar">☀️</div>
                 <div class="hero-meta">
-                    <h1 class="hero-name-large">
-                        光芒·反射
-                        <span class="hero-tag">基础系</span>
-                    </h1>
-                    <p class="hero-desc-large">
-                        光的直线传播，反射定律，平面镜成像，光的折射，透镜成像。
-                        学会光学，就像掌握了后羿的大招！
-                    </p>
-                    <div class="hero-progress-large">
-                        <div class="progress-bar-large">
-                            <div class="progress-fill-large"></div>
-                        </div>
-                        <span class="progress-text-large">学习进度 0%</span>
-                    </div>
+                    <h1 class="hero-name-large">光芒·反射 <span class="hero-tag">基础系</span></h1>
+                    <p>光的直线传播、反射定律、平面镜成像。学会光学，就像掌握了后羿的日之塔！</p>
                 </div>
             </div>
         </section>
 
-        <!-- 视频讲解区 -->
         <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">🎬</div>
-                <h2 class="section-title">动画讲解：光的奥秘</h2>
-            </div>
-            
+            <h2>🎬 动画讲解：后羿射箭的光学原理</h2>
             <div class="video-container">
-                <div class="video-player">
-                    <canvas id="lightAnimation" width="800" height="400"></canvas>
-                    <div class="video-controls">
-                        <button class="play-btn" onclick="toggleAnimation()">
-                            <span id="playIcon">▶️</span> <span id="playText">播放动画</span>
-                        </button>
-                        <div class="progress-bar-video">
-                            <div class="progress-fill-video" id="videoProgress"></div>
-                        </div>
-                        <button class="mute-btn" onclick="toggleMute()">
-                            <span id="muteIcon">🔊</span>
-                        </button>
-                    </div>
+                <canvas id="lightAnimation" width="800" height="400"></canvas>
+                <div class="video-controls">
+                    <button class="play-btn" onclick="toggleAnimation()"><span id="playIcon">▶️</span> <span id="playText">播放动画</span></button>
+                    <div class="progress-bar-video" onclick="seekAnimation(event)"><div class="progress-fill-video" id="videoProgress"></div></div>
+                    <button class="mute-btn" onclick="toggleMute()">🔊</button>
                 </div>
             </div>
         </section>
 
-        <!-- 核心知识点 -->
         <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">📖</div>
-                <h2 class="section-title">核心知识点</h2>
-            </div>
-
+            <h2>📖 核心知识点</h2>
             <div class="knowledge-grid">
                 <div class="knowledge-card important">
                     <div class="knowledge-title">⚡ 光的直线传播</div>
-                    <div class="knowledge-content">
-                        <p><strong>条件：</strong>在同种均匀介质中</p>
-                        <p><strong>现象：</strong>影子、日食、月食、小孔成像</p>
-                        <p><strong>光速：</strong>真空中 c = 3×10⁸ m/s（最大）</p>
-                        <p style="color: var(--accent-gold); margin-top: 10px;">💡 光年：光在一年中传播的距离，是长度单位</p>
-                    </div>
+                    <p>光速：真空中 c = 3×10⁸ m/s（最大）</p>
+                    <p>现象：影子、日食、月食、小孔成像</p>
                 </div>
-
                 <div class="knowledge-card">
                     <div class="knowledge-title">🔍 光的反射定律</div>
-                    <div class="knowledge-content">
-                        <div class="formula-box">入射角 = 反射角</div>
-                        <p><strong>三线共面：</strong>入射光线、反射光线、法线在同一平面</p>
-                        <p><strong>两线分居：</strong>入射光线和反射光线分居法线两侧</p>
-                        <p><strong>反射类型：</strong>镜面反射、漫反射</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">🪞 平面镜成像</div>
-                    <div class="knowledge-content">
-                        <ul>
-                            <li>像与物大小相等</li>
-                            <li>像与物到镜面距离相等</li>
-                            <li>像与物连线垂直于镜面</li>
-                            <li>成的是虚像（不能用光屏承接）</li>
-                            <li>像与物左右相反</li>
-                        </ul>
-                        <p style="color: var(--accent-gold);">📝 记忆口诀：等大、等距、垂直、虚像、左右反</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">💧 光的折射</div>
-                    <div class="knowledge-content">
-                        <p><strong>定义：</strong>光从一种介质斜射入另一种介质时传播方向发生偏折</p>
-                        <p><strong>规律：</strong></p>
-                        <ul>
-                            <li>光从空气斜射入水/玻璃：折射角 < 入射角</li>
-                            <li>光从水/玻璃斜射入空气：折射角 > 入射角</li>
-                            <li>垂直入射：传播方向不变</li>
-                        </ul>
-                        <p><strong>现象：</strong>筷子在水中"折断"、池水变浅、彩虹</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 经典例题 -->
-        <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">💡</div>
-                <h2 class="section-title">经典例题</h2>
-            </div>
-
-            <div class="example-box">
-                <div class="example-header">📝 例题1：光的反射作图</div>
-                <div class="example-question">
-                    请画出光线AO经平面镜反射后的反射光线。
-                </div>
-                <button class="toggle-answer" onclick="toggleAnswer('answer1')">👁️ 查看解析</button>
-                <div class="example-answer hidden" id="answer1">
-                    <p><strong>步骤：</strong></p>
-                    <p>1. 过入射点O作法线（垂直于镜面，用虚线）</p>
-                    <p>2. 量出入射角</p>
-                    <p>3. 在法线另一侧画出反射角等于入射角</p>
-                    <p>4. 标出反射光线方向（用箭头）</p>
-                    <p style="color: var(--accent-gold);">⚠️ 注意：法线用虚线，光线用实线带箭头</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 实战演练 -->
-        <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">⚔️</div>
-                <h2 class="section-title">实战演练</h2>
-            </div>
-
-            <div class="quiz-container">
-                <div class="quiz-item">
-                    <div class="quiz-number">1</div>
-                    <div class="quiz-question">光在真空中的传播速度是（　）</div>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')"><div class="option-letter">A</div><div>3×10⁵ m/s</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')"><div class="option-letter">B</div><div>3×10⁸ m/s</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')"><div class="option-letter">C</div><div>340 m/s</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')"><div class="option-letter">D</div><div>8×10⁸ m/s</div></div>
-                    </div>
-                    <div class="quiz-feedback" id="feedback1"></div>
+                    <div class="formula-box">入射角 = 反射角</div>
+                    <p>三线共面、两线分居、反射角等于入射角</p>
                 </div>
             </div>
         </section>
 
         <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="alert('📝 笔记已保存！')">✏️ 记笔记</button>
             <a href="index.html" class="btn btn-primary">✅ 完成学习</a>
         </div>
     </main>
 
     <script>
-        // 简化的动画代码（完整版参考hero-speed.html）
         const canvas = document.getElementById('lightAnimation');
         const ctx = canvas.getContext('2d');
-        let isPlaying = false;
-        let animationId = null;
-        
+        let isPlaying = false, animationId, startTime = 0, currentScene = 0;
+        let isMuted = false;
+
+        const scenes = [
+            { duration: 6, name: "intro", text: "欢迎来到光芒·反射！学习光的传播与反射" },
+            { duration: 8, name: "straight", text: "光沿直线传播！后羿射箭时要对准目标" },
+            { duration: 8, name: "reflection", text: "光的反射定律：入射角等于反射角" },
+            { duration: 8, name: "mirror", text: "平面镜成像：等大、等距、虚像" },
+            { duration: 6, name: "end", text: "记住：光沿直线传播，反射角等于入射角！" }
+        ];
+
+        const sceneScripts = [
+            "欢迎来到光芒·反射！我是后羿，今天带大家学习光学知识！",
+            "光沿直线传播！就像我的箭，直直地飞向目标！",
+            "遇到镜面会发生反射。记住：入射角等于反射角！",
+            "平面镜成像特点是：等大、等距、成虚像！",
+            "记住：光沿直线传播，反射角等于入射角！"
+        ];
+
         function drawBackground() {
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, '#1a1f3a');
-            gradient.addColorStop(1, '#0d1020');
-            ctx.fillStyle = gradient;
+            const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            grad.addColorStop(0, '#1a1f3a');
+            grad.addColorStop(1, '#0d1020');
+            ctx.fillStyle = grad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-        
+
+        function drawHouyi(x, y, aiming) {
+            ctx.fillStyle = '#d4a853';
+            ctx.beginPath();
+            ctx.arc(x, y-30, 25, 0, Math.PI*2);
+            ctx.fill();
+            ctx.fillStyle = '#8b4513';
+            ctx.fillRect(x-20, y-5, 40, 50);
+            ctx.strokeStyle = '#654321';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(x-20, y+10);
+            ctx.lineTo(x-60, y-20);
+            ctx.lineTo(x-60, y+40);
+            ctx.stroke();
+            if (aiming) {
+                ctx.strokeStyle = '#ff6b35';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(x-60, y+10);
+                ctx.lineTo(x+200, y+10);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+
+        function drawArrow(x, y) {
+            ctx.fillStyle = '#ffd700';
+            ctx.beginPath();
+            ctx.moveTo(x, y-3);
+            ctx.lineTo(x+30, y-3);
+            ctx.lineTo(x+30, y-8);
+            ctx.lineTo(x+45, y);
+            ctx.lineTo(x+30, y+8);
+            ctx.lineTo(x+30, y+3);
+            ctx.lineTo(x, y+3);
+            ctx.fill();
+        }
+
+        function drawMirror(x, y, w, h) {
+            ctx.fillStyle = 'rgba(200,200,255,0.3)';
+            ctx.fillRect(x, y, w, h);
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(x, y, w, h);
+            for (let i = 0; i < h; i += 10) {
+                ctx.beginPath();
+                ctx.moveTo(x+5, y+i);
+                ctx.lineTo(x+w-5, y+i+5);
+                ctx.stroke();
+            }
+        }
+
+        function drawLightRay(x1, y1, x2, y2, color='#ffd700') {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = color;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        }
+
         function drawSubtitle(text) {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillStyle = 'rgba(0,0,0,0.7)';
             ctx.fillRect(50, 340, 700, 45);
             ctx.fillStyle = '#fff';
             ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(text, 400, 370);
         }
-        
-        function animate() {
+
+        function animate(timestamp) {
             if (!isPlaying) return;
+            if (!startTime) startTime = timestamp;
+            const elapsed = (timestamp - startTime) / 1000;
+            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawBackground();
-            drawSubtitle('光芒·反射 - 动画演示开发中...');
+
+            let sceneTime = 0;
+            for (let i = 0; i < scenes.length; i++) {
+                if (elapsed < sceneTime + scenes[i].duration) {
+                    currentScene = i;
+                    break;
+                }
+                sceneTime += scenes[i].duration;
+            }
+
+            const scene = scenes[currentScene];
+            const sceneElapsed = elapsed - sceneTime;
+            const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
+            const totalProgress = Math.min(elapsed / totalDuration, 1);
+            document.getElementById('videoProgress').style.width = (totalProgress * 100) + '%';
+
+            switch(scene.name) {
+                case 'intro':
+                    drawHouyi(150, 200, false);
+                    ctx.fillStyle = '#ffd700';
+                    ctx.font = 'bold 24px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('☀️ 光芒·反射 ☀️', 400, 150);
+                    break;
+                case 'straight':
+                    drawHouyi(100, 250, true);
+                    const arrowX = 100 + sceneElapsed * 50;
+                    if (arrowX < 600) drawArrow(arrowX, 260);
+                    drawLightRay(40, 260, arrowX, 260);
+                    ctx.fillStyle = '#ff6b35';
+                    ctx.beginPath();
+                    ctx.arc(650, 260, 20, 0, Math.PI*2);
+                    ctx.fill();
+                    break;
+                case 'reflection':
+                    drawMirror(350, 100, 100, 200);
+                    drawLightRay(100, 300, 350, 200);
+                    drawLightRay(350, 200, 600, 100);
+                    ctx.strokeStyle = '#fff';
+                    ctx.setLineDash([5, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(350, 300);
+                    ctx.lineTo(450, 100);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.fillStyle = '#00d4ff';
+                    ctx.font = '14px sans-serif';
+                    ctx.fillText('法线', 460, 150);
+                    ctx.fillText('入射角', 280, 260);
+                    ctx.fillText('反射角', 480, 160);
+                    break;
+                case 'mirror':
+                    drawMirror(300, 50, 200, 300);
+                    ctx.fillStyle = '#d4a853';
+                    ctx.beginPath();
+                    ctx.arc(150, 200, 30, 0, Math.PI*2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#ffd700';
+                    ctx.setLineDash([3, 3]);
+                    ctx.beginPath();
+                    ctx.arc(650, 200, 30, 0, Math.PI*2);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.fillStyle = '#fff';
+                    ctx.fillText('物体', 150, 250);
+                    ctx.fillText('虚像', 650, 250);
+                    break;
+                case 'end':
+                    ctx.fillStyle = '#ffd700';
+                    ctx.font = 'bold 28px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('入射角 = 反射角', 400, 200);
+                    drawHouyi(150, 280, true);
+                    break;
+            }
+
+            drawSubtitle(sceneScripts[currentScene]);
+
+            if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
+                speakText(sceneScripts[currentScene]);
+                scene.spoken = true;
+            }
+
+            if (totalProgress < 1) {
+                animationId = requestAnimationFrame(animate);
+            } else {
+                stopAnimation();
+            }
+        }
+
+        function speakText(text) {
+            if (isMuted || !window.speechSynthesis) return;
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'zh-CN';
+            utter.rate = 1.1;
+            window.speechSynthesis.speak(utter);
+        }
+
+        function toggleAnimation() {
+            if (isPlaying) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        }
+
+        function startAnimation() {
+            isPlaying = true;
+            startTime = 0;
+            scenes.forEach(s => s.spoken = false);
+            document.getElementById('playIcon').textContent = '⏸️';
+            document.getElementById('playText').textContent = '暂停';
             animationId = requestAnimationFrame(animate);
         }
-        
-        function toggleAnimation() {
-            isPlaying = !isPlaying;
-            document.getElementById('playIcon').textContent = isPlaying ? '⏸️' : '▶️';
-            document.getElementById('playText').textContent = isPlaying ? '暂停' : '播放动画';
-            if (isPlaying) animate();
-            else cancelAnimationFrame(animationId);
+
+        function stopAnimation() {
+            isPlaying = false;
+            if (animationId) cancelAnimationFrame(animationId);
+            document.getElementById('playIcon').textContent = '▶️';
+            document.getElementById('playText').textContent = '播放动画';
+            window.speechSynthesis.cancel();
         }
-        
+
+        function seekAnimation(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
+            const targetTime = percent * totalDuration;
+            if (isPlaying) {
+                startTime = performance.now() - targetTime * 1000;
+            }
+            document.getElementById('videoProgress').style.width = (percent * 100) + '%';
+        }
+
         function toggleMute() {
-            const icon = document.getElementById('muteIcon');
-            icon.textContent = icon.textContent === '🔊' ? '🔇' : '🔊';
+            isMuted = !isMuted;
+            document.querySelector('.mute-btn').textContent = isMuted ? '🔇' : '🔊';
+            if (isMuted) window.speechSynthesis.cancel();
         }
-        
-        function toggleAnswer(id) {
-            const answer = document.getElementById(id);
-            answer.classList.toggle('hidden');
+
+        function checkAnswer(el, letter, correct, feedbackId) {
+            const item = el.closest('.quiz-item');
+            if (item.dataset.answered) return;
+            item.dataset.answered = 'true';
+            el.classList.add(correct ? 'correct' : 'wrong');
+            document.getElementById(feedbackId).className = 'quiz-feedback show ' + (correct ? 'correct' : '');
+            document.getElementById(feedbackId).textContent = correct ? '🎉 回答正确！' : '❌ 回答错误';
+            if (!correct) {
+                item.querySelectorAll('.quiz-option').forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) opt.classList.add('correct');
+                });
+            }
         }
-        
-        function checkAnswer(element, selected, isCorrect, feedbackId) {
-            const quizItem = element.closest('.quiz-item');
-            if (quizItem.dataset.answered) return;
-            quizItem.dataset.answered = 'true';
-            
-            element.classList.add(isCorrect ? 'correct' : 'wrong');
-            const feedback = document.getElementById(feedbackId);
-            feedback.className = 'quiz-feedback show ' + (isCorrect ? 'correct' : '');
-            feedback.innerHTML = isCorrect ? '🎉 回答正确！' : '❌ 回答错误';
-        }
-        
+
         drawBackground();
         drawSubtitle('点击播放开始学习光学知识！');
     </script>
