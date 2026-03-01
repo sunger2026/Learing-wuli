@@ -1726,6 +1726,12 @@
             // 绘制字幕
             drawSubtitle(sceneScripts[currentScene]);
             
+            // 语音讲解
+            if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
+                speakScript(sceneScripts[currentScene]);
+                scene.spoken = true;
+            }
+            
             // 检查动画结束
             if (totalProgress < 1) {
                 animationId = requestAnimationFrame(animate);
