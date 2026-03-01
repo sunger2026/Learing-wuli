@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>声波·音律 - 声现象 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32;
+            --silver: #c0c0c0;
+            --gold: #ffd700;
+            --platinum: #3eb489;
+            --diamond: #b9f2ff;
+            --star: #e6e6fa;
+            --king: #ff6b35;
+            --dark-bg: #0a0e1a;
+            --card-bg: rgba(20, 25, 45, 0.95);
+            --accent: #00d4ff;
+            --accent-gold: #ffb800;
+            --success: #32cd32;
+            --error: #ff4444;
+            --basic-purple: #9370db;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--king));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-5px);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px 60px;
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, rgba(147,112,219,0.15), rgba(255,99,71,0.15));
+            border: 1px solid rgba(147,112,219,0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,99,71,0.2), transparent);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-title-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--basic-purple), #ff6347);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 20px 40px rgba(255,99,71,0.3);
+        }
+
+        .hero-meta { flex: 1; }
+
+        .hero-name-large {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(147,112,219,0.2);
+            color: var(--basic-purple);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .hero-desc-large {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        .hero-progress-large {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-bar-large {
+            flex: 1;
+            max-width: 300px;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill-large {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text-large {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .learning-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .knowledge-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .knowledge-card:hover {
+            border-color: var(--basic-purple);
+            transform: translateY(-3px);
+        }
+
+        .knowledge-card.important {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3));
+        }
+
+        .knowledge-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .knowledge-title .icon {
+            font-size: 20px;
+        }
+
+        .knowledge-content {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+        }
+
+        .knowledge-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .knowledge-content li {
+            margin: 8px 0;
+        }
+
+        .formula-box {
+            background: rgba(147,112,219,0.1);
+            border-left: 4px solid var(--basic-purple);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 12px 12px 0;
+            font-family: 'Times New Roman', serif;
+            font-size: 20px;
+            color: var(--basic-purple);
+            text-align: center;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3));
+            border: 1px solid rgba(255,184,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .example-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .example-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .example-question {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .example-answer {
+            background: rgba(50,205,50,0.1);
+            border: 1px solid rgba(50,205,50,0.3);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .example-answer.hidden {
+            display: none;
+        }
+
+        .toggle-answer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--accent), var(--platinum));
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-answer:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.4);
+        }
+
+        .quiz-container {
+            margin-top: 20px;
+        }
+
+        .quiz-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quiz-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .quiz-question {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--basic-purple);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--basic-purple);
+            background: rgba(147,112,219,0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(50,205,50,0.1);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--error);
+            background: rgba(255,68,68,0.1);
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .quiz-option.selected .option-letter,
+        .quiz-option.correct .option-letter,
+        .quiz-option.wrong .option-letter {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(50,205,50,0.2);
+            color: var(--success);
+        }
+
+        .quiz-feedback.wrong {
+            background: rgba(255,68,68,0.2);
+            color: var(--error);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .video-container {
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .video-player {
+            position: relative;
+            background: linear-gradient(135deg, #1a1f3a, #0d1020);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        #soundAnimation {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .video-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .play-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.4);
+        }
+
+        .progress-bar-video {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill-video {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-gold));
+            border-radius: 3px;
+            transition: width 0.1s linear;
+        }
+
+        .mute-btn {
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .mute-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .video-script {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .video-script h3 {
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .script-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+        }
+
+        .script-item.active {
+            background: rgba(147,112,219,0.2);
+            opacity: 1;
+            border-left: 3px solid var(--basic-purple);
+        }
+
+        .script-time {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 14px;
+            min-width: 50px;
+        }
+
+        .script-item p {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .script-item strong {
+            color: var(--accent);
+        }
+
+        .wave-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 60px;
+            margin: 20px 0;
+        }
+
+        .wave-bar {
+            width: 6px;
+            background: linear-gradient(to top, var(--accent), var(--accent-gold));
+            border-radius: 3px;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .wave-bar:nth-child(2) { height: 40px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { height: 60px; animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { height: 40px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { height: 20px; animation-delay: 0.4s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+
+        .pitch-demo {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 100px;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+        }
+
+        .pitch-string {
+            width: 60px;
+            background: linear-gradient(to right, #8b4513, #d2691e);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pitch-string.thin {
+            height: 30px;
+        }
+
+        .pitch-string.medium {
+            height: 60px;
+        }
+
+        .pitch-string.thick {
+            height: 90px;
+        }
+
+        .pitch-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .main-container { padding: 20px; }
+            .hero-title-section { flex-direction: column; text-align: center; }
+            .hero-name-large { font-size: 24px; flex-direction: column; }
+            .knowledge-grid { grid-template-columns: 1fr; }
+            .action-buttons { flex-direction: column; }
+            #soundAnimation { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">物理王者</div>
+        </a>
+        <a href="index.html" class="back-btn">
+            <span>←</span>
+            <span>返回英雄列表</span>
+        </a>
+    </header>
+
+    <main class="main-container">
+        <section class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">🔔</div>
+                <div class="hero-meta">
+                    <h1 class="hero-name-large">
+                        声波·音律
+                        <span class="hero-tag">基础系</span>
+                    </h1>
+                    <p class="hero-desc-large">
+                        声音的产生与传播，音调、响度、音色，噪声的控制。
+                        学会控制声波，就像掌握了蔡文姬的琴音！
+                    </p>
+                    <div class="hero-progress-large">
+                        <div class="progress-bar-large">
+                            <div class="progress-fill-large"></div>
+                        </div>
+                        <span class="progress-text-large">学习进度 0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <h2 class="section-title">核心知识点</h2>
+            </div>
+
+            <div class="knowledge-grid">
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">🎵</span>
+                        声音的产生与传播
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>产生：</strong>声音是由物体的<strong>振动</strong>产生的。</p>
+                        <ul>
+                            <li>一切发声的物体都在振动</li>
+                            <li>振动停止，发声也停止</li>
+                            <li>声源：正在发声的物体</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>传播：</strong></p>
+                        <ul>
+                            <li>需要介质：固体、液体、气体</li>
+                            <li>真空<strong>不能</strong>传声</li>
+                            <li>声速：固体 > 液体 > 气体（空气中约340m/s）</li>
+                        </ul>
+                        <p style="color: var(--accent-gold); margin-top: 10px;">💡 记忆：振动生声，介质传声</p>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">🎼</span>
+                        声音的三要素
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>音调（高低）</strong> - 由<strong>频率</strong>决定</p>
+                        <ul>
+                            <li>频率越高，音调越高</li>
+                            <li>人耳范围：20Hz ~ 20000Hz</li>
+                            <li><strong>超声波</strong>：>20000Hz（蝙蝠、B超）</li>
+                            <li><strong>次声波</strong>：<20Hz（地震、海啸）</li>
+                        </ul>
+                        
+                        <div class="pitch-demo">
+                            <div class="pitch-string thin">
+                                <span class="pitch-label">细弦→高音</span>
+                            </div>
+                            <div class="pitch-string medium">
+                                <span class="pitch-label">中弦→中音</span>
+                            </div>
+                            <div class="pitch-string thick">
+                                <span class="pitch-label">粗弦→低音</span>
+                            </div>
+                        </div>
+
+                        <p><strong>响度（大小）</strong> - 由<strong>振幅</strong>决定</p>
+                        <ul>
+                            <li>振幅越大，响度越大</li>
+                            <li>与距离有关：越远越弱</li>
+                            <li>单位：分贝（dB）</li>
+                        </ul>
+
+                        <p><strong>音色（品质）</strong> - 由发声体材料/结构决定</p>
+                        <ul>
+                            <li>区分不同乐器/人的依据</li>
+                            <li>钢琴和小提琴即使音调相同，音色也不同</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">🔇</span>
+                        噪声的控制
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>噪声来源：</strong>无规则振动产生的声音</p>
+                        <p style="margin-top: 10px;"><strong>控制方法（三途径）：</strong></p>
+                        
+                        <ol style="margin-left: 20px; line-height: 1.8;">
+                            <li><strong>声源处</strong>：禁止鸣笛、改进设备</li>
+                            <li><strong>传播中</strong>：安装隔音板、植树造林</li>
+                            <li><strong>人耳处</strong>：戴耳塞、耳罩</li>
+                        </ol>
+
+                        <p style="margin-top: 10px;"><strong>分贝等级：</strong></p>
+                        <ul>
+                            <li>30-40dB：理想安静环境</li>
+                            <li>70dB：影响工作和学习</li>
+                            <li>90dB：长期影响听力</li>
+                            <li>150dB：可能使鼓膜破裂</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">🎮</div>
+                <h2 class="section-title">王者峡谷里的声波</h2>
+            </div>
+            
+            <div class="knowledge-grid">
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">🎹</span>
+                        蔡文姬的胡笳琴
+                    </div>
+                    <div class="knowledge-content">
+                        <p>蔡文姬弹琴时，琴弦<strong>振动</strong>产生声音：</p>
+                        <ul>
+                            <li>琴弦越紧 → 振动频率越高 → <strong>音调越高</strong></li>
+                            <li>琴弦越粗 → 振动频率越低 → <strong>音调越低</strong></li>
+                            <li>拨弦力度越大 → 振幅越大 → <strong>响度越大</strong></li>
+                        </ul>
+                        <p style="margin-top: 10px; color: var(--accent-gold);">🎵 这就是"胡笳乐音"的物理原理！</p>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">👂</span>
+                        小地图的声波探测
+                    </div>
+                    <div class="knowledge-content">
+                        <p>为什么能看到附近敌人的位置？</p>
+                        <ul>
+                            <li>敌人移动产生<strong>声音</strong>（脚步声、技能声）</li>
+                            <li>声音通过空气<strong>传播</strong></li>
+                            <li>距离越近 → 响度越大 → 小地图上显示越明显</li>
+                        </ul>
+                        <p style="margin-top: 10px; color: var(--accent-gold);">💡 游戏里的"听声辨位"就是物理知识的应用！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2 class="section-title">经典例题</h2>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题1：声音的产生与传播</span>
+                </div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>(1) 声音是由物体的______产生的，正在发声的物体叫做______。</p>
+                    <p>(2) 声音的传播需要______，真空______（填"能"或"不能"）传声。</p>
+                    <p>(3) 在空气中，声音的传播速度约为______m/s。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer1')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+                <div class="example-answer hidden" id="answer1">
+                    <p><strong>答案：</strong></p>
+                    <p>(1) <strong>振动</strong>；<strong>声源</strong></p>
+                    <p>(2) <strong>介质</strong>；<strong>不能</strong></p>
+                    <p>(3) <strong>340</strong></p>
+                    <p style="color: var(--accent-gold); margin-top: 10px;">💡 记住：振动生声，介质传声，真空不传声！</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题2：音调与频率</span>
+                </div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>如图所示，用相同的力度拨动粗细不同的三根橡皮筋：</p>
+                    <p>(1) 哪根橡皮筋的音调最高？为什么？</p>
+                    <p>(2) 如果用更大的力度拨动最细的橡皮筋，什么会改变？</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer2')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+                <div class="example-answer hidden" id="answer2">
+                    <p><strong>答案：</strong></p>
+                    <p>(1) <strong>最细的橡皮筋音调最高</strong>。</p>
+                    <p>原因：细的橡皮筋振动时频率更高，所以音调更高。</p>
+                    <p style="margin-top: 10px;">(2) <strong>响度会改变</strong>。</p>
+                    <p>原因：力度越大，振幅越大，响度越大。但音调不变（因为是同一根橡皮筋）。</p>
+                    <p style="color: var(--accent-gold); margin-top: 10px;">⚠️ 注意：力度只影响响度，不影响音调！</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <h2 class="section-title">实战演练</h2>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-item">
+                    <div class="quiz-number">1</div>
+                    <div class="quiz-question">
+                        关于声音的产生，下列说法正确的是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')">
+                            <div class="option-letter">A</div>
+                            <div>只有固体振动才能产生声音</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')">
+                            <div class="option-letter">B</div>
+                            <div>一切发声的物体都在振动</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')">
+                            <div class="option-letter">C</div>
+                            <div>物体不振动也能产生声音</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')">
+                            <div class="option-letter">D</div>
+                            <div>振动停止后，声音还能继续传播</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">2</div>
+                    <div class="quiz-question">
+                        下列事例中，能说明声音产生条件的是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')">
+                            <div class="option-letter">A</div>
+                            <div>登上月球的宇航员只能靠无线电交谈</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback2')">
+                            <div class="option-letter">B</div>
+                            <div>敲鼓时，鼓面上的纸屑会跳动</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback2')">
+                            <div class="option-letter">C</div>
+                            <div>隔墙有耳</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')">
+                            <div class="option-letter">D</div>
+                            <div>开会时把手机调静音</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">3</div>
+                    <div class="quiz-question">
+                        用大小不同的力敲击同一个音叉，音叉发出声音不同的是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')">
+                            <div class="option-letter">A</div>
+                            <div>音调</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback3')">
+                            <div class="option-letter">B</div>
+                            <div>响度</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback3')">
+                            <div class="option-letter">C</div>
+                            <div>音色</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')">
+                            <div class="option-letter">D</div>
+                            <div>声速</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">4</div>
+                    <div class="quiz-question">
+                        下列措施中，属于在声源处减弱噪声的是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback4')">
+                            <div class="option-letter">A</div>
+                            <div>道路两旁植树</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback4')">
+                            <div class="option-letter">B</div>
+                            <div>考场周围禁止鸣笛</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback4')">
+                            <div class="option-letter">C</div>
+                            <div>戴防噪声耳罩</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback4')">
+                            <div class="option-letter">D</div>
+                            <div>安装隔音玻璃</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback4"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="alert('📝 笔记已保存！')">
+                <span>✏️</span>
+                <span>记笔记</span>
+            </button>
+            <a href="index.html" class="btn btn-primary">
+                <span>✅</span>
+                <span>完成学习</span>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('hidden');
+            const btn = event.currentTarget;
+            const btnText = btn.querySelector('span:last-child');
+            if (answer.classList.contains('hidden')) {
+                btnText.textContent = '查看解析';
+            } else {
+                btnText.textContent = '收起解析';
+            }
+        }
+
+        function checkAnswer(element, selected, isCorrect, feedbackId) {
+            const quizItem = element.closest('.quiz-item');
+            const options = quizItem.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById(feedbackId);
+
+            if (quizItem.dataset.answered) return;
+            quizItem.dataset.answered = 'true';
+
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            element.classList.add('selected');
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.className = 'quiz-feedback show correct';
+                feedback.innerHTML = '🎉 回答正确！太棒了！';
+            } else {
+                element.classList.add('wrong');
+                feedback.className = 'quiz-feedback show wrong';
+                feedback.innerHTML = '❌ 回答错误。没关系，再复习一下知识点！';
+
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
