@@ -887,6 +887,51 @@
             </div>
         </section>
 
+        <!-- 动画视频讲解区域 -->
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">🎬</div>
+                <h2 class="section-title">动画讲解：声波的奥秘</h2>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-player">
+                    <canvas id="soundAnimation" width="800" height="400"></canvas>
+                    <div class="video-controls">
+                        <button class="play-btn" onclick="toggleAnimation()">
+                            <span id="playIcon">▶️</span> <span id="playText">播放动画</span>
+                        </button>
+                        <div class="progress-bar-video">
+                            <div class="progress-fill-video" id="videoProgress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-script">
+                    <h3>📜 视频脚本</h3>
+                    <div class="script-item active" id="script1">
+                        <span class="script-time">00:00</span>
+                        <p>声音是由<strong>振动</strong>产生的！看音叉振动产生声波。</p>
+                    </div>
+                    <div class="script-item" id="script2">
+                        <span class="script-time">00:08</span>
+                        <p>声波以<strong>波的形式</strong>向四周传播，需要介质。</p>
+                    </div>
+                    <div class="script-item" id="script3">
+                        <span class="script-time">00:16</span>
+                        <p><strong>音调高低</strong>由频率决定：波形越密，频率越高，音调越高。</p>
+                    </div>
+                    <div class="script-item" id="script4">
+                        <span class="script-time">00:24</span>
+                        <p><strong>响度大小</strong>由振幅决定：波形越高，振幅越大，响度越大。</p>
+                    </div>
+                    <div class="script-item" id="script5">
+                        <span class="script-time">00:32</span>
+                        <p>真空<strong>不能传声</strong>！宇航员在月球必须用无线电。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="learning-section">
             <div class="section-header">
                 <div class="section-icon">💡</div>
@@ -1069,6 +1114,316 @@
     </main>
 
     <script>
+        // ========== Canvas动画：声波演示 ==========
+        const canvas = document.getElementById('soundAnimation');
+        const ctx = canvas.getContext('2d');
+        let isPlaying = false;
+        let animationId = null;
+        let startTime = 0;
+        let currentScene = 0;
+
+        // 场景定义
+        const scenes = [
+            { duration: 8, name: "vibration", text: "音叉振动产生声音" },
+            { duration: 8, name: "propagation", text: "声波传播" },
+            { duration: 8, name: "frequency", text: "音调与频率" },
+            { duration: 8, name: "amplitude", text: "响度与振幅" },
+            { duration: 8, name: "vacuum", text: "真空不能传声" }
+        ];
+
+        // 绘制背景
+        function drawBackground() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#1a1f3a');
+            gradient.addColorStop(1, '#0d1020');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // 绘制音叉
+        function drawTuningFork(x, y, vibrating) {
+            ctx.strokeStyle = '#c0c0c0';
+            ctx.lineWidth = 6;
+            
+            // 手柄
+            ctx.beginPath();
+            ctx.moveTo(x, y + 80);
+            ctx.lineTo(x, y + 150);
+            ctx.stroke();
+            
+            // 叉臂
+            const offset = vibrating ? Math.sin(Date.now() / 50) * 3 : 0;
+            
+            ctx.beginPath();
+            ctx.moveTo(x, y + 80);
+            ctx.lineTo(x - 20, y);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(x, y + 80);
+            ctx.lineTo(x + 20, y);
+            ctx.stroke();
+            
+            // 振动效果
+            if (vibrating) {
+                ctx.strokeStyle = 'rgba(192,192,192,0.3)';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(x - 20 + offset, y);
+                ctx.lineTo(x - 20 - offset, y - 60);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(x + 20 - offset, y);
+                ctx.lineTo(x + 20 + offset, y - 60);
+                ctx.stroke();
+            }
+        }
+
+        // 绘制声波
+        function drawSoundWave(x, y, amplitude, frequency, phase, color) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            
+            for (let i = 0; i < 400; i++) {
+                const waveX = x + i;
+                const waveY = y + Math.sin((i * frequency + phase)) * amplitude;
+                if (i === 0) {
+                    ctx.moveTo(waveX, waveY);
+                } else {
+                    ctx.lineTo(waveX, waveY);
+                }
+            }
+            ctx.stroke();
+        }
+
+        // 绘制空气分子
+        function drawAirMolecules(baseX, waveX, amplitude) {
+            ctx.fillStyle = '#00d4ff';
+            for (let i = 0; i < 20; i++) {
+                const x = baseX + i * 25;
+                const displacement = Math.sin((i * 0.5 + waveX * 0.1)) * amplitude;
+                ctx.beginPath();
+                ctx.arc(x + displacement, 200, 4, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // 绘制宇航员
+        function drawAstronaut(x, y) {
+            // 头盔
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 面罩
+            ctx.fillStyle = '#1a1f3a';
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 身体
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(x - 25, y + 30, 50, 60);
+            
+            // 无线电
+            ctx.fillStyle = '#666';
+            ctx.fillRect(x - 35, y + 40, 10, 20);
+            ctx.fillStyle = '#00d4ff';
+            ctx.beginPath();
+            ctx.arc(x - 45, y + 35, 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // 绘制文字
+        function drawText(text, x, y, size = 18, color = '#fff') {
+            ctx.fillStyle = color;
+            ctx.font = `bold ${size}px "Noto Sans SC", sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.fillText(text, x, y);
+        }
+
+        // 主动画循环
+        function animate(timestamp) {
+            if (!isPlaying) return;
+            
+            if (!startTime) startTime = timestamp;
+            const elapsed = (timestamp - startTime) / 1000;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBackground();
+            
+            // 计算当前场景
+            let sceneTime = 0;
+            for (let i = 0; i < scenes.length; i++) {
+                if (elapsed < sceneTime + scenes[i].duration) {
+                    currentScene = i;
+                    break;
+                }
+                sceneTime += scenes[i].duration;
+            }
+            
+            const scene = scenes[currentScene];
+            const sceneElapsed = elapsed - sceneTime;
+            const progress = Math.min(sceneElapsed / scene.duration, 1);
+            
+            // 更新进度条
+            const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
+            const totalProgress = Math.min(elapsed / totalDuration, 1);
+            document.getElementById('videoProgress').style.width = (totalProgress * 100) + '%';
+            
+            // 更新脚本高亮
+            document.querySelectorAll('.script-item').forEach((item, i) => {
+                if (i === currentScene) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // 场景逻辑
+            switch(scene.name) {
+                case 'vibration':
+                    // 音叉振动
+                    drawTuningFork(100, 150, true);
+                    drawText('🔊 音叉在振动！', 100, 350);
+                    
+                    // 声波扩散效果
+                    for (let i = 0; i < 3; i++) {
+                        const radius = (sceneElapsed * 30 + i * 40) % 150;
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${1 - radius/150})`;
+                        ctx.lineWidth = 2;
+                        ctx.beginPath();
+                        ctx.arc(100, 150, radius, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                    break;
+                    
+                case 'propagation':
+                    // 静止的音叉
+                    drawTuningFork(100, 150, false);
+                    
+                    // 传播的声波
+                    const waveOffset = sceneElapsed * 50;
+                    drawSoundWave(150, 150, 30, 0.1, waveOffset, '#00d4ff');
+                    drawSoundWave(150, 250, 30, 0.1, waveOffset, '#00d4ff');
+                    
+                    // 空气分子
+                    drawAirMolecules(150, waveOffset, 20);
+                    
+                    drawText('声波在空气中传播', 400, 350);
+                    drawText('需要介质（固体/液体/气体）', 400, 375, 14, '#aaa');
+                    break;
+                    
+                case 'frequency':
+                    // 低音（频率低）
+                    drawText('低音：频率低', 200, 100, 16);
+                    drawSoundWave(50, 150, 40, 0.05, sceneElapsed * 30, '#ffd700');
+                    
+                    // 高音（频率高）
+                    drawText('高音：频率高', 600, 100, 16);
+                    drawSoundWave(450, 150, 40, 0.15, sceneElapsed * 50, '#ff6347');
+                    
+                    drawText('波形越密 → 频率越高 → 音调越高', 400, 350);
+                    break;
+                    
+                case 'amplitude':
+                    // 小声（振幅小）
+                    drawText('小声：振幅小', 200, 100, 16);
+                    drawSoundWave(50, 150, 15, 0.1, sceneElapsed * 40, '#00d4ff');
+                    
+                    // 大声（振幅大）
+                    drawText('大声：振幅大', 600, 100, 16);
+                    drawSoundWave(450, 150, 50, 0.1, sceneElapsed * 40, '#ff6347');
+                    
+                    drawText('波形越高 → 振幅越大 → 响度越大', 400, 350);
+                    break;
+                    
+                case 'vacuum':
+                    // 月球背景
+                    ctx.fillStyle = '#1a1a2e';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // 月球表面
+                    ctx.fillStyle = '#4a4a5a';
+                    ctx.fillRect(0, 320, canvas.width, 80);
+                    
+                    // 宇航员
+                    drawAstronaut(200, 220);
+                    drawText('🧑‍🚀 月球上没有空气', 200, 300);
+                    
+                    // 无线电波（可以传播）
+                    const radioOffset = sceneElapsed * 30;
+                    ctx.strokeStyle = '#00ff00';
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([10, 10]);
+                    ctx.beginPath();
+                    ctx.moveTo(250, 220);
+                    ctx.lineTo(550 + Math.sin(radioOffset) * 20, 220);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    
+                    // 另一个宇航员
+                    drawAstronaut(600, 220);
+                    ctx.fillStyle = '#00ff00';
+                    ctx.beginPath();
+                    ctx.arc(555, 220, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    drawText('📡 必须用无线电交流', 400, 350);
+                    drawText('真空不能传声！', 400, 375, 14, '#aaa');
+                    break;
+            }
+            
+            // 检查动画结束
+            if (totalProgress < 1) {
+                animationId = requestAnimationFrame(animate);
+            } else {
+                stopAnimation();
+            }
+        }
+
+        // 切换动画播放
+        function toggleAnimation() {
+            if (isPlaying) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        }
+
+        // 开始动画
+        function startAnimation() {
+            isPlaying = true;
+            startTime = 0;
+            document.getElementById('playIcon').textContent = '⏸️';
+            document.getElementById('playText').textContent = '暂停';
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // 停止动画
+        function stopAnimation() {
+            isPlaying = false;
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            document.getElementById('playIcon').textContent = '▶️';
+            document.getElementById('playText').textContent = '播放动画';
+        }
+
+        // 初始化画布
+        function initCanvas() {
+            drawBackground();
+            drawTuningFork(100, 150, false);
+            drawText('点击播放开始学习声波知识！', 400, 350);
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('load', initCanvas);
+
+        // ========== 原有函数 ==========
         function toggleAnswer(id) {
             const answer = document.getElementById(id);
             answer.classList.toggle('hidden');
