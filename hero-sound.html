@@ -1114,6 +1114,32 @@
     </main>
 
     <script>
+        // ========== 语音讲解系统 ==========
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+
+        function speakScript(text) {
+            if (!speechSynthesis) return;
+            
+            // 停止之前的语音
+            if (currentUtterance) {
+                speechSynthesis.cancel();
+            }
+            
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'zh-CN';
+            currentUtterance.rate = 1.1;
+            currentUtterance.pitch = 1.0;
+            
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        function stopSpeech() {
+            if (speechSynthesis) {
+                speechSynthesis.cancel();
+            }
+        }
+
         // ========== Canvas动画：声波演示 ==========
         const canvas = document.getElementById('soundAnimation');
         const ctx = canvas.getContext('2d');
@@ -1283,6 +1309,15 @@
                 }
             });
             
+            // 语音讲解
+            if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
+                const scriptText = document.querySelector(`#script${currentScene + 1} p`);
+                if (scriptText) {
+                    speakScript(scriptText.textContent);
+                    scene.spoken = true;
+                }
+            }
+            
             // 场景逻辑
             switch(scene.name) {
                 case 'vibration':
@@ -1411,6 +1446,7 @@
             }
             document.getElementById('playIcon').textContent = '▶️';
             document.getElementById('playText').textContent = '播放动画';
+            stopSpeech();
         }
 
         // 初始化画布

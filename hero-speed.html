@@ -1341,6 +1341,32 @@
             }
         }
 
+        // ========== 语音讲解系统 ==========
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+
+        function speakScript(text) {
+            if (!speechSynthesis || isMuted) return;
+            
+            // 停止之前的语音
+            if (currentUtterance) {
+                speechSynthesis.cancel();
+            }
+            
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = 'zh-CN';
+            currentUtterance.rate = 1.1;
+            currentUtterance.pitch = 1.0;
+            
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        function stopSpeech() {
+            if (speechSynthesis) {
+                speechSynthesis.cancel();
+            }
+        }
+
         // ========== Canvas动画：王者峡谷速度演示 ==========
         const canvas = document.getElementById('speedAnimation');
         const ctx = canvas.getContext('2d');
@@ -1606,6 +1632,15 @@
                 }
             });
             
+            // 语音讲解（每3秒播报一次，避免重复）
+            if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
+                const scriptText = document.querySelector(`#script${currentScene + 1} p`);
+                if (scriptText) {
+                    speakScript(scriptText.textContent);
+                    scene.spoken = true;
+                }
+            }
+            
             // 场景逻辑
             switch(scene.name) {
                 case 'intro':
@@ -1733,6 +1768,7 @@
             document.getElementById('playIcon').textContent = '▶️';
             document.getElementById('playText').textContent = '播放动画';
             stopBGM();
+            stopSpeech();
         }
 
         // 初始化画布
