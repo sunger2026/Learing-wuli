@@ -614,13 +614,157 @@
             ctx.fillText(text, 400, 370);
         }
         
-        function animate() {
+        
+        // ========== 音频系统 ==========
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let isMuted = false;
+        
+        function playSound(type) {
+            if (isMuted) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            if (type === 'click') {
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.1);
+            }
+        }
+        
+        // 语音讲解
+        let speechSynthesis = window.speechSynthesis;
+        function speakScript(text) {
+            if (!speechSynthesis || isMuted) return;
+            speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'zh-CN';
+            utter.rate = 1.1;
+            speechSynthesis.speak(utter);
+        }
+        
+        function stopSpeech() {
+            if (speechSynthesis) speechSynthesis.cancel();
+        }
+        
+        // 静音切换
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteIcon').textContent = isMuted ? '🔇' : '🔊';
+        }
+        
+        // 场景脚本
+        const sceneScripts = [
+            "欢迎来到王者峡谷！今天学习物理知识！",
+            "第一个知识点：基础概念",
+            "第二个知识点：重要公式",
+            "第三个知识点：实际应用",
+            "记住这些知识，在考试中取得好成绩！"
+        ];
+        
+        // 字幕绘制
+        function drawSubtitle(text) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(50, 340, 700, 45);
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, 400, 370);
+        }
+        
+        // 主动画循环
+        let isPlaying = false;
+        let animationId = null;
+        let startTime = 0;
+        let currentScene = 0;
+        
+        const scenes = [
+            { duration: 6, name: "intro" },
+            { duration: 6, name: "scene1" },
+            { duration: 6, name: "scene2" },
+            { duration: 6, name: "scene3" },
+            { duration: 6, name: "summary" }
+        ];
+        
+        function animate(timestamp) {
             if (!isPlaying) return;
+            
+            if (!startTime) startTime = timestamp;
+            const elapsed = (timestamp - startTime) / 1000;
+            
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawBackground();
-            drawSubtitle('冰火·物态 - 动画演示开发中...');
+            
+            // 计算场景
+            let sceneTime = 0;
+            for (let i = 0; i < scenes.length; i++) {
+                if (elapsed < sceneTime + scenes[i].duration) {
+                    currentScene = i;
+                    break;
+                }
+                sceneTime += scenes[i].duration;
+            }
+            
+            const scene = scenes[currentScene];
+            const sceneElapsed = elapsed - sceneTime;
+            
+            // 进度条
+            const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
+            const totalProgress = Math.min(elapsed / totalDuration, 1);
+            document.getElementById('videoProgress').style.width = (totalProgress * 100) + '%';
+            
+            // 语音
+            if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
+                speakScript(sceneScripts[currentScene]);
+                scene.spoken = true;
+            }
+            
+            // 绘制场景
+            ctx.fillStyle = '#ffd700';
+            ctx.font = 'bold 24px "Noto Sans SC", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('场景 ' + (currentScene + 1) + ': ' + scene.name, 400, 200);
+            
+            // 字幕
+            drawSubtitle(sceneScripts[currentScene]);
+            
+            if (totalProgress < 1) {
+                animationId = requestAnimationFrame(animate);
+            } else {
+                stopAnimation();
+            }
+        }
+        
+        function toggleAnimation() {
+            if (isPlaying) {
+                stopAnimation();
+            } else {
+                startAnimation();
+            }
+        }
+        
+        function startAnimation() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            isPlaying = true;
+            startTime = 0;
+            document.getElementById('playIcon').textContent = '⏸️';
+            document.getElementById('playText').textContent = '暂停';
+            playSound('click');
             animationId = requestAnimationFrame(animate);
         }
+        
+        function stopAnimation() {
+            isPlaying = false;
+            if (animationId) cancelAnimationFrame(animationId);
+            document.getElementById('playIcon').textContent = '▶️';
+            document.getElementById('playText').textContent = '播放动画';
+            stopSpeech();
+        }
+
+        function animate()
         
         function toggleAnimation() {
             isPlaying = !isPlaying;
