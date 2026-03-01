@@ -567,6 +567,13 @@
             background: rgba(255,255,255,0.2);
             border-radius: 3px;
             overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-bar-video:hover {
+            height: 10px;
+            margin: -2px 0;
         }
 
         .progress-fill-video {
@@ -575,6 +582,25 @@
             background: linear-gradient(90deg, var(--accent), var(--accent-gold));
             border-radius: 3px;
             transition: width 0.1s linear;
+            pointer-events: none;
+        }
+
+        .progress-bar-video::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .progress-bar-video:hover::after {
+            opacity: 1;
         }
 
         .mute-btn {
@@ -1114,6 +1140,101 @@
         function stopSpeech() {
             if (speechSynthesis) {
                 speechSynthesis.cancel();
+            }
+        }
+
+        // ========== 进度条拖动控制 ==========
+        const progressBar = document.querySelector('.progress-bar-video');
+        const progressFill = document.getElementById('videoProgress');
+        let isDragging = false;
+        let pausedTime = 0;
+
+        // 点击进度条跳转
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const percentage = clickX / rect.width;
+            seekTo(percentage);
+        });
+
+        // 拖动开始
+        progressBar.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            updateProgressFromMouse(e);
+        });
+
+        // 拖动中
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                updateProgressFromMouse(e);
+            }
+        });
+
+        // 拖动结束
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+            }
+        });
+
+        // 触摸支持
+        progressBar.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            updateProgressFromTouch(e);
+        }, { passive: false });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                updateProgressFromTouch(e);
+            }
+        }, { passive: false });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        function updateProgressFromMouse(e) {
+            const rect = progressBar.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            x = Math.max(0, Math.min(x, rect.width));
+            const percentage = x / rect.width;
+            seekTo(percentage);
+        }
+
+        function updateProgressFromTouch(e) {
+            const rect = progressBar.getBoundingClientRect();
+            let x = e.touches[0].clientX - rect.left;
+            x = Math.max(0, Math.min(x, rect.width));
+            const percentage = x / rect.width;
+            seekTo(percentage);
+        }
+
+        function seekTo(percentage) {
+            const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
+            const targetTime = percentage * totalDuration;
+            
+            // 如果正在播放，重新计算开始时间
+            if (isPlaying) {
+                startTime = performance.now() - targetTime * 1000;
+            } else {
+                // 如果暂停，记录目标位置
+                pausedTime = targetTime;
+            }
+            
+            // 更新进度条显示
+            progressFill.style.width = (percentage * 100) + '%';
+            
+            // 更新场景
+            let sceneTime = 0;
+            for (let i = 0; i < scenes.length; i++) {
+                if (targetTime < sceneTime + scenes[i].duration) {
+                    currentScene = i;
+                    // 重置语音标记
+                    scenes.forEach(s => s.spoken = false);
+                    break;
+                }
+                sceneTime += scenes[i].duration;
             }
         }
 
