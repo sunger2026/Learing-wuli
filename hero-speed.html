@@ -1482,27 +1482,76 @@
 
         // 场景定义
         const scenes = [
-            { duration: 8, name: "intro", text: "欢迎来到王者峡谷！学习速度 v=s/t" },
-            { duration: 10, name: "normal", text: "鲁班移速380，10秒能走多远？" },
-            { duration: 12, name: "calculate", text: "s = v × t = 380 × 10 = 3800像素！" },
-            { duration: 10, name: "sprint", text: "开疾跑！速度提升30% → 494！" },
-            { duration: 8, name: "formula", text: "记住公式：v = s/t ✨" }
+            { duration: 6, name: "intro", text: "欢迎来到王者峡谷！我是鲁班七号，今天教你物理里的速度概念！" },
+            { duration: 7, name: "normal", text: "我的基础移速是380像素每秒，这意味着每秒钟我能走380个像素距离！" },
+            { duration: 8, name: "calculate", text: "速度的计算公式是：速度等于路程除以时间，写成v等于s除以t！" },
+            { duration: 9, name: "sprint", text: "比如我从泉水出发，以380的速度走了10秒钟，那路程就是380乘10，等于3800像素！" },
+            { duration: 8, name: "formula", text: "正好到达中路一塔的位置！这就是速度公式的实际应用！" },
+            { duration: 7, name: "sprint", text: "开启疾跑技能后，速度提升百分之三十，变成了494像素每秒，跑得更快了！" },
+            { duration: 6, name: "formula", text: "记住这个公式：v等于s除以t，在王者峡谷和物理考试中都一样好用！" }
         ];
 
-        // 绘制背景（王者峡谷风格）
+        // 粒子系统
+        let particles = [];
+        
+        function createParticles(x, y, count, color) {
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 4,
+                    vy: (Math.random() - 0.5) * 4,
+                    life: 1,
+                    decay: 0.02 + Math.random() * 0.03,
+                    color: color,
+                    size: 2 + Math.random() * 4
+                });
+            }
+        }
+        
+        function updateAndDrawParticles() {
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= p.decay;
+                p.vy += 0.1; // 重力
+                
+                ctx.globalAlpha = p.life;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            });
+        }
+
+        // 绘制背景（王者峡谷风格）增强版
         function drawBackground() {
-            // 天空渐变
+            // 天空渐变动画
+            const time = Date.now() / 1000;
             const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, '#1a1f3a');
+            gradient.addColorStop(0, `hsl(230, 50%, ${15 + Math.sin(time) * 5}%)`);
             gradient.addColorStop(1, '#0d1020');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 星星闪烁效果
+            for (let i = 0; i < 30; i++) {
+                const x = (i * 73) % canvas.width;
+                const y = (i * 37) % 200;
+                const twinkle = Math.sin(time * 2 + i) * 0.5 + 0.5;
+                ctx.fillStyle = `rgba(255, 255, 255, ${twinkle * 0.5})`;
+                ctx.beginPath();
+                ctx.arc(x, y, 1 + twinkle, 0, Math.PI * 2);
+                ctx.fill();
+            }
 
             // 地面（峡谷路面）
             ctx.fillStyle = '#2d2d3a';
             ctx.fillRect(0, 300, canvas.width, 100);
-
-            // 路面纹理
+            
+            // 路面纹理 - 更有层次
             ctx.strokeStyle = '#3d3d4a';
             ctx.lineWidth = 2;
             for (let i = 0; i < canvas.width; i += 100) {
@@ -1511,36 +1560,68 @@
                 ctx.lineTo(i - 50, 400);
                 ctx.stroke();
             }
+            
+            // 路面发光边缘
+            ctx.shadowColor = '#00d4ff';
+            ctx.shadowBlur = 10;
+            ctx.strokeStyle = 'rgba(0, 212, 255, 0.3)';
+            ctx.beginPath();
+            ctx.moveTo(0, 300);
+            ctx.lineTo(canvas.width, 300);
+            ctx.stroke();
+            ctx.shadowBlur = 0;
 
-            // 草丛装饰
+            // 草丛装饰 - 更生动
             drawGrass(150, 280);
             drawGrass(400, 280);
             drawGrass(650, 280);
 
-            // 防御塔（终点）
+            // 防御塔（终点）- 带光效
             drawTower(720, 200);
+            
+            // 进度标记
+            for (let i = 1; i <= 9; i++) {
+                const x = 50 + (i * 70);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                ctx.fillRect(x, 295, 2, 10);
+            }
         }
 
-        // 绘制草丛
+        // 绘制草丛 - 增强版
         function drawGrass(x, y) {
+            // 草丛摇摆动画
+            const sway = Math.sin(Date.now() / 500) * 3;
+            
             ctx.fillStyle = '#2d5a3d';
             ctx.beginPath();
-            ctx.ellipse(x, y, 30, 15, 0, 0, Math.PI * 2);
+            ctx.ellipse(x + sway, y, 30, 15, 0, 0, Math.PI * 2);
             ctx.fill();
+            
             ctx.fillStyle = '#3d7a4d';
             ctx.beginPath();
-            ctx.ellipse(x - 5, y - 5, 20, 10, 0, 0, Math.PI * 2);
+            ctx.ellipse(x - 5 + sway * 0.5, y - 5, 20, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 草丛顶部高光
+            ctx.fillStyle = '#4d8a5d';
+            ctx.beginPath();
+            ctx.ellipse(x - 3 + sway * 0.3, y - 8, 10, 5, 0, 0, Math.PI * 2);
             ctx.fill();
         }
 
-        // 绘制防御塔
+        // 绘制防御塔 - 增强版
         function drawTower(x, y) {
+            // 塔发光效果
+            const pulse = Math.sin(Date.now() / 300) * 0.3 + 0.7;
+            
             // 塔基
             ctx.fillStyle = '#4a4a5a';
             ctx.fillRect(x - 30, y + 80, 60, 20);
+            
             // 塔身
             ctx.fillStyle = '#6a6a7a';
             ctx.fillRect(x - 20, y + 20, 40, 60);
+            
             // 塔顶
             ctx.fillStyle = '#8a8a9a';
             ctx.beginPath();
@@ -1548,58 +1629,123 @@
             ctx.lineTo(x, y - 10);
             ctx.lineTo(x + 25, y + 20);
             ctx.fill();
-            // 发光效果
-            ctx.fillStyle = '#00d4ff';
+            
+            // 核心发光
+            ctx.shadowColor = '#00d4ff';
+            ctx.shadowBlur = 20 * pulse;
+            ctx.fillStyle = `rgba(0, 212, 255, ${pulse})`;
             ctx.beginPath();
-            ctx.arc(x, y + 10, 8, 0, Math.PI * 2);
+            ctx.arc(x, y + 10, 10, 0, Math.PI * 2);
             ctx.fill();
+            ctx.shadowBlur = 0;
+            
+            // 光环
+            ctx.strokeStyle = `rgba(0, 212, 255, ${0.3 * pulse})`;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(x, y + 10, 20, 0, Math.PI * 2);
+            ctx.stroke();
         }
 
-        // 绘制鲁班七号（简化版）
+        // 绘制鲁班七号（简化版）- 增强动画
         function drawLuban(x, y, scale = 1) {
             const s = scale;
+            const bounce = Math.sin(Date.now() / 100) * 2; // 走路时的上下摆动
+            
+            // 身体阴影
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.beginPath();
+            ctx.ellipse(x, 320, 25 * s, 8 * s, 0, 0, Math.PI * 2);
+            ctx.fill();
             
             // 身体
             ctx.fillStyle = '#d4a853'; // 金色
-            ctx.fillRect(x - 20*s, y, 40*s, 35*s);
+            ctx.fillRect(x - 20*s, y + bounce, 40*s, 35*s);
+            
+            // 身体高光
+            ctx.fillStyle = '#e4b863';
+            ctx.fillRect(x - 15*s, y + bounce, 10*s, 20*s);
             
             // 头部
             ctx.fillStyle = '#f4c873';
             ctx.beginPath();
-            ctx.arc(x, y - 10*s, 18*s, 0, Math.PI * 2);
+            ctx.arc(x, y - 10*s + bounce, 18*s, 0, Math.PI * 2);
             ctx.fill();
             
             // 帽子
             ctx.fillStyle = '#8b4513';
-            ctx.fillRect(x - 22*s, y - 25*s, 44*s, 15*s);
-            
-            // 眼睛
-            ctx.fillStyle = '#000';
+            ctx.fillRect(x - 22*s, y - 25*s + bounce, 44*s, 15*s);
+            // 帽子装饰
+            ctx.fillStyle = '#ffd700';
             ctx.beginPath();
-            ctx.arc(x - 6*s, y - 10*s, 3*s, 0, Math.PI * 2);
-            ctx.arc(x + 6*s, y - 10*s, 3*s, 0, Math.PI * 2);
+            ctx.arc(x, y - 25*s + bounce, 5*s, 0, Math.PI * 2);
             ctx.fill();
             
-            // 机关枪
-            ctx.fillStyle = '#666';
-            ctx.fillRect(x + 15*s, y + 5*s, 25*s, 8*s);
-            ctx.fillRect(x + 35*s, y + 2*s, 8*s, 14*s);
+            // 眼睛 - 眨眼动画
+            const blink = Math.sin(Date.now() / 2000) > 0.9;
+            ctx.fillStyle = '#000';
+            if (blink) {
+                ctx.fillRect(x - 10*s, y - 12*s + bounce, 8*s, 2*s);
+                ctx.fillRect(x + 2*s, y - 12*s + bounce, 8*s, 2*s);
+            } else {
+                ctx.beginPath();
+                ctx.arc(x - 6*s, y - 10*s + bounce, 3*s, 0, Math.PI * 2);
+                ctx.arc(x + 6*s, y - 10*s + bounce, 3*s, 0, Math.PI * 2);
+                ctx.fill();
+                // 眼睛高光
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(x - 7*s, y - 11*s + bounce, 1*s, 0, Math.PI * 2);
+                ctx.arc(x + 5*s, y - 11*s + bounce, 1*s, 0, Math.PI * 2);
+                ctx.fill();
+            }
             
-            // 腿部（动画效果）
+            // 机关枪 - 带发光效果
+            ctx.shadowColor = '#ff6347';
+            ctx.shadowBlur = 5;
+            ctx.fillStyle = '#666';
+            ctx.fillRect(x + 15*s, y + 5*s + bounce, 25*s, 8*s);
+            ctx.fillRect(x + 35*s, y + 2*s + bounce, 8*s, 14*s);
+            ctx.shadowBlur = 0;
+            
+            // 腿部（动画效果）- 跑步动作
             ctx.fillStyle = '#4a3728';
-            const legOffset = Math.sin(luban.frame * 0.3) * 5;
-            ctx.fillRect(x - 15*s, y + 35*s, 10*s, 20*s + legOffset);
-            ctx.fillRect(x + 5*s, y + 35*s, 10*s, 20*s - legOffset);
+            const legOffset = Math.sin(luban.frame * 0.5) * 8;
+            
+            // 左腿
+            ctx.save();
+            ctx.translate(x - 10*s, y + 35*s + bounce);
+            ctx.rotate(legOffset * 0.02);
+            ctx.fillRect(-5*s, 0, 10*s, 25*s);
+            ctx.restore();
+            
+            // 右腿
+            ctx.save();
+            ctx.translate(x + 10*s, y + 35*s + bounce);
+            ctx.rotate(-legOffset * 0.02);
+            ctx.fillRect(-5*s, 0, 10*s, 25*s);
+            ctx.restore();
         }
 
-        // 绘制公式
+        // 绘制公式 - 动画版
         function drawFormula() {
+            const time = Date.now() / 1000;
+            const glow = Math.sin(time * 3) * 0.3 + 0.7;
+            
+            // 公式框发光
+            ctx.shadowColor = '#00d4ff';
+            ctx.shadowBlur = 20 * glow;
+            
+            // 公式背景
             ctx.fillStyle = 'rgba(0,0,0,0.7)';
             ctx.fillRect(250, 50, 300, 80);
             ctx.strokeStyle = '#00d4ff';
             ctx.lineWidth = 2;
             ctx.strokeRect(250, 50, 300, 80);
             
+            ctx.shadowBlur = 0;
+            
+            // 公式文字带发光
             ctx.fillStyle = '#00d4ff';
             ctx.font = 'bold 36px "Times New Roman", serif';
             ctx.textAlign = 'center';
@@ -1610,27 +1756,46 @@
             ctx.fillText('速度 = 路程 ÷ 时间', 400, 120);
         }
 
-        // 绘制速度指示器
+        // 绘制速度指示器 - 增强版
         function drawSpeedIndicator(speed) {
+            // 指示器背景
             ctx.fillStyle = 'rgba(0,0,0,0.6)';
-            ctx.fillRect(20, 20, 180, 60);
+            ctx.fillRect(20, 20, 180, 70);
             ctx.strokeStyle = '#ffd700';
             ctx.lineWidth = 2;
-            ctx.strokeRect(20, 20, 180, 60);
+            ctx.strokeRect(20, 20, 180, 70);
             
             ctx.fillStyle = '#ffd700';
-            ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
+            ctx.font = 'bold 14px "Noto Sans SC", sans-serif';
             ctx.textAlign = 'left';
             ctx.fillText('⚡ 移速', 30, 45);
             
-            ctx.font = 'bold 24px "Noto Sans SC", sans-serif';
-            ctx.fillText(speed + ' px/s', 30, 70);
+            // 速度数值带发光
+            ctx.shadowColor = '#ffd700';
+            ctx.shadowBlur = 10;
+            ctx.font = 'bold 28px "Noto Sans SC", sans-serif';
+            ctx.fillText(speed + ' px/s', 30, 75);
+            ctx.shadowBlur = 0;
+            
+            // 速度条
+            const barWidth = 140;
+            const barHeight = 6;
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.fillRect(30, 80, barWidth, barHeight);
+            
+            const speedPercent = Math.min(speed / 500, 1);
+            const gradient = ctx.createLinearGradient(30, 80, 30 + barWidth * speedPercent, 80);
+            gradient.addColorStop(0, '#00d4ff');
+            gradient.addColorStop(1, '#ffd700');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(30, 80, barWidth * speedPercent, barHeight);
         }
 
-        // 绘制距离标记
+        // 绘制距离标记 - 增强版
         function drawDistanceMarker(x, distance) {
-            ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 1;
+            // 标记线
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 2;
             ctx.setLineDash([5, 5]);
             ctx.beginPath();
             ctx.moveTo(x, 300);
@@ -1638,21 +1803,33 @@
             ctx.stroke();
             ctx.setLineDash([]);
             
-            ctx.fillStyle = '#fff';
-            ctx.font = '12px "Noto Sans SC", sans-serif';
+            // 标记标签背景
+            ctx.fillStyle = 'rgba(0,0,0,0.6)';
+            ctx.fillRect(x - 35, 355, 70, 20);
+            
+            // 标记文字
+            ctx.fillStyle = '#00d4ff';
+            ctx.font = 'bold 12px "Noto Sans SC", sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText(distance + 'px', x, 365);
+            ctx.fillText(distance + 'px', x, 370);
         }
 
-        // 绘制疾跑特效
+        // 绘制疾跑特效 - 增强版
         function drawSprintEffect(x, y) {
-            ctx.strokeStyle = '#ff6b35';
-            ctx.lineWidth = 3;
-            for (let i = 0; i < 3; i++) {
+            const time = Date.now() / 100;
+            
+            // 多道尾迹
+            for (let i = 0; i < 5; i++) {
+                ctx.strokeStyle = `rgba(255, 107, 53, ${0.5 - i * 0.1})`;
+                ctx.lineWidth = 4 - i * 0.5;
                 ctx.beginPath();
-                ctx.arc(x - 20 - i*10, y + 20, 10 + i*5, -Math.PI/3, Math.PI/3);
+                ctx.moveTo(x - 20 - i * 8, y + 20 + Math.sin(time + i) * 5);
+                ctx.lineTo(x - 50 - i * 15, y + 20 + Math.sin(time + i * 0.5) * 8);
                 ctx.stroke();
             }
+            
+            // 火焰粒子
+            createParticles(x - 30, y + 20, 2, '#ff6347');
         }
 
         // 绘制文字气泡
@@ -1685,14 +1862,15 @@
             ctx.stroke();
         }
 
-        // 场景脚本文字
+        // 场景脚本文字（更详细的讲解）
         const sceneScripts = [
-            "欢迎来到王者峡谷！今天我们要学习的是——速度！",
-            "看，鲁班七号从泉水出发了！他的移速是380...",
-            "速度 = 路程 ÷ 时间！鲁班走了10秒，走了多远呢？",
-            "s = v × t = 380 × 10 = 3800像素！正好到达一塔！",
-            "开疾跑技能！速度提升30%，变成 380 × 1.3 = 494！",
-            "记住公式：v = s/t，在王者峡谷和物理世界都一样！"
+            "欢迎来到王者峡谷！我是鲁班七号，今天教你物理里的速度概念！",
+            "我的基础移速是380像素每秒，这意味着每秒钟我能走380个像素距离！",
+            "速度的计算公式是：速度等于路程除以时间，写成v等于s除以t！",
+            "比如我从泉水出发，以380的速度走了10秒钟，那路程就是380乘10，等于3800像素！",
+            "正好到达中路一塔的位置！这就是速度公式的实际应用！",
+            "开启疾跑技能后，速度提升百分之三十，变成了494像素每秒，跑得更快了！",
+            "记住这个公式：v等于s除以t，在王者峡谷和物理考试中都一样好用！"
         ];
 
         // 在 Canvas 上绘制字幕
@@ -1771,42 +1949,90 @@
                 case 'intro':
                     drawFormula();
                     drawLuban(100, 250);
-                    drawTextBubble('大家好！我是鲁班七号！', 100, 220);
+                    
+                    // 欢迎文字动画
+                    ctx.fillStyle = '#ffd700';
+                    ctx.font = 'bold 20px "Noto Sans SC", sans-serif';
+                    ctx.textAlign = 'center';
+                    const welcomeAlpha = Math.min(sceneElapsed / 2, 1);
+                    ctx.globalAlpha = welcomeAlpha;
+                    ctx.fillText('👋 欢迎来到物理王者！', 400, 200);
+                    ctx.globalAlpha = 1;
+                    
+                    // 定期生成欢迎粒子
+                    if (Math.random() < 0.1) {
+                        createParticles(400, 150, 1, '#ffd700');
+                    }
                     break;
                     
                 case 'normal':
                     // 鲁班移动
                     luban.x = 50 + (sceneElapsed * luban.speed * 5);
                     luban.frame++;
+                    
+                    // 移动轨迹
+                    ctx.strokeStyle = 'rgba(0, 212, 255, 0.3)';
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([5, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(50, 290);
+                    ctx.lineTo(luban.x, 290);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    
                     drawSpeedIndicator(luban.baseSpeed);
                     drawLuban(luban.x, luban.y);
                     drawDistanceMarker(luban.x, Math.floor((luban.x - 50) * 10));
+                    
+                    // 移动时产生粒子
+                    if (luban.frame % 5 === 0) {
+                        createParticles(luban.x - 20, luban.y + 50, 1, 'rgba(255, 255, 255, 0.5)');
+                    }
                     break;
                     
                 case 'calculate':
                     // 播放成功音效（只播放一次）
                     if (sceneElapsed > 0.5 && sceneElapsed < 0.6) {
                         playSound('success');
+                        // 成功时大量粒子
+                        createParticles(400, 200, 20, '#ffd700');
                     }
                     
-                    // 显示计算
+                    // 显示计算 - 带入场动画
                     drawFormula();
+                    
+                    const calcProgress = Math.min(sceneElapsed / 2, 1);
+                    ctx.save();
+                    ctx.translate(400, 200);
+                    ctx.scale(calcProgress, calcProgress);
+                    
                     ctx.fillStyle = '#ffd700';
                     ctx.font = 'bold 24px "Noto Sans SC", sans-serif';
                     ctx.textAlign = 'center';
-                    ctx.fillText('s = 380 × 10 = 3800像素！', 400, 200);
+                    ctx.shadowColor = '#ffd700';
+                    ctx.shadowBlur = 20;
+                    ctx.fillText('s = v × t = 3800像素！', 0, 0);
+                    ctx.shadowBlur = 0;
                     
-                    // 鲁班到达终点
+                    ctx.restore();
+                    
+                    // 鲁班到达终点 - 跳跃庆祝
+                    const jumpHeight = Math.abs(Math.sin(sceneElapsed * 5)) * 30;
                     luban.x = 720;
-                    drawLuban(luban.x, luban.y);
+                    drawLuban(luban.x, luban.y - jumpHeight);
                     
                     // 庆祝特效
-                    if (Math.floor(sceneElapsed * 10) % 5 === 0) {
-                        ctx.fillStyle = '#ffd700';
-                        ctx.beginPath();
-                        ctx.arc(720 + Math.random() * 40 - 20, 180 + Math.random() * 40 - 20, 3, 0, Math.PI * 2);
-                        ctx.fill();
+                    if (Math.floor(sceneElapsed * 10) % 3 === 0) {
+                        createParticles(720, 200, 3, '#ffd700');
+                        createParticles(720, 200, 2, '#00d4ff');
                     }
+                    
+                    // 胜利光环
+                    ctx.strokeStyle = 'rgba(255, 215, 0, 0.5)';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.arc(720, 250 - jumpHeight, 50 + Math.sin(sceneElapsed * 10) * 5, 0, Math.PI * 2);
+                    ctx.stroke();
                     break;
                     
                 case 'sprint':
@@ -1816,33 +2042,63 @@
                     }
                     
                     // 疾跑加速
-                    const sprintSpeed = 494; // 380 * 1.3
-                    luban.speed = 3; // 加速
-                    luban.x = 50 + (sceneElapsed * luban.speed * 8);
+                    const sprintSpeed = 494;
+                    luban.speed = 5;
+                    luban.x = 50 + (sceneElapsed * luban.speed * 15);
                     luban.frame++;
                     
                     drawSpeedIndicator(sprintSpeed);
                     drawSprintEffect(luban.x, luban.y);
+                    
+                    // 红色加速拖尾
+                    ctx.fillStyle = 'rgba(255, 107, 53, 0.4)';
+                    for (let i = 0; i < 5; i++) {
+                        ctx.fillRect(luban.x - 30 - i * 15, 280, 20, 40);
+                    }
+                    
                     drawLuban(luban.x, luban.y);
                     
-                    // 红色加速特效
-                    ctx.fillStyle = 'rgba(255, 107, 53, 0.3)';
-                    ctx.fillRect(luban.x - 50, 280, 100, 100);
+                    // 持续产生火焰粒子
+                    createParticles(luban.x - 20, luban.y + 40, 2, '#ff6347');
                     break;
                     
                 case 'formula':
                     drawFormula();
                     drawLuban(400, 250, 1.2);
                     
-                    // 闪烁公式
-                    if (Math.floor(sceneElapsed * 5) % 2 === 0) {
-                        ctx.fillStyle = '#ffd700';
-                        ctx.font = 'bold 36px "Times New Roman", serif';
+                    // 公式强调动画
+                    const pulse = Math.sin(sceneElapsed * 8) * 0.3 + 1;
+                    ctx.save();
+                    ctx.translate(400, 100);
+                    ctx.scale(pulse, pulse);
+                    
+                    ctx.fillStyle = '#ffd700';
+                    ctx.font = 'bold 40px "Times New Roman", serif';
+                    ctx.textAlign = 'center';
+                    ctx.shadowColor = '#ffd700';
+                    ctx.shadowBlur = 30;
+                    ctx.fillText('v = s / t', 0, 0);
+                    ctx.shadowBlur = 0;
+                    
+                    ctx.restore();
+                    
+                    // 周围环绕的小公式
+                    for (let i = 0; i < 6; i++) {
+                        const angle = (sceneElapsed + i / 6) * Math.PI * 2;
+                        const radius = 120;
+                        const fx = 400 + Math.cos(angle) * radius;
+                        const fy = 100 + Math.sin(angle) * radius * 0.5;
+                        
+                        ctx.fillStyle = `rgba(0, 212, 255, ${0.3 + Math.sin(sceneElapsed * 3 + i) * 0.2})`;
+                        ctx.font = '16px "Times New Roman", serif';
                         ctx.textAlign = 'center';
-                        ctx.fillText('v = s / t', 400, 100);
+                        ctx.fillText('v=s/t', fx, fy);
                     }
                     break;
             }
+            
+            // 更新和绘制粒子
+            updateAndDrawParticles();
             
             // 绘制字幕
             drawSubtitle(sceneScripts[currentScene]);
