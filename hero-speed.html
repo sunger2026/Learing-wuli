@@ -713,6 +713,20 @@
             color: var(--accent);
         }
 
+        .mute-btn {
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .mute-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
         @media (max-width: 768px) {
             .main-container { padding: 20px; }
             .hero-title-section { flex-direction: column; text-align: center; }
@@ -775,6 +789,9 @@
                         <div class="progress-bar-video">
                             <div class="progress-fill-video" id="videoProgress"></div>
                         </div>
+                        <button class="mute-btn" onclick="toggleMute()" title="静音/开启声音">
+                            <span id="muteIcon">🔊</span>
+                        </button>
                     </div>
                 </div>
                 <div class="video-script">
@@ -1210,6 +1227,120 @@
     </main>
 
     <script>
+        // ========== 音频系统 ==========
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let bgmOscillators = [];
+        let isMuted = false;
+
+        // 播放音效
+        function playSound(type, frequency = 440, duration = 0.1) {
+            if (isMuted) return;
+            
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            const now = audioCtx.currentTime;
+            
+            switch(type) {
+                case 'click':
+                    osc.frequency.setValueAtTime(800, now);
+                    osc.frequency.exponentialRampToValueAtTime(400, now + 0.1);
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                    osc.start(now);
+                    osc.stop(now + 0.1);
+                    break;
+                    
+                case 'success':
+                    // 胜利音效（上升音阶）
+                    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+                        const osc2 = audioCtx.createOscillator();
+                        const gain2 = audioCtx.createGain();
+                        osc2.connect(gain2);
+                        gain2.connect(audioCtx.destination);
+                        osc2.frequency.setValueAtTime(freq, now + i * 0.1);
+                        gain2.gain.setValueAtTime(0.2, now + i * 0.1);
+                        gain2.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.2);
+                        osc2.start(now + i * 0.1);
+                        osc2.stop(now + i * 0.1 + 0.2);
+                    });
+                    break;
+                    
+                case 'sprint':
+                    // 疾跑音效（呼啸声）
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.3);
+                    gainNode.gain.setValueAtTime(0.3, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                    break;
+                    
+                case 'step':
+                    // 脚步声
+                    osc.frequency.setValueAtTime(150, now);
+                    gainNode.gain.setValueAtTime(0.1, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                    break;
+            }
+        }
+
+        // 背景音乐
+        function startBGM() {
+            if (isMuted || bgmOscillators.length > 0) return;
+            
+            const notes = [261.63, 329.63, 392.00, 523.25]; // C大调
+            let noteIndex = 0;
+            
+            function playNote() {
+                if (isMuted || !isPlaying) return;
+                
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                osc.frequency.setValueAtTime(notes[noteIndex], audioCtx.currentTime);
+                osc.type = 'sine';
+                gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.4);
+                
+                bgmOscillators.push(osc);
+                
+                noteIndex = (noteIndex + 1) % notes.length;
+                
+                if (isPlaying) {
+                    setTimeout(playNote, 500);
+                }
+            }
+            
+            playNote();
+        }
+
+        function stopBGM() {
+            bgmOscillators = [];
+        }
+
+        // 切换静音
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteIcon').textContent = isMuted ? '🔇' : '🔊';
+            if (isMuted) {
+                stopBGM();
+            } else if (isPlaying) {
+                startBGM();
+            }
+        }
+
         // ========== Canvas动画：王者峡谷速度演示 ==========
         const canvas = document.getElementById('speedAnimation');
         const ctx = canvas.getContext('2d');
@@ -1494,6 +1625,11 @@
                     break;
                     
                 case 'calculate':
+                    // 播放成功音效（只播放一次）
+                    if (sceneElapsed > 0.5 && sceneElapsed < 0.6) {
+                        playSound('success');
+                    }
+                    
                     // 显示计算
                     drawFormula();
                     ctx.fillStyle = '#ffd700';
@@ -1516,6 +1652,11 @@
                     break;
                     
                 case 'sprint':
+                    // 播放疾跑音效
+                    if (sceneElapsed > 0.1 && sceneElapsed < 0.2) {
+                        playSound('sprint');
+                    }
+                    
                     // 疾跑加速
                     const sprintSpeed = 494; // 380 * 1.3
                     luban.speed = 3; // 加速
@@ -1566,11 +1707,20 @@
 
         // 开始动画
         function startAnimation() {
+            // 恢复音频上下文（浏览器自动播放策略）
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            
             isPlaying = true;
             startTime = 0;
             luban.x = 50;
             document.getElementById('playIcon').textContent = '⏸️';
             document.getElementById('playText').textContent = '暂停';
+            
+            playSound('click');
+            startBGM();
+            
             animationId = requestAnimationFrame(animate);
         }
 
@@ -1582,6 +1732,7 @@
             }
             document.getElementById('playIcon').textContent = '▶️';
             document.getElementById('playText').textContent = '播放动画';
+            stopBGM();
         }
 
         // 初始化画布
