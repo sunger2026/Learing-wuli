@@ -678,6 +678,97 @@
             cursor: pointer;
         }
 
+        /* 掌握情况检验 */
+        .mastery-check {
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .mastery-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mastery-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .mastery-question {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+        .mastery-question-text {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .mastery-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .mastery-option {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .mastery-option:hover {
+            background: rgba(0,212,255,0.2);
+            border-color: var(--accent);
+        }
+        .mastery-option.selected {
+            background: rgba(0,212,255,0.3);
+            border-color: var(--accent);
+        }
+        .mastery-submit {
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .mastery-result {
+            background: rgba(50,205,50,0.1);
+            border: 1px solid var(--success);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .mastery-result-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 10px;
+        }
+        .mastery-result-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+        .mastery-restart {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+
         /* 响应式 */
         @media (max-width: 768px) {
             .header {
@@ -735,15 +826,14 @@
             <p class="hero-subtitle">召唤你的物理英雄，开启知识对战之旅！从青铜学徒成长为物理王者！</p>
         </section>
 
-        <!-- 徽章展示区 -->
-        <section class="badges-section">
+        <!-- 徽章展示区 (已隐藏) -->
+        <section class="badges-section" style="display: none;">
             <div class="section-title" style="margin-bottom: 15px;">
                 <div class="section-icon">🏆</div>
                 <span>我的徽章</span>
                 <span class="badges-count" id="badgesCount">0 / 13</span>
             </div>
             <div class="badges-grid" id="badgesGrid">
-                <!-- 徽章由JS动态生成 -->
             </div>
         </section>
 
@@ -753,11 +843,23 @@
                 <div class="section-icon">🗺️</div>
                 <span>推荐学习路径</span>
             </div>
-            <div class="path-flow" id="pathFlow">
-                <!-- 路径由JS动态生成 -->
+            
+            <!-- 掌握情况检验 -->
+            <div class="mastery-check" id="masteryCheck">
+                <div class="mastery-title">📊 学习掌握情况检验</div>
+                <div class="mastery-desc">回答几个简单问题，系统会为你推荐最适合的学习路径</div>
+                <div class="mastery-questions" id="masteryQuestions">
+                    <!-- 问题由JS动态生成 -->
+                </div>
             </div>
-            <div class="path-recommendation" id="pathRecommendation">
-                <!-- 推荐由JS动态生成 -->
+            
+            <!-- 检验结果和推荐 -->
+            <div class="path-recommendation" id="pathRecommendation" style="display: none;">
+                <!-- 结果由JS动态生成 -->
+            </div>
+            
+            <div class="path-flow" id="pathFlow" style="margin-top: 20px;">
+                <!-- 路径由JS动态生成 -->
             </div>
         </section>
 
@@ -1677,9 +1779,9 @@
             });
             
             // 更新徽章显示
-            updateBadgesDisplay(progress);
-            // 更新学习路径
-            updateLearningPath(progress);
+            // updateBadgesDisplay(progress); // 徽章区域已隐藏
+            // 初始化掌握情况检验
+            initMasteryCheck();
         }
         
         // ========== 徽章功能 ==========
@@ -1825,50 +1927,277 @@
             }
         });
         
-        // ========== 学习路径推荐 ==========
+        // ========== 学习路径推荐 + 掌握情况检验 ==========
         const learningPaths = [
-            { id: 'speed', name: '速度', emoji: '🏃', difficulty: 1 },
-            { id: 'sound', name: '声现象', emoji: '🔔', difficulty: 1 },
-            { id: 'light', name: '光现象', emoji: '💡', difficulty: 2 },
-            { id: 'state', name: '物态变化', emoji: '❄️', difficulty: 2 },
-            { id: 'density', name: '密度', emoji: '⚖️', difficulty: 2 },
-            { id: 'force', name: '力学基础', emoji: '💪', difficulty: 3 },
-            { id: 'pressure', name: '压强', emoji: '🎯', difficulty: 3 },
-            { id: 'buoyancy', name: '浮力', emoji: '🚢', difficulty: 4 },
-            { id: 'lever', name: '简单机械', emoji: '⚙️', difficulty: 3 },
-            { id: 'electricity', name: '电学基础', emoji: '⚡', difficulty: 3 },
-            { id: 'power', name: '功率电能', emoji: '🔌', difficulty: 4 },
-            { id: 'magnetism', name: '磁场', emoji: '🧲', difficulty: 4 },
-            { id: 'motion', name: '机械运动', emoji: '🔄', difficulty: 2 }
+            { id: 'speed', name: '速度', emoji: '🏃', difficulty: 1, category: '基础' },
+            { id: 'sound', name: '声现象', emoji: '🔔', difficulty: 1, category: '基础' },
+            { id: 'light', name: '光现象', emoji: '💡', difficulty: 2, category: '基础' },
+            { id: 'state', name: '物态变化', emoji: '❄️', difficulty: 2, category: '基础' },
+            { id: 'density', name: '密度', emoji: '⚖️', difficulty: 2, category: '基础' },
+            { id: 'motion', name: '机械运动', emoji: '🔄', difficulty: 2, category: '基础' },
+            { id: 'force', name: '力学基础', emoji: '💪', difficulty: 3, category: '力学' },
+            { id: 'pressure', name: '压强', emoji: '🎯', difficulty: 3, category: '力学' },
+            { id: 'buoyancy', name: '浮力', emoji: '🚢', difficulty: 4, category: '力学' },
+            { id: 'lever', name: '简单机械', emoji: '⚙️', difficulty: 3, category: '力学' },
+            { id: 'electricity', name: '电学基础', emoji: '⚡', difficulty: 3, category: '电学' },
+            { id: 'power', name: '功率电能', emoji: '🔌', difficulty: 4, category: '电学' },
+            { id: 'magnetism', name: '磁场', emoji: '🧲', difficulty: 4, category: '电学' }
         ];
         
-        function updateLearningPath(progress) {
-            const pathFlow = document.getElementById('pathFlow');
-            const pathRecommendation = document.getElementById('pathRecommendation');
-            if (!pathFlow || !pathRecommendation) return;
+        // 掌握情况检验问题
+        const masteryQuestions = [
+            {
+                id: 'q1',
+                question: '你对初中物理基础（速度、声光现象）的掌握程度如何？',
+                options: [
+                    { value: 'strong', text: '基础扎实 ✅', desc: '已经熟练掌握' },
+                    { value: 'weak', text: '需要巩固 📚', desc: '有些概念不太清楚' },
+                    { value: 'none', text: '完全零基础 🆕', desc: '从头开始学习' }
+                ]
+            },
+            {
+                id: 'q2',
+                question: '你觉得物理学习中最大的困难是什么？',
+                options: [
+                    { value: 'concept', text: '概念理解 🤔', desc: '抽象概念难以理解' },
+                    { value: 'formula', text: '公式运用 📝', desc: '不知道何时用哪个公式' },
+                    { value: 'calculation', text: '计算能力 🧮', desc: '数学运算容易出错' },
+                    { value: 'experiment', text: '实验分析 🔬', desc: '实验题不知如何下手' }
+                ]
+            },
+            {
+                id: 'q3',
+                question: '你每天能投入多少时间学习物理？',
+                options: [
+                    { value: 'short', text: '15-30分钟 ⏱️', desc: '碎片时间学习' },
+                    { value: 'medium', text: '30-60分钟 ⏲️', desc: '每天一节课' },
+                    { value: 'long', text: '1小时以上 🕐', desc: '专注深度学习' }
+                ]
+            },
+            {
+                id: 'q4',
+                question: '你更感兴趣的物理领域是？',
+                options: [
+                    { value: 'mechanics', text: '力学运动 🏃', desc: '力和运动的关系' },
+                    { value: 'electricity', text: '电磁现象 ⚡', desc: '电路和磁场' },
+                    { value: 'thermal', text: '热学现象 🌡️', desc: '温度和能量' },
+                    { value: 'all', text: '都很感兴趣 🌟', desc: '想全面学习' }
+                ]
+            }
+        ];
+        
+        // 用户的选择
+        let userAnswers = {};
+        
+        function initMasteryCheck() {
+            const container = document.getElementById('masteryQuestions');
+            if (!container) return;
             
-            // 找出已完成的和推荐的
-            let completedCount = 0;
-            let lastCompleted = null;
-            let nextToLearn = null;
+            // 检查是否已经做过检验
+            const savedResult = localStorage.getItem('physicsKingMasteryResult');
+            if (savedResult) {
+                showMasteryResult(JSON.parse(savedResult));
+                return;
+            }
             
-            learningPaths.forEach((path, index) => {
-                if (progress[path.id] && progress[path.id].completed) {
-                    completedCount++;
-                    lastCompleted = path;
-                } else if (!nextToLearn) {
-                    nextToLearn = path;
-                }
+            container.innerHTML = '';
+            
+            masteryQuestions.forEach((q, index) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = 'mastery-question';
+                qDiv.innerHTML = `
+                    <div class="mastery-question-text">${index + 1}. ${q.question}</div>
+                    <div class="mastery-options" data-question="${q.id}">
+                        ${q.options.map(opt => `
+                            <div class="mastery-option" onclick="selectOption('${q.id}', '${opt.value}', this)"
+                                 title="${opt.desc}">
+                                ${opt.text}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(qDiv);
             });
             
-            // 显示路径流程
+            // 添加提交按钮
+            const submitBtn = document.createElement('button');
+            submitBtn.className = 'mastery-submit';
+            submitBtn.textContent = '🎯 生成学习路径';
+            submitBtn.onclick = submitMasteryCheck;
+            container.appendChild(submitBtn);
+        }
+        
+        function selectOption(questionId, value, element) {
+            userAnswers[questionId] = value;
+            
+            // 更新UI
+            const optionsContainer = element.parentElement;
+            optionsContainer.querySelectorAll('.mastery-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+        
+        function submitMasteryCheck() {
+            // 检查是否回答了所有问题
+            if (Object.keys(userAnswers).length < masteryQuestions.length) {
+                alert('请回答所有问题后再提交哦！');
+                return;
+            }
+            
+            // 根据答案生成推荐
+            const result = generateRecommendation(userAnswers);
+            
+            // 保存结果
+            localStorage.setItem('physicsKingMasteryResult', JSON.stringify(result));
+            localStorage.setItem('physicsKingUserAnswers', JSON.stringify(userAnswers));
+            
+            // 显示结果
+            showMasteryResult(result);
+        }
+        
+        function generateRecommendation(answers) {
+            const progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            
+            // 找出未完成的英雄
+            const incompletePaths = learningPaths.filter(p => !progress[p.id] || !progress[p.id].completed);
+            
+            let recommended = [];
+            let studyPlan = '';
+            let estimatedDays = 0;
+            
+            // 根据基础情况推荐
+            if (answers.q1 === 'none' || answers.q1 === 'weak') {
+                // 零基础或基础弱，从最简单的开始
+                recommended = incompletePaths.filter(p => p.difficulty <= 2).slice(0, 3);
+                studyPlan = '建议从基础概念入手，先建立物理直觉，再逐步深入。';
+                estimatedDays = answers.q3 === 'short' ? 21 : (answers.q3 === 'medium' ? 14 : 10);
+            } else {
+                // 基础扎实，根据兴趣推荐
+                if (answers.q4 === 'mechanics') {
+                    recommended = incompletePaths.filter(p => p.category === '力学').slice(0, 3);
+                } else if (answers.q4 === 'electricity') {
+                    recommended = incompletePaths.filter(p => p.category === '电学').slice(0, 3);
+                } else {
+                    // 全面学习，按难度递进
+                    recommended = incompletePaths.slice(0, 4);
+                }
+                studyPlan = '你的基础不错！建议系统性学习，建立完整的知识体系。';
+                estimatedDays = answers.q3 === 'short' ? 14 : (answers.q3 === 'medium' ? 10 : 7);
+            }
+            
+            // 根据困难类型调整建议
+            let tips = '';
+            if (answers.q2 === 'concept') {
+                tips = '💡 每学完一个知识点，用自己的话复述一遍概念，确保真正理解。';
+            } else if (answers.q2 === 'formula') {
+                tips = '💡 整理公式卡片，记录每个公式的适用条件和推导过程。';
+            } else if (answers.q2 === 'calculation') {
+                tips = '💡 多做基础计算题，培养单位换算和科学计数法的敏感度。';
+            } else if (answers.q2 === 'experiment') {
+                tips = '💡 重点关注实验原理、步骤、数据处理三个环节，总结实验题模板。';
+            }
+            
+            return {
+                recommended: recommended,
+                studyPlan: studyPlan,
+                estimatedDays: estimatedDays,
+                tips: tips,
+                timestamp: new Date().toISOString()
+            };
+        }
+        
+        function showMasteryResult(result) {
+            const checkDiv = document.getElementById('masteryCheck');
+            const resultDiv = document.getElementById('pathRecommendation');
+            
+            if (checkDiv) checkDiv.style.display = 'none';
+            if (resultDiv) {
+                resultDiv.style.display = 'block';
+                
+                const pathList = result.recommended.map(p => 
+                    `<span style="color: var(--accent-gold);">${p.emoji} ${p.name}</span>`
+                ).join(' → ');
+                
+                resultDiv.innerHTML = `
+                    <div class="mastery-result">
+                        <div class="mastery-result-title">🎯 为你定制的学习方案</div>
+                        <div class="mastery-result-desc">
+                            <p><strong>推荐路径：</strong>${pathList}</p>
+                            <p><strong>学习计划：</strong>${result.studyPlan}</p>
+                            <p><strong>预计用时：</strong>约 ${result.estimatedDays} 天</p>
+                            ${result.tips ? `<p>${result.tips}</p>` : ''}
+                        </div>
+                        <button class="mastery-restart" onclick="restartMasteryCheck()">🔄 重新检验</button>
+                    </div>
+                `;
+            }
+            
+            // 更新路径显示
+            updatePathFlow(result.recommended);
+        }
+        
+        function updatePathFlow(recommendedPaths) {
+            const pathFlow = document.getElementById('pathFlow');
+            if (!pathFlow) return;
+            
+            const progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            
+            // 合并已完成和推荐的
+            const allPaths = [...learningPaths];
+            
+            pathFlow.innerHTML = '';
+            allPaths.forEach((path, index) => {
+                const isCompleted = progress[path.id] && progress[path.id].completed;
+                const isRecommended = recommendedPaths.some(r => r.id === path.id);
+                
+                const pathItem = document.createElement('div');
+                let className = 'path-item';
+                if (isCompleted) className += ' completed';
+                else if (isRecommended) className += ' current';
+                
+                pathItem.className = className;
+                pathItem.innerHTML = `${path.emoji} ${path.name}`;
+                pathItem.onclick = () => window.location.href = 'hero-' + path.id + '.html';
+                pathFlow.appendChild(pathItem);
+                
+                if (index < allPaths.length - 1) {
+                    const arrow = document.createElement('span');
+                    arrow.className = 'path-arrow';
+                    arrow.textContent = '→';
+                    pathFlow.appendChild(arrow);
+                }
+            });
+        }
+        
+        function restartMasteryCheck() {
+            localStorage.removeItem('physicsKingMasteryResult');
+            localStorage.removeItem('physicsKingUserAnswers');
+            userAnswers = {};
+            
+            const checkDiv = document.getElementById('masteryCheck');
+            const resultDiv = document.getElementById('pathRecommendation');
+            
+            if (checkDiv) checkDiv.style.display = 'block';
+            if (resultDiv) resultDiv.style.display = 'none';
+            
+            initMasteryCheck();
+            updateLearningPathBase();
+        }
+        
+        function updateLearningPathBase() {
+            // 基础路径显示（没有检验结果时的默认显示）
+            const pathFlow = document.getElementById('pathFlow');
+            const progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            
+            if (!pathFlow) return;
+            
             pathFlow.innerHTML = '';
             learningPaths.forEach((path, index) => {
                 const isCompleted = progress[path.id] && progress[path.id].completed;
-                const isCurrent = path.id === (nextToLearn ? nextToLearn.id : null);
                 
                 const pathItem = document.createElement('div');
-                pathItem.className = 'path-item ' + (isCompleted ? 'completed' : '') + (isCurrent ? 'current' : '');
+                pathItem.className = 'path-item' + (isCompleted ? ' completed' : '');
                 pathItem.innerHTML = `${path.emoji} ${path.name}`;
                 pathItem.onclick = () => window.location.href = 'hero-' + path.id + '.html';
                 pathFlow.appendChild(pathItem);
@@ -1880,31 +2209,13 @@
                     pathFlow.appendChild(arrow);
                 }
             });
-            
-            // 显示推荐
-            if (nextToLearn) {
-                const difficultyStars = '★'.repeat(nextToLearn.difficulty) + '☆'.repeat(5 - nextToLearn.difficulty);
-                pathRecommendation.innerHTML = `
-                    <div style="font-size: 36px;">${nextToLearn.emoji}</div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 700;">推荐学习：${nextToLearn.name}</div>
-                        <div style="font-size: 12px; color: rgba(255,255,255,0.6);">难度：${difficultyStars}</div>
-                    </div>
-                    <button onclick="window.location.href='hero-${nextToLearn.id}.html'">开始学习</button>
-                `;
-            } else {
-                pathRecommendation.innerHTML = `
-                    <div style="font-size: 36px;">🎉</div>
-                    <div style="flex: 1;">
-                        <div style="font-weight: 700;">恭喜！你已学完所有基础英雄！</div>
-                        <div style="font-size: 12px; color: rgba(255,255,255,0.6);">准备挑战进阶内容</div>
-                    </div>
-                `;
-            }
         }
         
-        // 页面加载时更新进度
-        updateProgressDisplay();
+        // 页面加载时初始化
+        window.addEventListener('load', function() {
+            updateProgressDisplay();
+            initMasteryCheck();
+        });
     </script>
 </body>
 </html>
