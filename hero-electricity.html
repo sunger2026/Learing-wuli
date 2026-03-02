@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电流·欧姆 - 机械运动 | 物理王者</title>
+    <title>电流·欧姆 - 电学基础 | 物理王者</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -785,8 +785,8 @@
                         <span class="hero-tag">基础系</span>
                     </h1>
                     <p class="hero-desc-large">
-                        电流、电压、电阻，s=vt 的基础运用，测量平均速度实验。
-                        这是初中物理的第一课，掌握它才能跑得更远！
+                        电流、电压、电阻，欧姆定律 I=U/R 的基础运用，伏安法测电阻实验。
+                        这是初中电学的第一课，掌握它才能点亮电路世界！
                     </p>
                     <div class="hero-progress-large">
                         <div class="progress-bar-large">
@@ -802,7 +802,7 @@
         <section class="learning-section">
             <div class="section-header">
                 <div class="section-icon">🎬</div>
-                <h2 class="section-title">动画讲解：王者峡谷的速度奥秘</h2>
+                <h2 class="section-title">动画讲解：王者峡谷的电学奥秘</h2>
             </div>
             
             <div class="video-container">
@@ -833,23 +833,23 @@
                 <div class="knowledge-card important">
                     <div class="knowledge-title">
                         <span class="icon">⚡</span>
-                        速度公式（核心中的核心）
+                        欧姆定律（核心中的核心）
                     </div>
                     <div class="knowledge-content">
                         <div class="formula-box">
-                            v = s / t
+                            I = U / R
                         </div>
                         <div class="formula-detail">
-                            <p><strong>s</strong> = 路程（单位：米 m）</p>
-                            <p><strong>t</strong> = 时间（单位：秒 s）</p>
-                            <p><strong>v</strong> = 速度（单位：米/秒 m/s）</p>
+                            <p><strong>U</strong> = 电压（单位：伏特 V）</p>
+                            <p><strong>R</strong> = 电阻（单位：欧姆 Ω）</p>
+                            <p><strong>I</strong> = 电流（单位：安培 A）</p>
                         </div>
                         <p style="margin-top: 15px; color: var(--accent-gold);">
                             💡 <strong>变形公式：</strong>
                         </p>
                         <div class="formula-detail">
-                            <p>求路程：<strong>s = v × t</strong></p>
-                            <p>求时间：<strong>t = s / v</strong></p>
+                            <p>求电压：<strong>U = I × R</strong></p>
+                            <p>求电阻：<strong>R = U / I</strong></p>
                         </div>
                     </div>
                 </div>
@@ -857,78 +857,71 @@
                 <div class="knowledge-card">
                     <div class="knowledge-title">
                         <span class="icon">📏</span>
-                        单位换算（必考！）
+                        电学单位换算（必考！）
                     </div>
                     <div class="knowledge-content">
-                        <p>速度单位：m/s 和 km/h 的换算</p>
+                        <p>电流、电压、电阻的常用单位换算</p>
                         <table class="unit-table">
                             <tr>
-                                <th>换算关系</th>
-                                <th>数值</th>
+                                <th>物理量</th>
+                                <th>基本单位</th>
+                                <th>常用换算</th>
                             </tr>
                             <tr>
-                                <td>1 m/s = ? km/h</td>
-                                <td><strong>3.6 km/h</strong></td>
+                                <td>电流 I</td>
+                                <td>安培 (A)</td>
+                                <td><strong>1 A = 1000 mA</strong></td>
                             </tr>
                             <tr>
-                                <td>1 km/h = ? m/s</td>
-                                <td><strong>1/3.6 m/s ≈ 0.28 m/s</strong></td>
+                                <td>电压 U</td>
+                                <td>伏特 (V)</td>
+                                <td><strong>1 kV = 1000 V</strong></td>
+                            </tr>
+                            <tr>
+                                <td>电阻 R</td>
+                                <td>欧姆 (Ω)</td>
+                                <td><strong>1 MΩ = 1000 kΩ = 10⁶ Ω</strong></td>
                             </tr>
                         </table>
                         <p style="color: var(--accent-gold); margin-top: 10px;">
-                            🧮 <strong>记忆口诀：</strong>"小换大乘3.6，大换小除3.6"
+                            🧮 <strong>记忆口诀：</strong>"千进制，小变大除一千，大变小乘一千"
                         </p>
-                        <p>m/s → km/h 是大单位，要乘以3.6</p>
                     </div>
                 </div>
 
                 <div class="knowledge-card">
                     <div class="knowledge-title">
-                        <span class="icon">🚶</span>
-                        匀速直线运动
+                        <span class="icon">🔌</span>
+                        串联电路特点
                     </div>
                     <div class="knowledge-content">
-                        <p><strong>定义：</strong>物体沿着直线运动，且速度保持不变。</p>
+                        <p><strong>定义：</strong>用电器逐个顺次连接，电流只有一条路径。</p>
                         <ul>
-                            <li>速度大小不变 ✓</li>
-                            <li>运动方向不变 ✓</li>
-                            <li>路程与时间成正比 ✓</li>
+                            <li>电流处处相等：<strong>I = I₁ = I₂</strong></li>
+                            <li>总电压等于各部分电压之和：<strong>U = U₁ + U₂</strong></li>
+                            <li>总电阻等于各电阻之和：<strong>R = R₁ + R₂</strong></li>
                         </ul>
-                        <p style="margin-top: 10px;">
-                            <strong>v-t 图像：</strong>一条水平直线<br>
-                            <strong>s-t 图像：</strong>一条过原点的斜线
+                        <p style="color: var(--accent-gold); margin-top: 10px;">
+                            💡 串联分压，电阻越大分得的电压越大
                         </p>
                     </div>
                 </div>
 
                 <div class="knowledge-card">
                     <div class="knowledge-title">
-                        <span class="icon">📊</span>
-                        平均速度 vs 瞬时速度
+                        <span class="icon">🔀</span>
+                        并联电路特点
                     </div>
                     <div class="knowledge-content">
-                        <table class="unit-table">
-                            <tr>
-                                <th></th>
-                                <th>平均速度</th>
-                                <th>瞬时速度</th>
-                            </tr>
-                            <tr>
-                                <td>定义</td>
-                                <td>某段时间内的平均快慢</td>
-                                <td>某一时刻的快慢</td>
-                            </tr>
-                            <tr>
-                                <td>公式</td>
-                                <td>v̄ = s/t</td>
-                                <td>速度计读数</td>
-                            </tr>
-                            <tr>
-                                <td>例子</td>
-                                <td>全程平均速度</td>
-                                <td>汽车仪表盘速度</td>
-                            </tr>
-                        </table>
+                        <p><strong>定义：</strong>用电器并列连接在电路两点之间，电流有多条路径。</p>
+                        <ul>
+                            <li>干路电流等于各支路电流之和：<strong>I = I₁ + I₂</strong></li>
+                            <li>各支路电压相等：<strong>U = U₁ = U₂</strong></li>
+                            <li>总电阻倒数等于各电阻倒数之和：<strong>1/R = 1/R₁ + 1/R₂</strong></li>
+                        </ul>
+                        <p style="color: var(--accent-gold); margin-top: 10px;">
+                            💡 并联分流，电阻越小分得的电流越大
+                        </p>
                     </div>
                 </div>
             </div>
@@ -937,32 +930,34 @@
         <section class="experiment-box">
             <div class="experiment-header">
                 <span>🧪</span>
-                <span>测量平均速度实验（中考必考！）</span>
+                <span>伏安法测电阻实验（中考必考！）</span>
             </div>
             <div class="example-content">
-                <p><strong>实验目的：</strong>测量小车在斜面上的平均速度</p>
+                <p><strong>实验目的：</strong>用电流表和电压表测量未知电阻的阻值</p>
+                <p style="margin-top: 15px;"><strong>实验原理：</strong>R = U/I（欧姆定律变形公式）</p>
                 <p style="margin-top: 15px;"><strong>实验器材：</strong></p>
                 <ul style="margin-left: 20px; line-height: 1.8;">
-                    <li>长木板（斜面）</li>
-                    <li>小车</li>
-                    <li>金属片（挡板）</li>
-                    <li>刻度尺（测路程）</li>
-                    <li>停表（测时间）</li>
+                    <li>电源（干电池或学生电源）</li>
+                    <li>待测电阻</li>
+                    <li>电流表（串联测电流）</li>
+                    <li>电压表（并联测电压）</li>
+                    <li>滑动变阻器（保护电路，改变电压电流）</li>
+                    <li>开关、导线若干</li>
                 </ul>
+                <p style="margin-top: 15px;"><strong>实验电路图：</strong>电流表串联，电压表并联在待测电阻两端</p>
                 <p style="margin-top: 15px;"><strong>实验步骤：</strong></p>
                 <ol class="step-list">
-                    <li>把长木板一端垫高，形成斜面</li>
-                    <li>用刻度尺测量全程路程 s₁</li>
-                    <li>让小车从顶端静止滑下，用停表测时间 t₁</li>
-                    <li>计算全程平均速度 v₁ = s₁/t₁</li>
-                    <li>测量上半程路程 s₂ 和时间 t₂，计算 v₂</li>
-                    <li>比较 v₁ 和 v₂，分析运动特点</li>
+                    <li>按电路图连接电路，开关断开，滑片移到阻值最大处</li>
+                    <li>闭合开关，调节滑动变阻器，读出电流表和电压表示数</li>
+                    <li>改变滑动变阻器位置，测量3组不同的U、I值</li>
+                    <li>根据 R = U/I 计算每次的电阻值</li>
+                    <li>求平均值作为最终结果（减小误差）</li>
                 </ol>
                 <p style="margin-top: 15px; color: var(--accent-gold);">
-                    ⚠️ <strong>注意：</strong>斜面坡度要小一点，方便计时；金属片要固定好！
+                    ⚠️ <strong>注意：</strong>连接电路时开关必须断开；闭合开关前滑片要在阻值最大处！
                 </p>
                 <p style="margin-top: 10px;">
-                    <strong>实验结论：</strong>小车下滑时速度越来越快（加速运动），所以下半程平均速度 > 全程平均速度 > 上半程平均速度
+                    <strong>实验结论：</strong>电阻是导体本身的性质，与电压、电流无关
                 </p>
             </div>
         </section>
@@ -970,15 +965,15 @@
         <section class="learning-section">
             <div class="section-header">
                 <div class="section-icon">🎮</div>
-                <h2 class="section-title">王者峡谷里的速度</h2>
+                <h2 class="section-title">王者峡谷里的电学</h2>
             </div>
             <div class="game-tip">
-                <div class="game-tip-title">⚡ 用王者荣耀理解速度</div>
+                <div class="game-tip-title">⚡ 用王者荣耀理解电流通路</div>
                 <ul style="line-height: 1.8;">
-                    <li><strong>移速 380：</strong>大部分英雄的初始移动速度约为 380（单位：像素/秒），相当于 4.2 m/s</li>
-                    <li><strong>疾跑技能：</strong>开启后速度增加30%，持续10秒。这就是速度变化的应用！</li>
-                    <li><strong>从泉水到线上：</strong>路程约5000像素，以380速度走，需要多久？ t = s/v ≈ 13秒（和游戏中差不多！）</li>
-                    <li><strong>加速带/减速带：</strong>地图上的草丛、河道，就像不同的"介质"，影响你的移动速度</li>
+                    <li><strong>技能释放 = 电流通路：</strong>英雄释放技能需要蓝条（能量），就像灯泡发光需要电流通过</li>
+                    <li><strong>蓝量 = 电压：</strong>蓝量越充足（电压越高），技能威力越大（电流越强）</li>
+                    <li><strong>技能冷却 = 电阻：</strong>冷却时间长的技能（电阻大），单位时间内的释放次数少（电流小）</li>
+                    <li><strong>团队配合 = 串并联：</strong>串联如配合连招，电流（伤害）处处相等；并联如分路推进，各路线独立进行</li>
                 </ul>
             </div>
         </section>
@@ -992,13 +987,13 @@
             <div class="example-box">
                 <div class="example-header">
                     <span>📝</span>
-                    <span>例题1：基础速度计算</span>
+                    <span>例题1：基础欧姆定律计算</span>
                 </div>
                 <div class="example-question">
                     <p><strong>题目：</strong></p>
-                    <p>小明骑自行车上学，家到学校的距离是 2400 m，他用了 8 分钟到达学校。</p>
-                    <p>(1) 小明骑车的平均速度是多少 m/s？</p>
-                    <p>(2) 合多少 km/h？</p>
+                    <p>一个电阻两端电压为 6V 时，通过的电流为 0.3A。</p>
+                    <p>(1) 求这个电阻的阻值是多少？</p>
+                    <p>(2) 当电压变为 12V 时，电流变为多少？</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer1')">
                     <span>👁️</span>
@@ -1006,13 +1001,15 @@
                 </button>
                 <div class="example-answer hidden" id="answer1">
                     <p><strong>解析：</strong></p>
-                    <p><strong>已知：</strong>s = 2400 m，t = 8 min = 8 × 60 s = 480 s</p>
-                    <p style="margin-top: 10px;"><strong>(1) 求速度：</strong></p>
-                    <p>v = s/t = 2400/480 = <strong>5 m/s</strong></p>
-                    <p style="margin-top: 10px;"><strong>(2) 单位换算：</strong></p>
-                    <p>5 m/s = 5 × 3.6 km/h = <strong>18 km/h</strong></p>
+                    <p><strong>已知：</strong>U₁ = 6V，I₁ = 0.3A</p>
+                    <p style="margin-top: 10px;"><strong>(1) 求电阻：</strong></p>
+                    <p>根据欧姆定律 R = U/I</p>
+                    <p>R = 6V / 0.3A = <strong>20Ω</strong></p>
+                    <p style="margin-top: 10px;"><strong>(2) 电压变化后：</strong></p>
+                    <p>电阻是导体本身的性质，不随电压电流改变，R = 20Ω</p>
+                    <p>I₂ = U₂/R = 12V / 20Ω = <strong>0.6A</strong></p>
                     <p style="color: var(--accent-gold); margin-top: 15px;">
-                        ✅ 答案：(1) 5 m/s；(2) 18 km/h
+                        ✅ 答案：(1) 20Ω；(2) 0.6A
                     </p>
                 </div>
             </div>
@@ -1020,13 +1017,13 @@
             <div class="example-box">
                 <div class="example-header">
                     <span>📝</span>
-                    <span>例题2：单位换算易错题</span>
+                    <span>例题2：串并联电路计算</span>
                 </div>
                 <div class="example-question">
                     <p><strong>题目：</strong></p>
-                    <p>一辆汽车以 72 km/h 的速度在高速公路上行驶。</p>
-                    <p>(1) 换算成 m/s 是多少？</p>
-                    <p>(2) 行驶 2 分钟能走多远？</p>
+                    <p>两个电阻 R₁ = 10Ω，R₂ = 20Ω。</p>
+                    <p>(1) 将它们串联接入电路，总电阻是多少？</p>
+                    <p>(2) 将它们并联接入电路，总电阻是多少？</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer2')">
                     <span>👁️</span>
@@ -1034,13 +1031,13 @@
                 </button>
                 <div class="example-answer hidden" id="answer2">
                     <p><strong>解析：</strong></p>
-                    <p style="margin-top: 10px;"><strong>(1) 单位换算：</strong></p>
-                    <p>72 km/h = 72 ÷ 3.6 m/s = <strong>20 m/s</strong></p>
-                    <p style="margin-top: 10px;"><strong>(2) 求路程：</strong></p>
-                    <p>注意单位统一！t = 2 min = 120 s</p>
-                    <p>s = v × t = 20 × 120 = <strong>2400 m = 2.4 km</strong></p>
+                    <p style="margin-top: 10px;"><strong>(1) 串联总电阻：</strong></p>
+                    <p>R = R₁ + R₂ = 10Ω + 20Ω = <strong>30Ω</strong></p>
+                    <p style="margin-top: 10px;"><strong>(2) 并联总电阻：</strong></p>
+                    <p>1/R = 1/R₁ + 1/R₂ = 1/10 + 1/20 = 3/20</p>
+                    <p>R = 20/3 ≈ <strong>6.67Ω</strong></p>
                     <p style="color: var(--accent-gold); margin-top: 15px;">
-                        💡 易错提醒：时间单位一定要换算成秒！
+                        💡 记忆技巧：串联电阻越串越大，并联电阻越并越小！
                     </p>
                 </div>
             </div>
@@ -1048,12 +1045,12 @@
             <div class="example-box">
                 <div class="example-header">
                     <span>📝</span>
-                    <span>例题3：平均速度应用题</span>
+                    <span>例题3：动态电路分析</span>
                 </div>
                 <div class="example-question">
                     <p><strong>题目：</strong></p>
-                    <p>一辆汽车从甲地开往乙地，前一半路程的速度为 40 km/h，后一半路程的速度为 60 km/h。</p>
-                    <p>求汽车全程的平均速度。</p>
+                    <p>如图所示电路，电源电压保持不变。当滑动变阻器的滑片向右移动时，电流表和电压表的示数如何变化？</p>
+                    <p style="margin-top: 10px;">（假设电路为定值电阻与滑动变阻器串联）</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer3')">
                     <span>👁️</span>
@@ -1061,14 +1058,13 @@
                 </button>
                 <div class="example-answer hidden" id="answer3">
                     <p><strong>解析：</strong></p>
-                    <p>设全程路程为 2s，则前半程和后半程都是 s。</p>
-                    <p style="margin-top: 10px;"><strong>前半程时间：</strong>t₁ = s/40</p>
-                    <p><strong>后半程时间：</strong>t₂ = s/60</p>
-                    <p><strong>总时间：</strong>t = t₁ + t₂ = s/40 + s/60 = s(3+2)/120 = 5s/120 = s/24</p>
-                    <p style="margin-top: 10px;"><strong>平均速度：</strong></p>
-                    <p>v̄ = 总路程/总时间 = 2s ÷ (s/24) = <strong>48 km/h</strong></p>
+                    <p style="margin-top: 10px;"><strong>分析步骤：</strong></p>
+                    <p>① 滑片右移 → 滑动变阻器接入电阻变大</p>
+                    <p>② 总电阻 R总 = R定 + R滑 变大</p>
+                    <p>③ 电源电压 U 不变，根据 I = U/R，电流变小</p>
+                    <p>④ 定值电阻两端电压 U定 = I×R定 变小</p>
                     <p style="color: var(--accent-gold); margin-top: 15px;">
-                        ⚠️ 注意：平均速度 ≠ (40+60)/2 = 50！要用总路程÷总时间！
+                        ✅ 答案：电流表示数变小，电压表示数变小
                     </p>
                 </div>
             </div>
@@ -1084,24 +1080,24 @@
                 <div class="quiz-item">
                     <div class="quiz-number">1</div>
                     <div class="quiz-question">
-                        关于速度的概念，下列说法正确的是（　）
+                        关于欧姆定律，下列说法正确的是（　）
                     </div>
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')">
                             <div class="option-letter">A</div>
-                            <div>速度是表示物体运动路程长短的物理量</div>
+                            <div>导体的电阻与电压成正比，与电流成反比</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')">
                             <div class="option-letter">B</div>
-                            <div>速度是表示物体运动快慢的物理量</div>
+                            <div>导体中的电流与导体两端电压成正比，与电阻成反比</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')">
                             <div class="option-letter">C</div>
-                            <div>速度等于路程与时间的比值，速度越大，路程一定越长</div>
+                            <div>导体两端电压越大，电阻越大</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')">
                             <div class="option-letter">D</div>
-                            <div>速度大的物体通过的路程一定长</div>
+                            <div>通过导体的电流越大，电阻越小</div>
                         </div>
                     </div>
                     <div class="quiz-feedback" id="feedback1"></div>
@@ -1110,24 +1106,24 @@
                 <div class="quiz-item">
                     <div class="quiz-number">2</div>
                     <div class="quiz-question">
-                        36 km/h 换算成 m/s 等于（　）
+                        一个电阻两端加 4V 电压时，电流为 0.5A。若电压变为 8V，则电流为（　）
                     </div>
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')">
                             <div class="option-letter">A</div>
-                            <div>129.6 m/s</div>
+                            <div>0.25A</div>
                         </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback2')">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback2')">
                             <div class="option-letter">B</div>
-                            <div>10 m/s</div>
+                            <div>1A</div>
                         </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback2')">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback2')">
                             <div class="option-letter">C</div>
-                            <div>10 m/s</div>
+                            <div>2A</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')">
                             <div class="option-letter">D</div>
-                            <div>3.6 m/s</div>
+                            <div>4A</div>
                         </div>
                     </div>
                     <div class="quiz-feedback" id="feedback2"></div>
@@ -1136,24 +1132,24 @@
                 <div class="quiz-item">
                     <div class="quiz-number">3</div>
                     <div class="quiz-question">
-                        某物体做匀速直线运动，由公式 v = s/t 可知（　）
+                        两个电阻 R₁ = 6Ω，R₂ = 12Ω，串联后的总电阻为（　）
                     </div>
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')">
                             <div class="option-letter">A</div>
-                            <div>v 与 s 成正比</div>
+                            <div>4Ω</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback3')">
                             <div class="option-letter">B</div>
-                            <div>v 与 t 成反比</div>
+                            <div>6Ω</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback3')">
                             <div class="option-letter">C</div>
-                            <div>v 与 s、t 无关，是个定值</div>
+                            <div>18Ω</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')">
                             <div class="option-letter">D</div>
-                            <div>s 与 t 不成正比</div>
+                            <div>72Ω</div>
                         </div>
                     </div>
                     <div class="quiz-feedback" id="feedback3"></div>
@@ -1162,24 +1158,24 @@
                 <div class="quiz-item">
                     <div class="quiz-number">4</div>
                     <div class="quiz-question">
-                        小明骑车从家到学校，前一半路程的速度是 4 m/s，后一半路程的速度是 6 m/s。他全程的平均速度是（　）
+                        在并联电路中，下列说法正确的是（　）
                     </div>
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback4')">
                             <div class="option-letter">A</div>
-                            <div>5 m/s</div>
+                            <div>各支路电流相等</div>
                         </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback4')">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback4')">
                             <div class="option-letter">B</div>
-                            <div>4.8 m/s</div>
+                            <div>总电压等于各支路电压之和</div>
                         </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback4')">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback4')">
                             <div class="option-letter">C</div>
-                            <div>5.5 m/s</div>
+                            <div>各支路电压相等</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback4')">
                             <div class="option-letter">D</div>
-                            <div>10 m/s</div>
+                            <div>总电阻等于各电阻之和</div>
                         </div>
                     </div>
                     <div class="quiz-feedback" id="feedback4"></div>
@@ -1188,24 +1184,24 @@
                 <div class="quiz-item">
                     <div class="quiz-number">5</div>
                     <div class="quiz-question">
-                        某同学测量小车的平均速度，让小车从斜面顶端滑下，测得全程平均速度为 0.8 m/s，上半程平均速度为 0.5 m/s。则下半程的平均速度约为（　）
+                        伏安法测电阻实验中，滑动变阻器的主要作用是（　）
                     </div>
                     <div class="quiz-options">
                         <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback5')">
                             <div class="option-letter">A</div>
-                            <div>0.5 m/s</div>
+                            <div>减小电源电压</div>
                         </div>
                         <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback5')">
                             <div class="option-letter">B</div>
-                            <div>0.8 m/s</div>
+                            <div>增大电路中的电流</div>
                         </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback5')">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback5')">
                             <div class="option-letter">C</div>
-                            <div>1.1 m/s</div>
+                            <div>保护电路，改变待测电阻两端电压</div>
                         </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', true, 'feedback5')">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback5')">
                             <div class="option-letter">D</div>
-                            <div>1.6 m/s</div>
+                            <div>改变待测电阻的阻值</div>
                         </div>
                     </div>
                     <div class="quiz-feedback" id="feedback5"></div>
@@ -1224,737 +1220,3 @@
             </a>
         </div>
     </main>
-
-    <script>
-        // ========== 进度条拖动控制 ==========
-        const progressBar = document.querySelector('.progress-bar-video');
-        const progressFill = document.getElementById('videoProgress');
-        let isDragging = false;
-        let pausedTime = 0;
-
-        // 点击进度条跳转
-        progressBar.addEventListener('click', (e) => {
-            const rect = progressBar.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const percentage = clickX / rect.width;
-            seekTo(percentage);
-        });
-
-        // 拖动开始
-        progressBar.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            updateProgressFromMouse(e);
-        });
-
-        // 拖动中
-        document.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                updateProgressFromMouse(e);
-            }
-        });
-
-        // 拖动结束
-        document.addEventListener('mouseup', () => {
-            if (isDragging) {
-                isDragging = false;
-            }
-        });
-
-        // 触摸支持
-        progressBar.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            updateProgressFromTouch(e);
-        }, { passive: false });
-
-        document.addEventListener('touchmove', (e) => {
-            if (isDragging) {
-                e.preventDefault();
-                updateProgressFromTouch(e);
-            }
-        }, { passive: false });
-
-        document.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        function updateProgressFromMouse(e) {
-            const rect = progressBar.getBoundingClientRect();
-            let x = e.clientX - rect.left;
-            x = Math.max(0, Math.min(x, rect.width));
-            const percentage = x / rect.width;
-            seekTo(percentage);
-        }
-
-        function updateProgressFromTouch(e) {
-            const rect = progressBar.getBoundingClientRect();
-            let x = e.touches[0].clientX - rect.left;
-            x = Math.max(0, Math.min(x, rect.width));
-            const percentage = x / rect.width;
-            seekTo(percentage);
-        }
-
-        function seekTo(percentage) {
-            const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
-            const targetTime = percentage * totalDuration;
-            
-            // 如果正在播放，重新计算开始时间
-            if (isPlaying) {
-                startTime = performance.now() - targetTime * 1000;
-            } else {
-                // 如果暂停，记录目标位置
-                pausedTime = targetTime;
-            }
-            
-            // 更新进度条显示
-            progressFill.style.width = (percentage * 100) + '%';
-            
-            // 更新场景
-            let sceneTime = 0;
-            for (let i = 0; i < scenes.length; i++) {
-                if (targetTime < sceneTime + scenes[i].duration) {
-                    currentScene = i;
-                    // 重置语音标记
-                    scenes.forEach(s => s.spoken = false);
-                    break;
-                }
-                sceneTime += scenes[i].duration;
-            }
-        }
-
-        // ========== 音频系统 ==========
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        let bgmOscillators = [];
-        let isMuted = false;
-
-        // 播放音效
-        function playSound(type, frequency = 440, duration = 0.1) {
-            if (isMuted) return;
-            
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            
-            const now = audioCtx.currentTime;
-            
-            switch(type) {
-                case 'click':
-                    osc.frequency.setValueAtTime(800, now);
-                    osc.frequency.exponentialRampToValueAtTime(400, now + 0.1);
-                    gainNode.gain.setValueAtTime(0.3, now);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-                    osc.start(now);
-                    osc.stop(now + 0.1);
-                    break;
-                    
-                case 'success':
-                    // 胜利音效（上升音阶）
-                    [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
-                        const osc2 = audioCtx.createOscillator();
-                        const gain2 = audioCtx.createGain();
-                        osc2.connect(gain2);
-                        gain2.connect(audioCtx.destination);
-                        osc2.frequency.setValueAtTime(freq, now + i * 0.1);
-                        gain2.gain.setValueAtTime(0.2, now + i * 0.1);
-                        gain2.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.2);
-                        osc2.start(now + i * 0.1);
-                        osc2.stop(now + i * 0.1 + 0.2);
-                    });
-                    break;
-                    
-                case 'sprint':
-                    // 疾跑音效（呼啸声）
-                    osc.frequency.setValueAtTime(600, now);
-                    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.3);
-                    gainNode.gain.setValueAtTime(0.3, now);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-                    osc.start(now);
-                    osc.stop(now + 0.3);
-                    break;
-                    
-                case 'step':
-                    // 脚步声
-                    osc.frequency.setValueAtTime(150, now);
-                    gainNode.gain.setValueAtTime(0.1, now);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
-                    osc.start(now);
-                    osc.stop(now + 0.05);
-                    break;
-            }
-        }
-
-        // 背景音乐
-        function startBGM() {
-            if (isMuted || bgmOscillators.length > 0) return;
-            
-            const notes = [261.63, 329.63, 392.00, 523.25]; // C大调
-            let noteIndex = 0;
-            
-            function playNote() {
-                if (isMuted || !isPlaying) return;
-                
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                
-                osc.frequency.setValueAtTime(notes[noteIndex], audioCtx.currentTime);
-                osc.type = 'sine';
-                gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-                
-                osc.start(audioCtx.currentTime);
-                osc.stop(audioCtx.currentTime + 0.4);
-                
-                bgmOscillators.push(osc);
-                
-                noteIndex = (noteIndex + 1) % notes.length;
-                
-                if (isPlaying) {
-                    setTimeout(playNote, 500);
-                }
-            }
-            
-            playNote();
-        }
-
-        function stopBGM() {
-            bgmOscillators = [];
-        }
-
-        // 切换静音
-        function toggleMute() {
-            isMuted = !isMuted;
-            document.getElementById('muteIcon').textContent = isMuted ? '🔇' : '🔊';
-            if (isMuted) {
-                stopBGM();
-            } else if (isPlaying) {
-                startBGM();
-            }
-        }
-
-        // ========== 语音讲解系统 ==========
-        let speechSynthesis = window.speechSynthesis;
-        let currentUtterance = null;
-
-        function speakScript(text) {
-            if (!speechSynthesis || isMuted) return;
-            
-            // 停止之前的语音
-            if (currentUtterance) {
-                speechSynthesis.cancel();
-            }
-            
-            currentUtterance = new SpeechSynthesisUtterance(text);
-            currentUtterance.lang = 'zh-CN';
-            currentUtterance.rate = 1.1;
-            currentUtterance.pitch = 1.0;
-            
-            speechSynthesis.speak(currentUtterance);
-        }
-
-        function stopSpeech() {
-            if (speechSynthesis) {
-                speechSynthesis.cancel();
-            }
-        }
-
-        // ========== Canvas动画：王者峡谷速度演示 ==========
-        const canvas = document.getElementById('electricityAnimation');
-        const ctx = canvas.getContext('2d');
-        let isPlaying = false;
-        let animationId = null;
-        let startTime = 0;
-        let currentScene = 0;
-
-        // 鲁班七号角色
-        const luban = {
-            x: 50,
-            y: 250,
-            width: 60,
-            height: 60,
-            speed: 2, // 像素/帧
-            baseSpeed: 380, // 游戏内移速
-            frame: 0
-        };
-
-        // 场景定义
-        const scenes = [
-            { duration: 8, name: "intro", text: "欢迎来到王者峡谷！学习速度 v=s/t" },
-            { duration: 10, name: "normal", text: "鲁班移速380，10秒能走多远？" },
-            { duration: 12, name: "calculate", text: "s = v × t = 380 × 10 = 3800像素！" },
-            { duration: 10, name: "sprint", text: "开疾跑！速度提升30% → 494！" },
-            { duration: 8, name: "formula", text: "记住公式：v = s/t ✨" }
-        ];
-
-        // 绘制背景（王者峡谷风格）
-        function drawBackground() {
-            // 天空渐变
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, '#1a1f3a');
-            gradient.addColorStop(1, '#0d1020');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // 地面（峡谷路面）
-            ctx.fillStyle = '#2d2d3a';
-            ctx.fillRect(0, 300, canvas.width, 100);
-
-            // 路面纹理
-            ctx.strokeStyle = '#3d3d4a';
-            ctx.lineWidth = 2;
-            for (let i = 0; i < canvas.width; i += 100) {
-                ctx.beginPath();
-                ctx.moveTo(i, 300);
-                ctx.lineTo(i - 50, 400);
-                ctx.stroke();
-            }
-
-            // 草丛装饰
-            drawGrass(150, 280);
-            drawGrass(400, 280);
-            drawGrass(650, 280);
-
-            // 防御塔（终点）
-            drawTower(720, 200);
-        }
-
-        // 绘制草丛
-        function drawGrass(x, y) {
-            ctx.fillStyle = '#2d5a3d';
-            ctx.beginPath();
-            ctx.ellipse(x, y, 30, 15, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.fillStyle = '#3d7a4d';
-            ctx.beginPath();
-            ctx.ellipse(x - 5, y - 5, 20, 10, 0, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        // 绘制防御塔
-        function drawTower(x, y) {
-            // 塔基
-            ctx.fillStyle = '#4a4a5a';
-            ctx.fillRect(x - 30, y + 80, 60, 20);
-            // 塔身
-            ctx.fillStyle = '#6a6a7a';
-            ctx.fillRect(x - 20, y + 20, 40, 60);
-            // 塔顶
-            ctx.fillStyle = '#8a8a9a';
-            ctx.beginPath();
-            ctx.moveTo(x - 25, y + 20);
-            ctx.lineTo(x, y - 10);
-            ctx.lineTo(x + 25, y + 20);
-            ctx.fill();
-            // 发光效果
-            ctx.fillStyle = '#00d4ff';
-            ctx.beginPath();
-            ctx.arc(x, y + 10, 8, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        // 绘制鲁班七号（简化版）
-        function drawLuban(x, y, scale = 1) {
-            const s = scale;
-            
-            // 身体
-            ctx.fillStyle = '#d4a853'; // 金色
-            ctx.fillRect(x - 20*s, y, 40*s, 35*s);
-            
-            // 头部
-            ctx.fillStyle = '#f4c873';
-            ctx.beginPath();
-            ctx.arc(x, y - 10*s, 18*s, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // 帽子
-            ctx.fillStyle = '#8b4513';
-            ctx.fillRect(x - 22*s, y - 25*s, 44*s, 15*s);
-            
-            // 眼睛
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.arc(x - 6*s, y - 10*s, 3*s, 0, Math.PI * 2);
-            ctx.arc(x + 6*s, y - 10*s, 3*s, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // 机关枪
-            ctx.fillStyle = '#666';
-            ctx.fillRect(x + 15*s, y + 5*s, 25*s, 8*s);
-            ctx.fillRect(x + 35*s, y + 2*s, 8*s, 14*s);
-            
-            // 腿部（动画效果）
-            ctx.fillStyle = '#4a3728';
-            const legOffset = Math.sin(luban.frame * 0.3) * 5;
-            ctx.fillRect(x - 15*s, y + 35*s, 10*s, 20*s + legOffset);
-            ctx.fillRect(x + 5*s, y + 35*s, 10*s, 20*s - legOffset);
-        }
-
-        // 绘制公式
-        function drawFormula() {
-            ctx.fillStyle = 'rgba(0,0,0,0.7)';
-            ctx.fillRect(250, 50, 300, 80);
-            ctx.strokeStyle = '#00d4ff';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(250, 50, 300, 80);
-            
-            ctx.fillStyle = '#00d4ff';
-            ctx.font = 'bold 36px "Times New Roman", serif';
-            ctx.textAlign = 'center';
-            ctx.fillText('v = s / t', 400, 100);
-            
-            ctx.font = '14px "Noto Sans SC", sans-serif';
-            ctx.fillStyle = '#fff';
-            ctx.fillText('速度 = 路程 ÷ 时间', 400, 120);
-        }
-
-        // 绘制速度指示器
-        function drawSpeedIndicator(speed) {
-            ctx.fillStyle = 'rgba(0,0,0,0.6)';
-            ctx.fillRect(20, 20, 180, 60);
-            ctx.strokeStyle = '#ffd700';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(20, 20, 180, 60);
-            
-            ctx.fillStyle = '#ffd700';
-            ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
-            ctx.textAlign = 'left';
-            ctx.fillText('⚡ 移速', 30, 45);
-            
-            ctx.font = 'bold 24px "Noto Sans SC", sans-serif';
-            ctx.fillText(speed + ' px/s', 30, 70);
-        }
-
-        // 绘制距离标记
-        function drawDistanceMarker(x, distance) {
-            ctx.strokeStyle = '#fff';
-            ctx.lineWidth = 1;
-            ctx.setLineDash([5, 5]);
-            ctx.beginPath();
-            ctx.moveTo(x, 300);
-            ctx.lineTo(x, 350);
-            ctx.stroke();
-            ctx.setLineDash([]);
-            
-            ctx.fillStyle = '#fff';
-            ctx.font = '12px "Noto Sans SC", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(distance + 'px', x, 365);
-        }
-
-        // 绘制疾跑特效
-        function drawSprintEffect(x, y) {
-            ctx.strokeStyle = '#ff6b35';
-            ctx.lineWidth = 3;
-            for (let i = 0; i < 3; i++) {
-                ctx.beginPath();
-                ctx.arc(x - 20 - i*10, y + 20, 10 + i*5, -Math.PI/3, Math.PI/3);
-                ctx.stroke();
-            }
-        }
-
-        // 绘制文字气泡
-        function drawTextBubble(text, x, y) {
-            const padding = 15;
-            ctx.font = '14px "Noto Sans SC", sans-serif';
-            const textWidth = ctx.measureText(text).width;
-            
-            // 气泡背景
-            ctx.fillStyle = 'rgba(0,0,0,0.8)';
-            ctx.fillRect(x - textWidth/2 - padding, y - 40, textWidth + padding*2, 35);
-            
-            // 边框
-            ctx.strokeStyle = '#00d4ff';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(x - textWidth/2 - padding, y - 40, textWidth + padding*2, 35);
-            
-            // 文字
-            ctx.fillStyle = '#fff';
-            ctx.textAlign = 'center';
-            ctx.fillText(text, x, y - 18);
-            
-            // 小箭头
-            ctx.fillStyle = 'rgba(0,0,0,0.8)';
-            ctx.beginPath();
-            ctx.moveTo(x - 8, y - 5);
-            ctx.lineTo(x + 8, y - 5);
-            ctx.lineTo(x, y + 5);
-            ctx.fill();
-            ctx.stroke();
-        }
-
-        // 场景脚本文字
-        const sceneScripts = [
-            "欢迎来到王者峡谷！今天我们要学习的是——速度！",
-            "看，鲁班七号从泉水出发了！他的移速是380...",
-            "速度 = 路程 ÷ 时间！鲁班走了10秒，走了多远呢？",
-            "s = v × t = 380 × 10 = 3800像素！正好到达一塔！",
-            "开疾跑技能！速度提升30%，变成 380 × 1.3 = 494！",
-            "记住公式：v = s/t，在王者峡谷和物理世界都一样！"
-        ];
-
-        // 在 Canvas 上绘制字幕
-        function drawSubtitle(text) {
-            // 字幕背景
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-            ctx.fillRect(50, 340, 700, 45);
-            
-            // 字幕文字
-            ctx.fillStyle = '#fff';
-            ctx.font = 'bold 16px "Noto Sans SC", sans-serif';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            
-            // 文字换行处理
-            const maxWidth = 680;
-            const words = text.split('');
-            let line = '';
-            const lines = [];
-            
-            for (let i = 0; i < words.length; i++) {
-                const testLine = line + words[i];
-                const metrics = ctx.measureText(testLine);
-                if (metrics.width > maxWidth && i > 0) {
-                    lines.push(line);
-                    line = words[i];
-                } else {
-                    line = testLine;
-                }
-            }
-            lines.push(line);
-            
-            // 绘制文字（居中）
-            const lineHeight = 22;
-            const startY = 350 + (45 - lines.length * lineHeight) / 2 + lineHeight / 2;
-            
-            lines.forEach((line, index) => {
-                ctx.fillText(line, 400, startY + index * lineHeight);
-            });
-        }
-
-        // 主动画循环
-        function animate(timestamp) {
-            if (!isPlaying) return;
-            
-            if (!startTime) startTime = timestamp;
-            const elapsed = (timestamp - startTime) / 1000; // 秒
-            
-            // 清空画布
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // 绘制背景
-            drawBackground();
-            
-            // 计算当前场景
-            let sceneTime = 0;
-            for (let i = 0; i < scenes.length; i++) {
-                if (elapsed < sceneTime + scenes[i].duration) {
-                    currentScene = i;
-                    break;
-                }
-                sceneTime += scenes[i].duration;
-            }
-            
-            const scene = scenes[currentScene];
-            const sceneElapsed = elapsed - sceneTime;
-            const progress = Math.min(sceneElapsed / scene.duration, 1);
-            
-            // 更新进度条
-            const totalDuration = scenes.reduce((sum, s) => sum + s.duration, 0);
-            const totalProgress = Math.min(elapsed / totalDuration, 1);
-            document.getElementById('videoProgress').style.width = (totalProgress * 100) + '%';
-            
-            // 场景逻辑
-            switch(scene.name) {
-                case 'intro':
-                    drawFormula();
-                    drawLuban(100, 250);
-                    drawTextBubble('大家好！我是鲁班七号！', 100, 220);
-                    break;
-                    
-                case 'normal':
-                    // 鲁班移动
-                    luban.x = 50 + (sceneElapsed * luban.speed * 5);
-                    luban.frame++;
-                    drawSpeedIndicator(luban.baseSpeed);
-                    drawLuban(luban.x, luban.y);
-                    drawDistanceMarker(luban.x, Math.floor((luban.x - 50) * 10));
-                    break;
-                    
-                case 'calculate':
-                    // 播放成功音效（只播放一次）
-                    if (sceneElapsed > 0.5 && sceneElapsed < 0.6) {
-                        playSound('success');
-                    }
-                    
-                    // 显示计算
-                    drawFormula();
-                    ctx.fillStyle = '#ffd700';
-                    ctx.font = 'bold 24px "Noto Sans SC", sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('s = 380 × 10 = 3800像素！', 400, 200);
-                    
-                    // 鲁班到达终点
-                    luban.x = 720;
-                    drawLuban(luban.x, luban.y);
-                    
-                    // 庆祝特效
-                    if (Math.floor(sceneElapsed * 10) % 5 === 0) {
-                        ctx.fillStyle = '#ffd700';
-                        ctx.beginPath();
-                        ctx.arc(720 + Math.random() * 40 - 20, 180 + Math.random() * 40 - 20, 3, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                    break;
-                    
-                case 'sprint':
-                    // 播放疾跑音效
-                    if (sceneElapsed > 0.1 && sceneElapsed < 0.2) {
-                        playSound('sprint');
-                    }
-                    
-                    // 疾跑加速
-                    const sprintSpeed = 494; // 380 * 1.3
-                    luban.speed = 3; // 加速
-                    luban.x = 50 + (sceneElapsed * luban.speed * 8);
-                    luban.frame++;
-                    
-                    drawSpeedIndicator(sprintSpeed);
-                    drawSprintEffect(luban.x, luban.y);
-                    drawLuban(luban.x, luban.y);
-                    
-                    // 红色加速特效
-                    ctx.fillStyle = 'rgba(255, 107, 53, 0.3)';
-                    ctx.fillRect(luban.x - 50, 280, 100, 100);
-                    break;
-                    
-                case 'formula':
-                    drawFormula();
-                    drawLuban(400, 250, 1.2);
-                    
-                    // 闪烁公式
-                    if (Math.floor(sceneElapsed * 5) % 2 === 0) {
-                        ctx.fillStyle = '#ffd700';
-                        ctx.font = 'bold 36px "Times New Roman", serif';
-                        ctx.textAlign = 'center';
-                        ctx.fillText('v = s / t', 400, 100);
-                    }
-                    break;
-            }
-            
-            // 绘制字幕
-            drawSubtitle(sceneScripts[currentScene]);
-            
-            // 语音讲解
-            if (Math.floor(sceneElapsed) === 1 && !scene.spoken) {
-                speakScript(sceneScripts[currentScene]);
-                scene.spoken = true;
-            }
-            
-            // 检查动画结束
-            if (totalProgress < 1) {
-                animationId = requestAnimationFrame(animate);
-            } else {
-                stopAnimation();
-            }
-        }
-
-        // 切换动画播放
-        function toggleAnimation() {
-            if (isPlaying) {
-                stopAnimation();
-            } else {
-                startAnimation();
-            }
-        }
-
-        // 开始动画
-        function startAnimation() {
-            // 恢复音频上下文（浏览器自动播放策略）
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            
-            isPlaying = true;
-            startTime = 0;
-            luban.x = 50;
-            document.getElementById('playIcon').textContent = '⏸️';
-            document.getElementById('playText').textContent = '暂停';
-            
-            playSound('click');
-            startBGM();
-            
-            animationId = requestAnimationFrame(animate);
-        }
-
-        // 停止动画
-        function stopAnimation() {
-            isPlaying = false;
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-            }
-            document.getElementById('playIcon').textContent = '▶️';
-            document.getElementById('playText').textContent = '播放动画';
-            stopBGM();
-            stopSpeech();
-        }
-
-        // 初始化画布
-        function initCanvas() {
-            drawBackground();
-            drawFormula();
-            drawLuban(100, 250);
-            drawTextBubble('点击播放开始学习！', 400, 200);
-        }
-
-        // 页面加载完成后初始化
-        window.addEventListener('load', initCanvas);
-
-        // ========== 原有函数 ==========
-        function toggleAnswer(id) {
-            const answer = document.getElementById(id);
-            answer.classList.toggle('hidden');
-            const btn = event.currentTarget;
-            const btnText = btn.querySelector('span:last-child');
-            if (answer.classList.contains('hidden')) {
-                btnText.textContent = '查看解析';
-            } else {
-                btnText.textContent = '收起解析';
-            }
-        }
-
-        function checkAnswer(element, selected, isCorrect, feedbackId) {
-            const quizItem = element.closest('.quiz-item');
-            const options = quizItem.querySelectorAll('.quiz-option');
-            const feedback = document.getElementById(feedbackId);
-
-            if (quizItem.dataset.answered) return;
-            quizItem.dataset.answered = 'true';
-
-            options.forEach(opt => {
-                opt.style.pointerEvents = 'none';
-            });
-
-            element.classList.add('selected');
-
-            if (isCorrect) {
-                element.classList.add('correct');
-                feedback.className = 'quiz-feedback show correct';
-                feedback.innerHTML = '🎉 回答正确！太棒了！';
-            } else {
-                element.classList.add('wrong');
-                feedback.className = 'quiz-feedback show wrong';
-                feedback.innerHTML = '❌ 回答错误。没关系，再复习一下知识点！';
-
-                options.forEach(opt => {
-                    if (opt.onclick.toString().includes('true')) {
-                        opt.classList.add('correct');
-                    }
-                });
-            }
-        }
-    </script>
-</body>
-</html>

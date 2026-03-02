@@ -785,8 +785,8 @@
                         <span class="hero-tag">基础系</span>
                     </h1>
                     <p class="hero-desc-large">
-                        杠杆平衡，滑轮组，s=vt 的基础运用，测量平均速度实验。
-                        这是初中物理的第一课，掌握它才能跑得更远！
+                        杠杆平衡条件 F₁L₁=F₂L₂，滑轮组，机械效率，功和功率。
+                        掌握简单机械，让你事半功倍！
                     </p>
                     <div class="hero-progress-large">
                         <div class="progress-bar-large">
@@ -802,7 +802,7 @@
         <section class="learning-section">
             <div class="section-header">
                 <div class="section-icon">🎬</div>
-                <h2 class="section-title">动画讲解：王者峡谷的速度奥秘</h2>
+                <h2 class="section-title">动画讲解：王者峡谷的机械奥秘</h2>
             </div>
             
             <div class="video-container">
@@ -832,24 +832,25 @@
             <div class="knowledge-grid">
                 <div class="knowledge-card important">
                     <div class="knowledge-title">
-                        <span class="icon">⚡</span>
-                        速度公式（核心中的核心）
+                        <span class="icon">⚖️</span>
+                        杠杆平衡条件（核心中的核心）
                     </div>
                     <div class="knowledge-content">
                         <div class="formula-box">
-                            v = s / t
+                            F₁L₁ = F₂L₂
                         </div>
                         <div class="formula-detail">
-                            <p><strong>s</strong> = 路程（单位：米 m）</p>
-                            <p><strong>t</strong> = 时间（单位：秒 s）</p>
-                            <p><strong>v</strong> = 速度（单位：米/秒 m/s）</p>
+                            <p><strong>F₁</strong> = 动力（单位：牛顿 N）</p>
+                            <p><strong>L₁</strong> = 动力臂（单位：米 m）</p>
+                            <p><strong>F₂</strong> = 阻力（单位：牛顿 N）</p>
+                            <p><strong>L₂</strong> = 阻力臂（单位：米 m）</p>
                         </div>
                         <p style="margin-top: 15px; color: var(--accent-gold);">
-                            💡 <strong>变形公式：</strong>
+                            💡 <strong>核心原理：</strong>
                         </p>
                         <div class="formula-detail">
-                            <p>求路程：<strong>s = v × t</strong></p>
-                            <p>求时间：<strong>t = s / v</strong></p>
+                            <p>动力 × 动力臂 = 阻力 × 阻力臂</p>
+                            <p>杠杆平衡时，<strong>F₁/F₂ = L₂/L₁</strong></p>
                         </div>
                     </div>
                 </div>
@@ -857,78 +858,65 @@
                 <div class="knowledge-card">
                     <div class="knowledge-title">
                         <span class="icon">📏</span>
-                        单位换算（必考！）
+                        功和功率单位（必考！）
                     </div>
                     <div class="knowledge-content">
-                        <p>速度单位：m/s 和 km/h 的换算</p>
-                        <table class="unit-table">
-                            <tr>
-                                <th>换算关系</th>
-                                <th>数值</th>
-                            </tr>
-                            <tr>
-                                <td>1 m/s = ? km/h</td>
-                                <td><strong>3.6 km/h</strong></td>
-                            </tr>
-                            <tr>
-                                <td>1 km/h = ? m/s</td>
-                                <td><strong>1/3.6 m/s ≈ 0.28 m/s</strong></td>
-                            </tr>
-                        </table>
+                        <p><strong>功（W）：</strong>力与距离的乘积</p>
+                        <div class="formula-box">
+                            W = F × s
+                        </div>
+                        <p>单位：焦耳（J），1 J = 1 N·m</p>
+                        
+                        <p style="margin-top: 15px;"><strong>功率（P）：</strong>做功的快慢</p>
+                        <div class="formula-box">
+                            P = W / t = F × v
+                        </div>
+                        <p>单位：瓦特（W），1 W = 1 J/s</p>
+                        
                         <p style="color: var(--accent-gold); margin-top: 10px;">
-                            🧮 <strong>记忆口诀：</strong>"小换大乘3.6，大换小除3.6"
+                            🧮 <strong>记忆口诀：</strong>"功是力乘距离，功率是功除时间"
                         </p>
-                        <p>m/s → km/h 是大单位，要乘以3.6</p>
                     </div>
                 </div>
 
                 <div class="knowledge-card">
                     <div class="knowledge-title">
-                        <span class="icon">🚶</span>
-                        匀速直线运动
+                        <span class="icon">⚙️</span>
+                        杠杆类型
                     </div>
                     <div class="knowledge-content">
-                        <p><strong>定义：</strong>物体沿着直线运动，且速度保持不变。</p>
+                        <p><strong>按力臂关系分类：</strong></p>
                         <ul>
-                            <li>速度大小不变 ✓</li>
-                            <li>运动方向不变 ✓</li>
-                            <li>路程与时间成正比 ✓</li>
+                            <li><strong>省力杠杆：</strong>L₁ > L₂，F₁ < F₂，省力但费距离（如撬棍、羊角锤）</li>
+                            <li><strong>费力杠杆：</strong>L₁ < L₂，F₁ > F₂，费力但省距离（如镊子、钓鱼竿）</li>
+                            <li><strong>等臂杠杆：</strong>L₁ = L₂，F₁ = F₂，不省力也不费力（如天平、定滑轮）</li>
                         </ul>
-                        <p style="margin-top: 10px;">
-                            <strong>v-t 图像：</strong>一条水平直线<br>
-                            <strong>s-t 图像：</strong>一条过原点的斜线
+                        <p style="margin-top: 10px; color: var(--accent-gold);">
+                            💡 <strong>关键：</strong>判断杠杆类型，先找支点，再画力臂！
                         </p>
                     </div>
                 </div>
 
                 <div class="knowledge-card">
                     <div class="knowledge-title">
-                        <span class="icon">📊</span>
-                        平均速度 vs 瞬时速度
+                        <span class="icon">🔧</span>
+                        滑轮组、功和功率
                     </div>
                     <div class="knowledge-content">
-                        <table class="unit-table">
-                            <tr>
-                                <th></th>
-                                <th>平均速度</th>
-                                <th>瞬时速度</th>
-                            </tr>
-                            <tr>
-                                <td>定义</td>
-                                <td>某段时间内的平均快慢</td>
-                                <td>某一时刻的快慢</td>
-                            </tr>
-                            <tr>
-                                <td>公式</td>
-                                <td>v̄ = s/t</td>
-                                <td>速度计读数</td>
-                            </tr>
-                            <tr>
-                                <td>例子</td>
-                                <td>全程平均速度</td>
-                                <td>汽车仪表盘速度</td>
-                            </tr>
-                        </table>
+                        <p><strong>滑轮组：</strong></p>
+                        <ul>
+                            <li><strong>定滑轮：</strong>改变力的方向，不省力（F = G）</li>
+                            <li><strong>动滑轮：</strong>省力一半，不改变方向（F = G/2）</li>
+                            <li><strong>滑轮组：</strong>F = G/n（n为承担重物的绳子段数）</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>机械效率 η：</strong></p>
+                        <div class="formula-detail">
+                            <p>η = W<sub>有用</sub> / W<sub>总</sub> × 100%</p>
+                            <p>η = G / (nF) × 100%（滑轮组）</p>
+                        </div>
+                        <p style="color: var(--accent-gold);">
+                            ⚠️ 机械效率永远小于100%，因为有额外功！
+                        </p>
                     </div>
                 </div>
             </div>
@@ -937,32 +925,32 @@
         <section class="experiment-box">
             <div class="experiment-header">
                 <span>🧪</span>
-                <span>测量平均速度实验（中考必考！）</span>
+                <span>探究杠杆平衡条件实验（中考必考！）</span>
             </div>
             <div class="example-content">
-                <p><strong>实验目的：</strong>测量小车在斜面上的平均速度</p>
+                <p><strong>实验目的：</strong>探究杠杆平衡条件 F₁L₁ = F₂L₂</p>
                 <p style="margin-top: 15px;"><strong>实验器材：</strong></p>
                 <ul style="margin-left: 20px; line-height: 1.8;">
-                    <li>长木板（斜面）</li>
-                    <li>小车</li>
-                    <li>金属片（挡板）</li>
-                    <li>刻度尺（测路程）</li>
-                    <li>停表（测时间）</li>
+                    <li>带刻度的杠杆</li>
+                    <li>铁架台（支架）</li>
+                    <li>钩码若干</li>
+                    <li>弹簧测力计</li>
+                    <li>细线</li>
                 </ul>
                 <p style="margin-top: 15px;"><strong>实验步骤：</strong></p>
                 <ol class="step-list">
-                    <li>把长木板一端垫高，形成斜面</li>
-                    <li>用刻度尺测量全程路程 s₁</li>
-                    <li>让小车从顶端静止滑下，用停表测时间 t₁</li>
-                    <li>计算全程平均速度 v₁ = s₁/t₁</li>
-                    <li>测量上半程路程 s₂ 和时间 t₂，计算 v₂</li>
-                    <li>比较 v₁ 和 v₂，分析运动特点</li>
+                    <li>调节杠杆两端的平衡螺母，使杠杆在水平位置平衡（消除杠杆自重影响）</li>
+                    <li>在杠杆左侧某位置挂若干个钩码作为阻力 F₂</li>
+                    <li>在杠杆右侧某位置挂钩码作为动力 F₁，使杠杆重新水平平衡</li>
+                    <li>记录动力 F₁、动力臂 L₁、阻力 F₂、阻力臂 L₂</li>
+                    <li>改变力和力臂的大小，重复实验多次（至少3次）</li>
+                    <li>分析数据，验证 F₁L₁ 是否等于 F₂L₂</li>
                 </ol>
                 <p style="margin-top: 15px; color: var(--accent-gold);">
-                    ⚠️ <strong>注意：</strong>斜面坡度要小一点，方便计时；金属片要固定好！
+                    ⚠️ <strong>注意：</strong>杠杆必须在水平位置平衡，这样力臂就等于支点到力的作用点的水平距离，可以直接从刻度读出！
                 </p>
                 <p style="margin-top: 10px;">
-                    <strong>实验结论：</strong>小车下滑时速度越来越快（加速运动），所以下半程平均速度 > 全程平均速度 > 上半程平均速度
+                    <strong>实验结论：</strong>杠杆平衡条件是 <strong>动力 × 动力臂 = 阻力 × 阻力臂</strong>，即 F₁L₁ = F₂L₂
                 </p>
             </div>
         </section>
@@ -970,15 +958,15 @@
         <section class="learning-section">
             <div class="section-header">
                 <div class="section-icon">🎮</div>
-                <h2 class="section-title">王者峡谷里的速度</h2>
+                <h2 class="section-title">王者峡谷里的简单机械</h2>
             </div>
             <div class="game-tip">
-                <div class="game-tip-title">⚙️ 用王者荣耀理解速度</div>
+                <div class="game-tip-title">⚙️ 用王者荣耀理解简单机械</div>
                 <ul style="line-height: 1.8;">
-                    <li><strong>移速 380：</strong>大部分英雄的初始移动速度约为 380（单位：像素/秒），相当于 4.2 m/s</li>
-                    <li><strong>疾跑技能：</strong>开启后速度增加30%，持续10秒。这就是速度变化的应用！</li>
-                    <li><strong>从泉水到线上：</strong>路程约5000像素，以380速度走，需要多久？ t = s/v ≈ 13秒（和游戏中差不多！）</li>
-                    <li><strong>加速带/减速带：</strong>地图上的草丛、河道，就像不同的"介质"，影响你的移动速度</li>
+                    <li><strong>防御塔的攻击杠杆：</strong>防御塔的攻击机制就像杠杆，通过机械结构实现远距离攻击，省力但攻击频率较慢</li>
+                    <li><strong>超级兵的力量倍增：</strong>超级兵就像使用了省力杠杆，用较小的力量产生巨大的破坏力（高攻击力）</li>
+                    <li><strong>跳跃技能：</strong>英雄的跳跃就像功的转换，肌肉做功（W=F×s）转化为重力势能，越跳越高！</li>
+                    <li><strong>回城与功率：</strong>回城需要一定时间，就像功率 P=W/t，做相同的功（回城），时间越短功率越大！</li>
                 </ul>
             </div>
         </section>
@@ -992,13 +980,13 @@
             <div class="example-box">
                 <div class="example-header">
                     <span>📝</span>
-                    <span>例题1：基础速度计算</span>
+                    <span>例题1：杠杆平衡条件计算</span>
                 </div>
                 <div class="example-question">
                     <p><strong>题目：</strong></p>
-                    <p>小明骑自行车上学，家到学校的距离是 2400 m，他用了 8 分钟到达学校。</p>
-                    <p>(1) 小明骑车的平均速度是多少 m/s？</p>
-                    <p>(2) 合多少 km/h？</p>
+                    <p>一根杠杆，支点左侧 20 cm 处挂一个 30 N 的物体。</p>
+                    <p>(1) 如果在支点右侧 15 cm 处挂一个物体使杠杆平衡，这个物体的重力是多少？</p>
+                    <p>(2) 若将两侧物体都向支点移动 5 cm，杠杆还能平衡吗？哪端下沉？</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer1')">
                     <span>👁️</span>
@@ -1006,13 +994,16 @@
                 </button>
                 <div class="example-answer hidden" id="answer1">
                     <p><strong>解析：</strong></p>
-                    <p><strong>已知：</strong>s = 2400 m，t = 8 min = 8 × 60 s = 480 s</p>
-                    <p style="margin-top: 10px;"><strong>(1) 求速度：</strong></p>
-                    <p>v = s/t = 2400/480 = <strong>5 m/s</strong></p>
-                    <p style="margin-top: 10px;"><strong>(2) 单位换算：</strong></p>
-                    <p>5 m/s = 5 × 3.6 km/h = <strong>18 km/h</strong></p>
+                    <p style="margin-top: 10px;"><strong>已知：</strong>F₂ = 30 N，L₂ = 20 cm，L₁ = 15 cm</p>
+                    <p style="margin-top: 10px;"><strong>(1) 求阻力 F₁：</strong></p>
+                    <p>根据杠杆平衡条件：F₁L₁ = F₂L₂</p>
+                    <p>F₁ = F₂L₂/L₁ = 30 × 20 / 15 = <strong>40 N</strong></p>
+                    <p style="margin-top: 10px;"><strong>(2) 移动后分析：</strong></p>
+                    <p>左侧：F₂L₂' = 30 × (20-5) = 30 × 15 = 450 N·cm</p>
+                    <p>右侧：F₁L₁' = 40 × (15-5) = 40 × 10 = 400 N·cm</p>
+                    <p>因为 450 > 400，所以<strong>左侧下沉</strong></p>
                     <p style="color: var(--accent-gold); margin-top: 15px;">
-                        ✅ 答案：(1) 5 m/s；(2) 18 km/h
+                        ✅ 答案：(1) 40 N；(2) 不平衡，左侧下沉
                     </p>
                 </div>
             </div>
@@ -1020,13 +1011,14 @@
             <div class="example-box">
                 <div class="example-header">
                     <span>📝</span>
-                    <span>例题2：单位换算易错题</span>
+                    <span>例题2：滑轮组与机械效率</span>
                 </div>
                 <div class="example-question">
                     <p><strong>题目：</strong></p>
-                    <p>一辆汽车以 72 km/h 的速度在高速公路上行驶。</p>
-                    <p>(1) 换算成 m/s 是多少？</p>
-                    <p>(2) 行驶 2 分钟能走多远？</p>
+                    <p>用如图所示的滑轮组提升重物，物体重 G = 600 N，动滑轮重 100 N。</p>
+                    <p>(1) 如果不计绳重和摩擦，拉力 F 是多少？</p>
+                    <p>(2) 如果绳子自由端移动了 3 m，重物上升了多少？</p>
+                    <p>(3) 求该滑轮组的机械效率。</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer2')">
                     <span>👁️</span>
@@ -1034,13 +1026,17 @@
                 </button>
                 <div class="example-answer hidden" id="answer2">
                     <p><strong>解析：</strong></p>
-                    <p style="margin-top: 10px;"><strong>(1) 单位换算：</strong></p>
-                    <p>72 km/h = 72 ÷ 3.6 m/s = <strong>20 m/s</strong></p>
-                    <p style="margin-top: 10px;"><strong>(2) 求路程：</strong></p>
-                    <p>注意单位统一！t = 2 min = 120 s</p>
-                    <p>s = v × t = 20 × 120 = <strong>2400 m = 2.4 km</strong></p>
+                    <p style="margin-top: 10px;"><strong>(1) 求拉力 F：</strong></p>
+                    <p>由图知 n = 3（3段绳子承担重物）</p>
+                    <p>F = (G + G<sub>动</sub>)/n = (600 + 100)/3 = <strong>700/3 ≈ 233.3 N</strong></p>
+                    <p style="margin-top: 10px;"><strong>(2) 求重物上升高度：</strong></p>
+                    <p>s = n × h，所以 h = s/n = 3/3 = <strong>1 m</strong></p>
+                    <p style="margin-top: 10px;"><strong>(3) 求机械效率：</strong></p>
+                    <p>W<sub>有用</sub> = G × h = 600 × 1 = 600 J</p>
+                    <p>W<sub>总</sub> = F × s = (700/3) × 3 = 700 J</p>
+                    <p>η = W<sub>有用</sub>/W<sub>总</sub> × 100% = 600/700 × 100% ≈ <strong>85.7%</strong></p>
                     <p style="color: var(--accent-gold); margin-top: 15px;">
-                        💡 易错提醒：时间单位一定要换算成秒！
+                        💡 易错提醒：拉力公式要考虑动滑轮重！
                     </p>
                 </div>
             </div>
@@ -1048,12 +1044,14 @@
             <div class="example-box">
                 <div class="example-header">
                     <span>📝</span>
-                    <span>例题3：平均速度应用题</span>
+                    <span>例题3：功和功率计算</span>
                 </div>
                 <div class="example-question">
                     <p><strong>题目：</strong></p>
-                    <p>一辆汽车从甲地开往乙地，前一半路程的速度为 40 km/h，后一半路程的速度为 60 km/h。</p>
-                    <p>求汽车全程的平均速度。</p>
+                    <p>小明用 50 N 的水平推力推着重 200 N 的箱子在水平地面上匀速前进了 10 m，用时 5 s。</p>
+                    <p>(1) 推力做了多少功？</p>
+                    <p>(2) 推力的功率是多少？</p>
+                    <p>(3) 重力做了多少功？</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer3')">
                     <span>👁️</span>
@@ -1061,14 +1059,15 @@
                 </button>
                 <div class="example-answer hidden" id="answer3">
                     <p><strong>解析：</strong></p>
-                    <p>设全程路程为 2s，则前半程和后半程都是 s。</p>
-                    <p style="margin-top: 10px;"><strong>前半程时间：</strong>t₁ = s/40</p>
-                    <p><strong>后半程时间：</strong>t₂ = s/60</p>
-                    <p><strong>总时间：</strong>t = t₁ + t₂ = s/40 + s/60 = s(3+2)/120 = 5s/120 = s/24</p>
-                    <p style="margin-top: 10px;"><strong>平均速度：</strong></p>
-                    <p>v̄ = 总路程/总时间 = 2s ÷ (s/24) = <strong>48 km/h</strong></p>
+                    <p style="margin-top: 10px;"><strong>(1) 推力做功：</strong></p>
+                    <p>W = F × s = 50 × 10 = <strong>500 J</strong></p>
+                    <p style="margin-top: 10px;"><strong>(2) 推力功率：</strong></p>
+                    <p>P = W/t = 500/5 = <strong>100 W</strong></p>
+                    <p style="margin-top: 10px;"><strong>(3) 重力做功：</strong></p>
+                    <p>重力方向竖直向下，而物体在水平方向移动，</p>
+                    <p>在重力方向上没有位移，所以 W<sub>重力</sub> = <strong>0 J</strong></p>
                     <p style="color: var(--accent-gold); margin-top: 15px;">
-                        ⚠️ 注意：平均速度 ≠ (40+60)/2 = 50！要用总路程÷总时间！
+                        ⚠️ 注意：功的计算 W = F·s·cosθ，力和位移方向垂直时功为0！
                     </p>
                 </div>
             </div>
