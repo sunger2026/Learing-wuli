@@ -502,6 +502,182 @@
             color: #000;
         }
 
+        /* 头部搜索框 */
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            padding: 8px 15px;
+            margin-right: 20px;
+            min-width: 250px;
+        }
+        .search-box input {
+            background: none;
+            border: none;
+            color: #fff;
+            outline: none;
+            margin-left: 10px;
+            font-size: 14px;
+            width: 100%;
+        }
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+        .search-results {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            max-height: 300px;
+            overflow-y: auto;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .search-results.show {
+            display: block;
+        }
+        .search-result-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .search-result-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* 徽章展示区域 */
+        .badges-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .badges-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .badge-item {
+            width: 60px;
+            height: 60px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.1);
+            opacity: 0.4;
+            transition: all 0.3s ease;
+        }
+        .badge-item.earned {
+            opacity: 1;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(255,184,0,0.3);
+            animation: badgeGlow 2s ease-in-out infinite;
+        }
+        @keyframes badgeGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,184,0,0.3); }
+            50% { box-shadow: 0 0 30px rgba(255,184,0,0.6); }
+        }
+        .badge-item .badge-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+        .badge-item:hover .badge-tooltip {
+            opacity: 1;
+        }
+        .badges-count {
+            margin-left: auto;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        /* 学习路径推荐 */
+        .path-section {
+            background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(255,184,0,0.1));
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .path-flow {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .path-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .path-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .path-item.current {
+            background: rgba(0,212,255,0.2);
+            border: 1px solid var(--accent);
+        }
+        .path-item.completed {
+            background: rgba(50,205,50,0.2);
+            opacity: 0.6;
+        }
+        .path-arrow {
+            color: var(--accent-gold);
+            font-size: 20px;
+        }
+        .path-recommendation {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .path-recommendation button {
+            margin-left: auto;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            border: none;
+            border-radius: 20px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         /* 响应式 */
         @media (max-width: 768px) {
             .header {
@@ -529,11 +705,16 @@
     <div class="particles" id="particles"></div>
 
     <!-- 顶部导航 -->
-    <header class="header">
+    <header class="header" style="position: relative;">
         <div class="logo">
             <div class="logo-icon">⚡</div>
             <div class="logo-text">物理王者</div>
         </div>
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="搜索知识点、公式、英雄..." oninput="handleSearch(this.value)">
+        </div>
+        <div class="search-results" id="searchResults"></div>
         <div class="user-info">
             <div class="rank-badge">
                 <span class="rank-icon">🥉</span>
@@ -552,6 +733,32 @@
         <section class="hero-banner">
             <h1 class="hero-title">欢迎来到物理峡谷！</h1>
             <p class="hero-subtitle">召唤你的物理英雄，开启知识对战之旅！从青铜学徒成长为物理王者！</p>
+        </section>
+
+        <!-- 徽章展示区 -->
+        <section class="badges-section">
+            <div class="section-title" style="margin-bottom: 15px;">
+                <div class="section-icon">🏆</div>
+                <span>我的徽章</span>
+                <span class="badges-count" id="badgesCount">0 / 13</span>
+            </div>
+            <div class="badges-grid" id="badgesGrid">
+                <!-- 徽章由JS动态生成 -->
+            </div>
+        </section>
+
+        <!-- 学习路径推荐 -->
+        <section class="path-section">
+            <div class="section-title" style="margin-bottom: 15px;">
+                <div class="section-icon">🗺️</div>
+                <span>推荐学习路径</span>
+            </div>
+            <div class="path-flow" id="pathFlow">
+                <!-- 路径由JS动态生成 -->
+            </div>
+            <div class="path-recommendation" id="pathRecommendation">
+                <!-- 推荐由JS动态生成 -->
+            </div>
         </section>
 
         <!-- 初中基础英雄卡片区 -->
@@ -1468,6 +1675,232 @@
                     }
                 }
             });
+            
+            // 更新徽章显示
+            updateBadgesDisplay(progress);
+            // 更新学习路径
+            updateLearningPath(progress);
+        }
+        
+        // ========== 徽章功能 ==========
+        const heroBadges = [
+            { id: 'speed', emoji: '🏃', name: '疾跑者', desc: '完成速度学习' },
+            { id: 'sound', emoji: '🔔', name: '音律师', desc: '完成声现象学习' },
+            { id: 'light', emoji: '💡', name: '追光者', desc: '完成光现象学习' },
+            { id: 'state', emoji: '❄️', name: '冰火掌控', desc: '完成物态变化学习' },
+            { id: 'density', emoji: '⚖️', name: '质量守护', desc: '完成密度学习' },
+            { id: 'force', emoji: '💪', name: '力量觉醒', desc: '完成力学基础学习' },
+            { id: 'pressure', emoji: '🎯', name: '压力大师', desc: '完成压强学习' },
+            { id: 'buoyancy', emoji: '🚢', name: '浮力专家', desc: '完成浮力学习' },
+            { id: 'lever', emoji: '⚙️', name: '机械大师', desc: '完成简单机械学习' },
+            { id: 'electricity', emoji: '⚡', name: '电流掌控', desc: '完成电学基础学习' },
+            { id: 'power', emoji: '🔌', name: '能量转换', desc: '完成功率电能学习' },
+            { id: 'magnetism', emoji: '🧲', name: '磁场专家', desc: '完成磁场学习' },
+            { id: 'motion', emoji: '🔄', name: '运动解析', desc: '完成机械运动学习' }
+        ];
+        
+        function updateBadgesDisplay(progress) {
+            const badgesGrid = document.getElementById('badgesGrid');
+            const badgesCount = document.getElementById('badgesCount');
+            if (!badgesGrid || !badgesCount) return;
+            
+            let earnedCount = 0;
+            badgesGrid.innerHTML = '';
+            
+            heroBadges.forEach(badge => {
+                const isEarned = progress[badge.id] && progress[badge.id].completed;
+                if (isEarned) earnedCount++;
+                
+                const badgeEl = document.createElement('div');
+                badgeEl.className = 'badge-item ' + (isEarned ? 'earned' : '');
+                badgeEl.innerHTML = `
+                    ${badge.emoji}
+                    <div class="badge-tooltip">${badge.name}<br>${badge.desc}</div>
+                `;
+                badgesGrid.appendChild(badgeEl);
+            });
+            
+            badgesCount.textContent = `${earnedCount} / ${heroBadges.length}`;
+        }
+        
+        // ========== 搜索功能 ==========
+        const searchData = [
+            { keyword: '速度', hero: 'speed', name: '疾跑·速度' },
+            { keyword: '路程', hero: 'speed', name: '疾跑·速度' },
+            { keyword: '时间', hero: 'speed', name: '疾跑·速度' },
+            { keyword: 's=vt', hero: 'speed', name: '疾跑·速度' },
+            { keyword: '声音', hero: 'sound', name: '声波·音律' },
+            { keyword: '音调', hero: 'sound', name: '声波·音律' },
+            { keyword: '响度', hero: 'sound', name: '声波·音律' },
+            { keyword: '音色', hero: 'sound', name: '声波·音律' },
+            { keyword: '光', hero: 'light', name: '光芒·反射' },
+            { keyword: '反射', hero: 'light', name: '光芒·反射' },
+            { keyword: '折射', hero: 'light', name: '光芒·反射' },
+            { keyword: '透镜', hero: 'light', name: '光芒·反射' },
+            { keyword: '物态', hero: 'state', name: '冰火·物态' },
+            { keyword: '熔化', hero: 'state', name: '冰火·物态' },
+            { keyword: '凝固', hero: 'state', name: '冰火·物态' },
+            { keyword: '汽化', hero: 'state', name: '冰火·物态' },
+            { keyword: '密度', hero: 'density', name: '天秤·密度' },
+            { keyword: '质量', hero: 'density', name: '天秤·密度' },
+            { keyword: 'ρ=m/V', hero: 'density', name: '天秤·密度' },
+            { keyword: '力', hero: 'force', name: '力量·基础' },
+            { keyword: '重力', hero: 'force', name: '力量·基础' },
+            { keyword: '弹力', hero: 'force', name: '力量·基础' },
+            { keyword: '摩擦力', hero: 'force', name: '力量·基础' },
+            { keyword: '压强', hero: 'pressure', name: '重压·压强' },
+            { keyword: 'P=F/S', hero: 'pressure', name: '重压·压强' },
+            { keyword: '液体压强', hero: 'pressure', name: '重压·压强' },
+            { keyword: '浮力', hero: 'buoyancy', name: '浮力·阿基米德' },
+            { keyword: '阿基米德', hero: 'buoyancy', name: '浮力·阿基米德' },
+            { keyword: 'F浮', hero: 'buoyancy', name: '浮力·阿基米德' },
+            { keyword: '杠杆', hero: 'lever', name: '杠杆·机械' },
+            { keyword: '滑轮', hero: 'lever', name: '杠杆·机械' },
+            { keyword: '机械效率', hero: 'lever', name: '杠杆·机械' },
+            { keyword: '电流', hero: 'electricity', name: '电流·欧姆' },
+            { keyword: '电压', hero: 'electricity', name: '电流·欧姆' },
+            { keyword: '电阻', hero: 'electricity', name: '电流·欧姆' },
+            { keyword: '欧姆定律', hero: 'electricity', name: '电流·欧姆' },
+            { keyword: 'I=U/R', hero: 'electricity', name: '电流·欧姆' },
+            { keyword: '电功率', hero: 'power', name: '功率·电能' },
+            { keyword: 'P=UI', hero: 'power', name: '功率·电能' },
+            { keyword: '焦耳定律', hero: 'power', name: '功率·电能' },
+            { keyword: '磁场', hero: 'magnetism', name: '磁场·磁力' },
+            { keyword: '磁感线', hero: 'magnetism', name: '磁场·磁力' },
+            { keyword: '电动机', hero: 'magnetism', name: '磁场·磁力' },
+            { keyword: '发电机', hero: 'magnetism', name: '磁场·磁力' },
+            { keyword: '运动', hero: 'motion', name: '机械·运动' }
+        ];
+        
+        function handleSearch(query) {
+            const resultsEl = document.getElementById('searchResults');
+            if (!query.trim()) {
+                resultsEl.classList.remove('show');
+                return;
+            }
+            
+            const matches = searchData.filter(item => 
+                item.keyword.toLowerCase().includes(query.toLowerCase()) ||
+                item.name.toLowerCase().includes(query.toLowerCase())
+            );
+            
+            if (matches.length === 0) {
+                resultsEl.innerHTML = '<div class="search-result-item">未找到相关结果</div>';
+                resultsEl.classList.add('show');
+                return;
+            }
+            
+            // 去重
+            const uniqueMatches = [];
+            const seen = new Set();
+            matches.forEach(match => {
+                if (!seen.has(match.hero)) {
+                    seen.add(match.hero);
+                    uniqueMatches.push(match);
+                }
+            });
+            
+            resultsEl.innerHTML = uniqueMatches.map(match => `
+                <div class="search-result-item" onclick="goToHero('${match.hero}')">
+                    <span>${match.name}</span>
+                    <span style="color: rgba(255,255,255,0.5); font-size: 12px;">${match.keyword}</span>
+                </div>
+            `).join('');
+            
+            resultsEl.classList.add('show');
+        }
+        
+        function goToHero(heroId) {
+            document.getElementById('searchResults').classList.remove('show');
+            document.getElementById('searchInput').value = '';
+            window.location.href = 'hero-' + heroId + '.html';
+        }
+        
+        // 点击外部关闭搜索结果
+        document.addEventListener('click', function(e) {
+            const searchBox = document.querySelector('.search-box');
+            const results = document.getElementById('searchResults');
+            if (!searchBox.contains(e.target) && !results.contains(e.target)) {
+                results.classList.remove('show');
+            }
+        });
+        
+        // ========== 学习路径推荐 ==========
+        const learningPaths = [
+            { id: 'speed', name: '速度', emoji: '🏃', difficulty: 1 },
+            { id: 'sound', name: '声现象', emoji: '🔔', difficulty: 1 },
+            { id: 'light', name: '光现象', emoji: '💡', difficulty: 2 },
+            { id: 'state', name: '物态变化', emoji: '❄️', difficulty: 2 },
+            { id: 'density', name: '密度', emoji: '⚖️', difficulty: 2 },
+            { id: 'force', name: '力学基础', emoji: '💪', difficulty: 3 },
+            { id: 'pressure', name: '压强', emoji: '🎯', difficulty: 3 },
+            { id: 'buoyancy', name: '浮力', emoji: '🚢', difficulty: 4 },
+            { id: 'lever', name: '简单机械', emoji: '⚙️', difficulty: 3 },
+            { id: 'electricity', name: '电学基础', emoji: '⚡', difficulty: 3 },
+            { id: 'power', name: '功率电能', emoji: '🔌', difficulty: 4 },
+            { id: 'magnetism', name: '磁场', emoji: '🧲', difficulty: 4 },
+            { id: 'motion', name: '机械运动', emoji: '🔄', difficulty: 2 }
+        ];
+        
+        function updateLearningPath(progress) {
+            const pathFlow = document.getElementById('pathFlow');
+            const pathRecommendation = document.getElementById('pathRecommendation');
+            if (!pathFlow || !pathRecommendation) return;
+            
+            // 找出已完成的和推荐的
+            let completedCount = 0;
+            let lastCompleted = null;
+            let nextToLearn = null;
+            
+            learningPaths.forEach((path, index) => {
+                if (progress[path.id] && progress[path.id].completed) {
+                    completedCount++;
+                    lastCompleted = path;
+                } else if (!nextToLearn) {
+                    nextToLearn = path;
+                }
+            });
+            
+            // 显示路径流程
+            pathFlow.innerHTML = '';
+            learningPaths.forEach((path, index) => {
+                const isCompleted = progress[path.id] && progress[path.id].completed;
+                const isCurrent = path.id === (nextToLearn ? nextToLearn.id : null);
+                
+                const pathItem = document.createElement('div');
+                pathItem.className = 'path-item ' + (isCompleted ? 'completed' : '') + (isCurrent ? 'current' : '');
+                pathItem.innerHTML = `${path.emoji} ${path.name}`;
+                pathItem.onclick = () => window.location.href = 'hero-' + path.id + '.html';
+                pathFlow.appendChild(pathItem);
+                
+                if (index < learningPaths.length - 1) {
+                    const arrow = document.createElement('span');
+                    arrow.className = 'path-arrow';
+                    arrow.textContent = '→';
+                    pathFlow.appendChild(arrow);
+                }
+            });
+            
+            // 显示推荐
+            if (nextToLearn) {
+                const difficultyStars = '★'.repeat(nextToLearn.difficulty) + '☆'.repeat(5 - nextToLearn.difficulty);
+                pathRecommendation.innerHTML = `
+                    <div style="font-size: 36px;">${nextToLearn.emoji}</div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700;">推荐学习：${nextToLearn.name}</div>
+                        <div style="font-size: 12px; color: rgba(255,255,255,0.6);">难度：${difficultyStars}</div>
+                    </div>
+                    <button onclick="window.location.href='hero-${nextToLearn.id}.html'">开始学习</button>
+                `;
+            } else {
+                pathRecommendation.innerHTML = `
+                    <div style="font-size: 36px;">🎉</div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 700;">恭喜！你已学完所有基础英雄！</div>
+                        <div style="font-size: 12px; color: rgba(255,255,255,0.6);">准备挑战进阶内容</div>
+                    </div>
+                `;
+            }
         }
         
         // 页面加载时更新进度
