@@ -36,6 +36,29 @@
         .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
         .formula-box { background: rgba(0,0,0,0.3); border: 1px solid var(--accent-gold); border-radius: 10px; padding: 20px; text-align: center; font-size: 24px; font-weight: 700; color: var(--accent-gold); margin: 15px 0; }
         .formula-detail { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 15px; margin-top: 10px; }
+        .example-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
+        .example-header { font-size: 18px; font-weight: 700; color: var(--accent-gold); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .example-question { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 20px; margin-bottom: 15px; line-height: 1.8; }
+        .example-answer { background: rgba(50,205,50,0.1); border: 1px solid var(--success); border-radius: 10px; padding: 20px; line-height: 1.8; }
+        .example-answer.hidden { display: none; }
+        .toggle-answer { background: linear-gradient(135deg, var(--success), #228b22); border: none; color: #fff; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .quiz-container { display: flex; flex-direction: column; gap: 20px; }
+        .quiz-item { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        .quiz-number { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border-radius: 50%; font-weight: 700; margin-bottom: 15px; }
+        .quiz-question { font-size: 16px; margin-bottom: 15px; line-height: 1.6; }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+        .quiz-option { display: flex; align-items: center; gap: 15px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer; }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
+        .quiz-option.correct { background: rgba(50,205,50,0.2); border-color: var(--success); }
+        .quiz-option.wrong { background: rgba(255,68,68,0.2); border-color: var(--error); }
+        .option-letter { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; font-weight: 700; }
+        .quiz-feedback { margin-top: 15px; padding: 15px; border-radius: 10px; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); border: 1px solid var(--success); color: var(--success); }
+        .quiz-feedback.wrong { background: rgba(255,68,68,0.2); border: 1px solid var(--error); color: var(--error); }
+        .action-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 16px; text-decoration: none; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-gold)); color: #000; }
     </style>
 </head>
 <body>
@@ -61,7 +84,6 @@
 
         <section class="learning-section">
             <div class="section-header"><div class="section-icon">📖</div><h2 class="section-title">核心知识点</h2></div>
-
             <div class="knowledge-grid">
                 <div class="knowledge-card important">
                     <div class="knowledge-title">⚡ 电功率公式（核心）</div>
@@ -111,124 +133,6 @@
         </section>
 
         <section class="learning-section">
-            <div class="section-header"><div class="section-icon">🎮</div><h2 class="section-title">王者峡谷里的电功率</h2></div>
-            <div class="knowledge-grid">
-                <div class="knowledge-card important">
-                    <div class="knowledge-title">⚡ 狂铁的能量系统 = 电功率</div>
-                    <div class="formula-detail">
-                        <p><strong>能量条 = 电能储存</strong></p>
-                        <p>狂铁的能量条就像电池，最多储存100点能量，代表电路中的电能储备。</p>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <div class="knowledge-title">💥 技能释放 = 电功率输出</div>
-                    <div class="formula-detail">
-                        <p><strong>一技能【碎裂之刃】</strong></p>
-                        <p>消耗：30能量 ⚡ P = W/t</p>
-                        <p>就像电器工作，功率越大，单位时间消耗电能越多。狂铁的大招威力（功率）取决于当前能量值！</p>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <div class="knowledge-title">🔌 普攻充能 = 充电过程</div>
-                    <div class="formula-detail">
-                        <p><strong>每次普攻回复15能量</strong></p>
-                        <p>就像给电池充电，电流流入积累电能。充能速度 = 充电功率，充得越快，技能放得越频繁！</p>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <div class="knowledge-title">⏱️ 技能CD = 功率限制</div>
-                    <div class="formula-detail">
-                        <p><strong>冷却时间控制输出节奏</strong></p>
-                        <p>CD时间就像保险丝，防止功率过大烧毁电路。家庭电路中，保险丝会在电流过大时熔断，保护电器安全。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
-            <div class="section-header"><div class="section-icon">✍️</div><h2 class="section-title">经典例题</h2></div>
-            <div class="knowledge-grid">
-                <div class="knowledge-card important">
-                    <div class="knowledge-title">例题1：电功率计算</div>
-                    <div class="formula-detail">
-                        <p><strong>题目：</strong>一个灯泡标有"220V 40W"字样，正常工作时通过灯丝的电流是多少？灯丝的电阻是多少？</p>
-                        <p style="margin-top: 15px;"><strong>解析：</strong></p>
-                        <p>已知：U = 220V，P = 40W</p>
-                        <p>由 P = UI 得：I = P/U = 40W/220V ≈ 0.18A</p>
-                        <p>由 P = U²/R 得：R = U²/P = (220V)²/40W = 48400/40 = 1210Ω</p>
-                        <p style="color: var(--success); margin-top: 10px;">✓ 答案：电流约0.18A，电阻1210Ω</p>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <div class="knowledge-title">例题2：焦耳定律计算</div>
-                    <div class="formula-detail">
-                        <p><strong>题目：</strong>某电热水器的电阻为40Ω，通过的电流为5A，工作10分钟产生的热量是多少？</p>
-                        <p style="margin-top: 15px;"><strong>解析：</strong></p>
-                        <p>已知：R = 40Ω，I = 5A，t = 10min = 600s</p>
-                        <p>由焦耳定律 Q = I²Rt</p>
-                        <p>Q = (5A)² × 40Ω × 600s</p>
-                        <p>Q = 25 × 40 × 600 = 600000J = 600kJ</p>
-                        <p style="color: var(--success); margin-top: 10px;">✓ 答案：产生热量600000J（或600kJ）</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
-            <div class="section-header"><div class="section-icon">🎯</div><h2 class="section-title">实战演练</h2></div>
-            <div class="knowledge-grid">
-                <div class="knowledge-card">
-                    <div class="knowledge-title">题目1：电功率概念</div>
-                    <div class="formula-detail">
-                        <p>下列关于电功率的说法正确的是（　）</p>
-                        <p style="margin-top: 10px;">A. 电功率越大，消耗的电能越多</p>
-                        <p>B. 电功率表示电流做功的快慢</p>
-                        <p>C. 电功率的单位是焦耳</p>
-                        <p>D. 电功率与电压无关</p>
-                        <p style="color: var(--success); margin-top: 15px;">✓ 答案：B</p>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 14px;">解析：电功率表示电流做功快慢，单位是瓦特，P=UI与电压电流都有关。</p>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <div class="knowledge-title">题目2：额定功率</div>
-                    <div class="formula-detail">
-                        <p>标有"220V 100W"的灯泡，在110V电压下工作时（　）</p>
-                        <p style="margin-top: 10px;">A. 实际功率为100W</p>
-                        <p>B. 实际功率为25W</p>
-                        <p>C. 实际功率为50W</p>
-                        <p>D. 无法确定</p>
-                        <p style="color: var(--success); margin-top: 15px;">✓ 答案：B</p>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 14px;">解析：R = U²/P = 484Ω，P实 = (110V)²/484Ω = 12100/484 = 25W</p>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <div class="knowledge-title">题目3：焦耳定律</div>
-                    <div class="formula-detail">
-                        <p>根据焦耳定律Q=I²Rt，下列说法正确的是（　）</p>
-                        <p style="margin-top: 10px;">A. 热量与电流成正比</p>
-                        <p>B. 热量与电阻成反比</p>
-                        <p>C. 热量与电流的平方成正比</p>
-                        <p>D. 热量与时间成反比</p>
-                        <p style="color: var(--success); margin-top: 15px;">✓ 答案：C</p>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 14px;">解析：Q=I²Rt表明热量与电流平方、电阻、时间都成正比。</p>
-                    </div>
-                </div>
-                <div class="knowledge-card">
-                    <div class="knowledge-title">题目4：安全用电</div>
-                    <div class="formula-detail">
-                        <p>关于家庭电路安全用电，下列做法正确的是（　）</p>
-                        <p style="margin-top: 10px;">A. 用铜丝代替保险丝</p>
-                        <p>B. 开关接在零线上</p>
-                        <p>C. 金属外壳电器要接地</p>
-                        <p>D. 湿手触摸开关</p>
-                        <p style="color: var(--success); margin-top: 15px;">✓ 答案：C</p>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 14px;">解析：金属外壳接地可防止漏电触电，其他选项都是危险操作。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
             <div class="section-header">
                 <div class="section-icon">🎮</div>
                 <h2 class="section-title">王者峡谷里的电功率</h2>
@@ -236,26 +140,22 @@
             <div class="knowledge-grid">
                 <div class="knowledge-card">
                     <div class="knowledge-title">⚡ 狂铁的能量系统</div>
-                    <div class="knowledge-content">
+                    <div class="formula-detail">
                         <p>狂铁的技能释放就像电功率的应用：</p>
-                        <ul>
-                            <li><strong>技能释放</strong>=消耗电能，功率越大伤害越高</li>
-                            <li><strong>能量恢复</strong>=给电池充电（电能储存）</li>
-                            <li><strong>技能CD</strong>=功率限制，不能无限释放</li>
-                        </ul>
+                        <p>• <strong>技能释放</strong>=消耗电能，功率越大伤害越高</p>
+                        <p>• <strong>能量恢复</strong>=给电池充电（电能储存）</p>
+                        <p>• <strong>技能CD</strong>=功率限制，不能无限释放</p>
                         <p style="color: var(--accent-gold); margin-top: 10px;">💡 功率P=UI，电压越大、电流越强，技能伤害越高！</p>
                     </div>
                 </div>
 
                 <div class="knowledge-card">
                     <div class="knowledge-title">🔋 蓝条与电能</div>
-                    <div class="knowledge-content">
+                    <div class="formula-detail">
                         <p>英雄的蓝条就像电路中的电能：</p>
-                        <ul>
-                            <li><strong>满蓝</strong>=额定电压，可以释放完整技能</li>
-                            <li><strong>蓝量不足</strong>=实际电压低于额定，技能威力下降</li>
-                            <li><strong>回蓝</strong>=电流做功，补充电能</li>
-                        </ul>
+                        <p>• <strong>满蓝</strong>=额定电压，可以释放完整技能</p>
+                        <p>• <strong>蓝量不足</strong>=实际电压低于额定，技能威力下降</p>
+                        <p>• <strong>回蓝</strong>=电流做功，补充电能</p>
                         <p style="color: var(--accent-gold); margin-top: 10px;">💡 就像灯泡在电压不足时会变暗一样！</p>
                     </div>
                 </div>
@@ -277,20 +177,19 @@
                     <p><strong>题目：</strong></p>
                     <p>一个电热水器的额定电压为220V，额定功率为2000W。</p>
                     <p>(1) 求电热水器正常工作时的电流是多少？</p>
-                    <p>(2) 如果实际电压只有200V，实际功率大约是多少？（假设电阻不变）</p>
+                    <p>(2) 如果实际电压只有200V，实际功率大约是多少？</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer1')">
-                    <span>👁️</span>
-                    <span>查看解析</span>
+                    <span>👁️</span><span>查看解析</span>
                 </button>
                 <div class="example-answer hidden" id="answer1">
                     <p><strong>解析：</strong></p>
                     <p><strong>(1) 求电流：</strong></p>
-                    <p>根据 P = UI，得 I = P/U = 2000W / 220V ≈ <strong>9.09A</strong></p>
-                    <p style="margin-top: 10px;"><strong>(2) 求实际功率：</strong></p>
-                    <p>先求电阻：R = U²/P = (220V)² / 2000W = 24.2Ω</p>
-                    <p>实际功率：P实 = U实²/R = (200V)² / 24.2Ω ≈ <strong>1653W</strong></p>
-                    <p style="color: var(--accent-gold); margin-top: 10px;">💡 电压下降，功率下降，所以电热水器加热变慢！</p>
+                    <p>I = P/U = 2000W / 220V ≈ <strong>9.09A</strong></p>
+                    <p><strong>(2) 求实际功率：</strong></p>
+                    <p>R = U²/P = (220V)² / 2000W = 24.2Ω</p>
+                    <p>P实 = U实²/R = (200V)² / 24.2Ω ≈ <strong>1653W</strong></p>
+                    <p style="color: var(--accent-gold); margin-top: 10px;">💡 电压下降，功率下降，电热水器加热变慢！</p>
                 </div>
             </div>
 
@@ -306,17 +205,16 @@
                     <p>(2) 如果电流增大到8A，相同时间内热量变为原来的多少倍？</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer2')">
-                    <span>👁️</span>
-                    <span>查看解析</span>
+                    <span>👁️</span><span>查看解析</span>
                 </button>
                 <div class="example-answer hidden" id="answer2">
                     <p><strong>解析：</strong></p>
                     <p><strong>(1) 求热量：</strong></p>
                     <p>t = 10min = 600s</p>
-                    <p>Q = I²Rt = (4A)² × 50Ω × 600s = 16 × 50 × 600 = <strong>480000J</strong></p>
-                    <p style="margin-top: 10px;"><strong>(2) 热量倍数：</strong></p>
+                    <p>Q = I²Rt = (4A)² × 50Ω × 600s = <strong>480000J</strong></p>
+                    <p><strong>(2) 热量倍数：</strong></p>
                     <p>Q与I²成正比，电流变为2倍，热量变为2² = <strong>4倍</strong></p>
-                    <p style="color: var(--accent-gold); margin-top: 10px;">⚠️ 注意：电流过大容易烧坏电器，这就是保险丝的作用！</p>
+                    <p style="color: var(--accent-gold); margin-top: 10px;">⚠️ 电流过大容易烧坏电器，这就是保险丝的作用！</p>
                 </div>
             </div>
         </section>
@@ -330,104 +228,48 @@
             <div class="quiz-container">
                 <div class="quiz-item">
                     <div class="quiz-number">1</div>
-                    <div class="quiz-question">
-                        下列用电器中，主要利用电流热效应工作的是（　）
-                    </div>
+                    <div class="quiz-question">下列用电器中，主要利用电流热效应工作的是（　）</div>
                     <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')">
-                            <div class="option-letter">A</div>
-                            <div>电视机</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')">
-                            <div class="option-letter">B</div>
-                            <div>电热水器</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')">
-                            <div class="option-letter">C</div>
-                            <div>电风扇</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')">
-                            <div class="option-letter">D</div>
-                            <div>电脑</div>
-                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')"><div class="option-letter">A</div><div>电视机</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')"><div class="option-letter">B</div><div>电热水器</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')"><div class="option-letter">C</div><div>电风扇</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')"><div class="option-letter">D</div><div>电脑</div></div>
                     </div>
                     <div class="quiz-feedback" id="feedback1"></div>
                 </div>
 
                 <div class="quiz-item">
                     <div class="quiz-number">2</div>
-                    <div class="quiz-question">
-                        一个标有"220V 100W"的灯泡，接入110V电路中，实际功率（　）
-                    </div>
+                    <div class="quiz-question">一个标有"220V 100W"的灯泡，接入110V电路中，实际功率（　）</div>
                     <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')">
-                            <div class="option-letter">A</div>
-                            <div>等于100W</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback2')">
-                            <div class="option-letter">B</div>
-                            <div>大于100W</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback2')">
-                            <div class="option-letter">C</div>
-                            <div>小于100W</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')">
-                            <div class="option-letter">D</div>
-                            <div>无法确定</div>
-                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')"><div class="option-letter">A</div><div>等于100W</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback2')"><div class="option-letter">B</div><div>大于100W</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback2')"><div class="option-letter">C</div><div>小于100W</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')"><div class="option-letter">D</div><div>无法确定</div></div>
                     </div>
                     <div class="quiz-feedback" id="feedback2"></div>
                 </div>
 
                 <div class="quiz-item">
                     <div class="quiz-number">3</div>
-                    <div class="quiz-question">
-                        家庭电路中，下列做法符合安全用电原则的是（　）
-                    </div>
+                    <div class="quiz-question">家庭电路中，下列做法符合安全用电原则的是（　）</div>
                     <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')">
-                            <div class="option-letter">A</div>
-                            <div>用湿手拔插头</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback3')">
-                            <div class="option-letter">B</div>
-                            <div>多个大功率电器共用同一个插座</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback3')">
-                            <div class="option-letter">C</div>
-                            <div>金属外壳的电器接地线</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')">
-                            <div class="option-letter">D</div>
-                            <div>用铜丝代替保险丝</div>
-                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')"><div class="option-letter">A</div><div>用湿手拔插头</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback3')"><div class="option-letter">B</div><div>多个大功率电器共用同一个插座</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback3')"><div class="option-letter">C</div><div>金属外壳的电器接地线</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')"><div class="option-letter">D</div><div>用铜丝代替保险丝</div></div>
                     </div>
                     <div class="quiz-feedback" id="feedback3"></div>
                 </div>
 
                 <div class="quiz-item">
                     <div class="quiz-number">4</div>
-                    <div class="quiz-question">
-                        根据焦耳定律Q=I²Rt，在相同时间内，产生热量最多的是（　）
-                    </div>
+                    <div class="quiz-question">根据焦耳定律Q=I²Rt，在相同时间内，产生热量最多的是（　）</div>
                     <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback4')">
-                            <div class="option-letter">A</div>
-                            <div>R=10Ω，I=1A</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback4')">
-                            <div class="option-letter">B</div>
-                            <div>R=5Ω，I=2A</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback4')">
-                            <div class="option-letter">C</div>
-                            <div>R=20Ω，I=0.5A</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback4')">
-                            <div class="option-letter">D</div>
-                            <div>R=10Ω，I=1.5A</div>
-                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback4')"><div class="option-letter">A</div><div>R=10Ω，I=1A</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback4')"><div class="option-letter">B</div><div>R=5Ω，I=2A</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback4')"><div class="option-letter">C</div><div>R=20Ω，I=0.5A</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback4')"><div class="option-letter">D</div><div>R=10Ω，I=1.5A</div></div>
                     </div>
                     <div class="quiz-feedback" id="feedback4"></div>
                 </div>
@@ -435,10 +277,7 @@
         </section>
 
         <div class="action-buttons">
-            <a href="index.html" class="btn btn-primary">
-                <span>✅</span>
-                <span>完成学习</span>
-            </a>
+            <a href="index.html" class="btn btn-primary"><span>✅</span><span>完成学习</span></a>
         </div>
     </main>
 
@@ -447,16 +286,10 @@
             const answer = document.getElementById(id);
             answer.classList.toggle('hidden');
         }
-
         function checkAnswer(element, selected, isCorrect, feedbackId) {
             const feedback = document.getElementById(feedbackId);
             const options = element.parentElement.querySelectorAll('.quiz-option');
-            
-            options.forEach(opt => {
-                opt.classList.remove('correct', 'wrong');
-                opt.onclick = null;
-            });
-            
+            options.forEach(opt => { opt.classList.remove('correct', 'wrong'); opt.onclick = null; });
             if (isCorrect) {
                 element.classList.add('correct');
                 feedback.innerHTML = '✅ 回答正确！';

@@ -37,6 +37,29 @@
         .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
         .formula-box { background: rgba(0,0,0,0.3); border: 1px solid var(--accent-gold); border-radius: 10px; padding: 20px; text-align: center; font-size: 24px; font-weight: 700; color: var(--accent-gold); margin: 15px 0; }
         .formula-detail { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 15px; margin-top: 10px; }
+        .example-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
+        .example-header { font-size: 18px; font-weight: 700; color: var(--accent-gold); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .example-question { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 20px; margin-bottom: 15px; line-height: 1.8; }
+        .example-answer { background: rgba(50,205,50,0.1); border: 1px solid var(--success); border-radius: 10px; padding: 20px; line-height: 1.8; }
+        .example-answer.hidden { display: none; }
+        .toggle-answer { background: linear-gradient(135deg, var(--success), #228b22); border: none; color: #fff; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .quiz-container { display: flex; flex-direction: column; gap: 20px; }
+        .quiz-item { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        .quiz-number { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border-radius: 50%; font-weight: 700; margin-bottom: 15px; }
+        .quiz-question { font-size: 16px; margin-bottom: 15px; line-height: 1.6; }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+        .quiz-option { display: flex; align-items: center; gap: 15px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer; }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
+        .quiz-option.correct { background: rgba(50,205,50,0.2); border-color: var(--success); }
+        .quiz-option.wrong { background: rgba(255,68,68,0.2); border-color: var(--error); }
+        .option-letter { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; font-weight: 700; }
+        .quiz-feedback { margin-top: 15px; padding: 15px; border-radius: 10px; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); border: 1px solid var(--success); color: var(--success); }
+        .quiz-feedback.wrong { background: rgba(255,68,68,0.2); border: 1px solid var(--error); color: var(--error); }
+        .action-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 16px; text-decoration: none; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-gold)); color: #000; }
     </style>
 </head>
 <body>
@@ -62,7 +85,6 @@
 
         <section class="learning-section">
             <div class="section-header"><div class="section-icon">📖</div><h2 class="section-title">核心知识点</h2></div>
-
             <div class="knowledge-grid">
                 <div class="knowledge-card important">
                     <div class="knowledge-title">🧲 磁场与磁感线</div>
@@ -108,136 +130,6 @@
         </section>
 
         <section class="learning-section">
-            <div class="section-header"><div class="section-icon">🎮</div><h2 class="section-title">王者峡谷里的磁学</h2></div>
-            
-            <div class="knowledge-grid">
-                <div class="knowledge-card important">
-                    <div class="knowledge-title">🌊 西施一技能 · 纱缚之印</div>
-                    <div class="formula-detail">
-                        <p><strong>技能牵引 = 磁场吸引</strong></p>
-                        <p>西施抛出法器牵引敌人，就像磁铁的<strong>N极吸引S极</strong>一样，磁场对放入其中的磁性物体产生力的作用。</p>
-                        <p>📌 物理类比：磁体间的相互作用力通过磁场传递</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">🎯 技能方向 = 磁感线方向</div>
-                    <div class="formula-detail">
-                        <p><strong>技能释放方向决定牵引路径</strong></p>
-                        <p>就像磁感线从N极指向S极，表示磁场的方向。西施技能的牵引路径也有明确的方向性。</p>
-                        <p>📌 物理类比：磁感线的切线方向表示该点磁场方向</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">💫 技能范围 = 磁场范围</div>
-                    <div class="formula-detail">
-                        <p><strong>法器影响范围有限</strong></p>
-                        <p>西施的技能只能在一定范围内牵引敌人，超出范围就无效。磁场的强度也随距离增加而减弱。</p>
-                        <p>📌 物理类比：磁感线越密，磁场越强；越疏，磁场越弱</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">⚡ 西施二技能 · 幻纱之灵</div>
-                    <div class="formula-detail">
-                        <p><strong>能量球旋转 = 电流产生磁场</strong></p>
-                        <p>西施的能量球围绕中心旋转，就像<strong>通电螺线管</strong>产生环形磁场。电流的方向决定了磁场的方向。</p>
-                        <p>📌 物理类比：奥斯特实验——电流周围存在磁场</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
-            <div class="section-header"><div class="section-icon">💡</div><h2 class="section-title">经典例题</h2></div>
-            
-            <div class="knowledge-grid">
-                <div class="knowledge-card important">
-                    <div class="knowledge-title">例题1：磁场方向判断</div>
-                    <div class="formula-detail">
-                        <p><strong>题目：</strong>如图所示，条形磁铁放置在水平桌面上，在其正上方有一根通电直导线，电流方向垂直纸面向外。判断导线所受安培力的方向。</p>
-                        <p style="margin-top: 10px;"><strong>解析：</strong></p>
-                        <p>① 先确定条形磁铁在导线处产生的磁场方向：由N极指向S极，即竖直向下</p>
-                        <p>② 根据左手定则：伸开左手，磁感线穿入手心（向下），四指指向电流方向（向外）</p>
-                        <p>③ 拇指指向即为安培力方向：<strong>水平向左</strong></p>
-                        <div class="formula-box">答案：水平向左</div>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">例题2：电动机/发电机原理判断</div>
-                    <div class="formula-detail">
-                        <p><strong>题目：</strong>小明用如图所示的装置进行实验，当他让导体ab在磁场中做切割磁感线运动时，灵敏电流计指针发生偏转；当他给线圈通电时，线圈在磁场中转动起来。请判断这两种现象分别对应什么原理。</p>
-                        <p style="margin-top: 10px;"><strong>解析：</strong></p>
-                        <p>① <strong>现象一：</strong>导体切割磁感线产生电流 → <strong>电磁感应</strong> → <strong>发电机原理</strong></p>
-                        <p>② <strong>现象二：</strong>通电线圈在磁场中受力转动 → <strong>通电导体受力</strong> → <strong>电动机原理</strong></p>
-                        <p>③ 关键区别：发电机是"动生电"（机械能→电能），电动机是"电生动"（电能→机械能）</p>
-                        <div class="formula-box">答案：现象一是发电机原理，现象二是电动机原理</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
-            <div class="section-header"><div class="section-icon">⚔️</div><h2 class="section-title">实战演练</h2></div>
-            
-            <div class="knowledge-grid">
-                <div class="knowledge-card">
-                    <div class="knowledge-title">第1题：磁场基本概念</div>
-                    <div class="formula-detail">
-                        <p>关于磁场和磁感线，下列说法正确的是（ ）</p>
-                        <p style="margin-top: 10px;">A. 磁场是真实存在的物质，磁感线也是真实存在的</p>
-                        <p>B. 磁感线从磁体的N极出发，回到S极</p>
-                        <p>C. 磁场中的任意一点，磁场方向可以有多个</p>
-                        <p>D. 磁感线越稀疏的地方，磁场越强</p>
-                        <p style="margin-top: 15px; color: var(--accent-gold);"><strong>正确答案：B</strong></p>
-                        <p style="font-size: 14px; color: rgba(255,255,255,0.6);">解析：磁感线是假想的曲线；磁场中每点只有一个磁场方向；磁感线越密磁场越强。</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">第2题：电流的磁效应</div>
-                    <div class="formula-detail">
-                        <p>如图所示的通电螺线管，判断其N极位置正确的是（ ）</p>
-                        <p style="margin-top: 10px;">A. 左端为N极</p>
-                        <p>B. 右端为N极</p>
-                        <p>C. 两端都是N极</p>
-                        <p>D. 无法判断</p>
-                        <p style="margin-top: 15px; color: var(--accent-gold);"><strong>正确答案：B</strong></p>
-                        <p style="font-size: 14px; color: rgba(255,255,255,0.6);">解析：用右手握住螺线管，四指指向电流方向，大拇指指向右端，故右端为N极。</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">第3题：电动机原理</div>
-                    <div class="formula-detail">
-                        <p>关于电动机的工作原理，下列说法正确的是（ ）</p>
-                        <p style="margin-top: 10px;">A. 利用电磁感应原理工作</p>
-                        <p>B. 将机械能转化为电能</p>
-                        <p>C. 利用通电导体在磁场中受力运动的原理</p>
-                        <p>D. 线圈中电流方向始终保持不变</p>
-                        <p style="margin-top: 15px; color: var(--accent-gold);"><strong>正确答案：C</strong></p>
-                        <p style="font-size: 14px; color: rgba(255,255,255,0.6);">解析：电动机利用通电导体在磁场中受力运动；电能转机械能；换向器改变电流方向。</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title">第4题：发电机原理</div>
-                    <div class="formula-detail">
-                        <p>关于发电机的工作原理，下列说法错误的是（ ）</p>
-                        <p style="margin-top: 10px;">A. 利用电磁感应现象工作</p>
-                        <p>B. 将机械能转化为电能</p>
-                        <p>C. 线圈中产生的电流方向保持不变</p>
-                        <p>D. 闭合电路的一部分导体切割磁感线产生感应电流</p>
-                        <p style="margin-top: 15px; color: var(--accent-gold);"><strong>正确答案：C</strong></p>
-                        <p style="font-size: 14px; color: rgba(255,255,255,0.6);">解析：发电机产生的是交流电，电流方向周期性变化，故C选项错误。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
             <div class="section-header">
                 <div class="section-icon">🎮</div>
                 <h2 class="section-title">王者峡谷里的磁学</h2>
@@ -245,26 +137,22 @@
             <div class="knowledge-grid">
                 <div class="knowledge-card">
                     <div class="knowledge-title">🎯 西施的牵引技能</div>
-                    <div class="knowledge-content">
+                    <div class="formula-detail">
                         <p>西施的技能牵引就像磁场的作用：</p>
-                        <ul>
-                            <li><strong>技能释放</strong>=磁场产生，吸引敌人</li>
-                            <li><strong>牵引方向</strong>=磁感线方向，有明确指向</li>
-                            <li><strong>技能范围</strong>=磁场范围，越近效果越强</li>
-                        </ul>
+                        <p>• <strong>技能释放</strong>=磁场产生，吸引敌人</p>
+                        <p>• <strong>牵引方向</strong>=磁感线方向，有明确指向</p>
+                        <p>• <strong>技能范围</strong>=磁场范围，越近效果越强</p>
                         <p style="color: var(--accent-gold); margin-top: 10px;">💡 异名磁极相互吸引，就像西施把敌人拉过来！</p>
                     </div>
                 </div>
 
                 <div class="knowledge-card">
                     <div class="knowledge-title">🧭 小地图的方向指示</div>
-                    <div class="knowledge-content">
+                    <div class="formula-detail">
                         <p>小地图的指南针就像磁场方向：</p>
-                        <ul>
-                            <li><strong>N极</strong>指向地理北方</li>
-                            <li><strong>磁感线</strong>从N极出发回到S极</li>
-                            <li><strong>磁场方向</strong>是小磁针静止时N极指向</li>
-                        </ul>
+                        <p>• <strong>N极</strong>指向地理北方</p>
+                        <p>• <strong>磁感线</strong>从N极出发回到S极</p>
+                        <p>• <strong>磁场方向</strong>是小磁针静止时N极指向</p>
                         <p style="color: var(--accent-gold); margin-top: 10px;">💡 指南针就是利用地磁场来确定方向的！</p>
                     </div>
                 </div>
@@ -290,8 +178,7 @@
                     <p>(3) 如果把磁铁从中间切断，断口处的磁性如何？</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer1')">
-                    <span>👁️</span>
-                    <span>查看解析</span>
+                    <span>👁️</span><span>查看解析</span>
                 </button>
                 <div class="example-answer hidden" id="answer1">
                     <p><strong>答案：</strong></p>
@@ -315,8 +202,7 @@
                     <p>(4) 电磁感应现象是发电机的工作原理。（　）</p>
                 </div>
                 <button class="toggle-answer" onclick="toggleAnswer('answer2')">
-                    <span>👁️</span>
-                    <span>查看解析</span>
+                    <span>👁️</span><span>查看解析</span>
                 </button>
                 <div class="example-answer hidden" id="answer2">
                     <p><strong>答案：</strong></p>
@@ -338,104 +224,48 @@
             <div class="quiz-container">
                 <div class="quiz-item">
                     <div class="quiz-number">1</div>
-                    <div class="quiz-question">
-                        关于磁场和磁感线，下列说法正确的是（　）
-                    </div>
+                    <div class="quiz-question">关于磁场和磁感线，下列说法正确的是（　）</div>
                     <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')">
-                            <div class="option-letter">A</div>
-                            <div>磁感线是真实存在的曲线</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')">
-                            <div class="option-letter">B</div>
-                            <div>磁感线从N极出发，回到S极</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')">
-                            <div class="option-letter">C</div>
-                            <div>磁感线可以相交</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')">
-                            <div class="option-letter">D</div>
-                            <div>小磁针静止时S极指向磁场方向</div>
-                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')"><div class="option-letter">A</div><div>磁感线是真实存在的曲线</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')"><div class="option-letter">B</div><div>磁感线从N极出发，回到S极</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')"><div class="option-letter">C</div><div>磁感线可以相交</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')"><div class="option-letter">D</div><div>小磁针静止时S极指向磁场方向</div></div>
                     </div>
                     <div class="quiz-feedback" id="feedback1"></div>
                 </div>
 
                 <div class="quiz-item">
                     <div class="quiz-number">2</div>
-                    <div class="quiz-question">
-                        奥斯特实验说明了（　）
-                    </div>
+                    <div class="quiz-question">奥斯特实验说明了（　）</div>
                     <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')">
-                            <div class="option-letter">A</div>
-                            <div>磁能生电</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback2')">
-                            <div class="option-letter">B</div>
-                            <div>电能生磁</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback2')">
-                            <div class="option-letter">C</div>
-                            <div>磁体有南北极</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')">
-                            <div class="option-letter">D</div>
-                            <div>磁场对电流有力的作用</div>
-                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')"><div class="option-letter">A</div><div>磁能生电</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback2')"><div class="option-letter">B</div><div>电能生磁</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback2')"><div class="option-letter">C</div><div>磁体有南北极</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')"><div class="option-letter">D</div><div>磁场对电流有力的作用</div></div>
                     </div>
                     <div class="quiz-feedback" id="feedback2"></div>
                 </div>
 
                 <div class="quiz-item">
                     <div class="quiz-number">3</div>
-                    <div class="quiz-question">
-                        下列设备中，利用电磁感应原理工作的是（　）
-                    </div>
+                    <div class="quiz-question">下列设备中，利用电磁感应原理工作的是（　）</div>
                     <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')">
-                            <div class="option-letter">A</div>
-                            <div>电动机</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback3')">
-                            <div class="option-letter">B</div>
-                            <div>发电机</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback3')">
-                            <div class="option-letter">C</div>
-                            <div>电磁铁</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')">
-                            <div class="option-letter">D</div>
-                            <div>电铃</div>
-                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')"><div class="option-letter">A</div><div>电动机</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback3')"><div class="option-letter">B</div><div>发电机</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback3')"><div class="option-letter">C</div><div>电磁铁</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')"><div class="option-letter">D</div><div>电铃</div></div>
                     </div>
                     <div class="quiz-feedback" id="feedback3"></div>
                 </div>
 
                 <div class="quiz-item">
                     <div class="quiz-number">4</div>
-                    <div class="quiz-question">
-                        电动机工作时，能量转化情况是（　）
-                    </div>
+                    <div class="quiz-question">电动机工作时，能量转化情况是（　）</div>
                     <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback4')">
-                            <div class="option-letter">A</div>
-                            <div>机械能→电能</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback4')">
-                            <div class="option-letter">B</div>
-                            <div>电能→机械能</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback4')">
-                            <div class="option-letter">C</div>
-                            <div>电能→内能</div>
-                        </div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback4')">
-                            <div class="option-letter">D</div>
-                            <div>化学能→电能</div>
-                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback4')"><div class="option-letter">A</div><div>机械能→电能</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback4')"><div class="option-letter">B</div><div>电能→机械能</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback4')"><div class="option-letter">C</div><div>电能→内能</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback4')"><div class="option-letter">D</div><div>化学能→电能</div></div>
                     </div>
                     <div class="quiz-feedback" id="feedback4"></div>
                 </div>
@@ -443,10 +273,7 @@
         </section>
 
         <div class="action-buttons">
-            <a href="index.html" class="btn btn-primary">
-                <span>✅</span>
-                <span>完成学习</span>
-            </a>
+            <a href="index.html" class="btn btn-primary"><span>✅</span><span>完成学习</span></a>
         </div>
     </main>
 
@@ -455,16 +282,10 @@
             const answer = document.getElementById(id);
             answer.classList.toggle('hidden');
         }
-
         function checkAnswer(element, selected, isCorrect, feedbackId) {
             const feedback = document.getElementById(feedbackId);
             const options = element.parentElement.querySelectorAll('.quiz-option');
-            
-            options.forEach(opt => {
-                opt.classList.remove('correct', 'wrong');
-                opt.onclick = null;
-            });
-            
+            options.forEach(opt => { opt.classList.remove('correct', 'wrong'); opt.onclick = null; });
             if (isCorrect) {
                 element.classList.add('correct');
                 feedback.innerHTML = '✅ 回答正确！';
