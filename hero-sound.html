@@ -775,6 +775,28 @@
             </div>
         </section>
 
+        <!-- 动画视频讲解区域 -->
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">🎬</div>
+                <h2 class="section-title">动画讲解：声波的奥秘</h2>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-player">
+                    <canvas id="soundAnimation" width="800" height="400"></canvas>
+                    <div class="video-controls">
+                        <button class="play-btn" onclick="toggleAnimation()">
+                            <span id="playIcon">▶️</span> <span id="playText">播放动画</span>
+                        </button>
+                        <div class="progress-bar-video">
+                            <div class="progress-fill-video" id="videoProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="learning-section">
             <div class="section-header">
                 <div class="section-icon">📖</div>
@@ -908,28 +930,6 @@
                             <li>距离越近 → 响度越大 → 小地图上显示越明显</li>
                         </ul>
                         <p style="margin-top: 10px; color: var(--accent-gold);">💡 游戏里的"听声辨位"就是物理知识的应用！</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 动画视频讲解区域 -->
-        <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">🎬</div>
-                <h2 class="section-title">动画讲解：声波的奥秘</h2>
-            </div>
-            
-            <div class="video-container">
-                <div class="video-player">
-                    <canvas id="soundAnimation" width="800" height="400"></canvas>
-                    <div class="video-controls">
-                        <button class="play-btn" onclick="toggleAnimation()">
-                            <span id="playIcon">▶️</span> <span id="playText">播放动画</span>
-                        </button>
-                        <div class="progress-bar-video">
-                            <div class="progress-fill-video" id="videoProgress"></div>
-                        </div>
                     </div>
                 </div>
             </div>
