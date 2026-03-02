@@ -1289,14 +1289,52 @@
                 <span>✏️</span>
                 <span>记笔记</span>
             </button>
-            <a href="index.html" class="btn btn-primary">
+            <button class="btn btn-primary" onclick="completeLearning()">
                 <span>✅</span>
                 <span>完成学习</span>
-            </a>
+            </button>
         </div>
     </main>
 
     <script>
+        // ========== 学习进度保存功能 ==========
+        const HERO_ID = 'force'; // 当前英雄ID
+        
+        // 保存学习进度
+        function saveProgress(heroId, percentage) {
+            let progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            progress[heroId] = {
+                percentage: percentage,
+                completed: percentage >= 100,
+                lastStudy: new Date().toISOString()
+            };
+            localStorage.setItem('physicsKingProgress', JSON.stringify(progress));
+        }
+        
+        // 获取学习进度
+        function getProgress(heroId) {
+            let progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            return progress[heroId] || { percentage: 0, completed: false };
+        }
+        
+        // 完成学习按钮点击
+        function completeLearning() {
+            saveProgress(HERO_ID, 100);
+            alert('🎉 恭喜！你已完成力量·基础的学习！');
+            window.location.href = 'index.html';
+        }
+        
+        // 页面加载时更新进度条显示
+        window.addEventListener('load', function() {
+            const progress = getProgress(HERO_ID);
+            const progressFill = document.querySelector('.progress-fill-large');
+            const progressText = document.querySelector('.progress-text-large');
+            if (progressFill && progressText) {
+                progressFill.style.width = progress.percentage + '%';
+                progressText.textContent = '学习进度 ' + progress.percentage + '%';
+            }
+        });
+
         // ========== 进度条拖动控制 ==========
         const progressBar = document.querySelector('.progress-bar-video');
         const progressFill = document.getElementById('videoProgress');

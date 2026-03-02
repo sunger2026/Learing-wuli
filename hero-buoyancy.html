@@ -1135,5 +1135,41 @@
         initBubbles();
         drawBuoyancyScene();
     </script>
+
+    <script>
+        // ========== 学习进度保存功能 ==========
+        const HERO_ID = 'buoyancy';
+        
+        function saveProgress(heroId, percentage) {
+            let progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            progress[heroId] = {
+                percentage: percentage,
+                completed: percentage >= 100,
+                lastStudy: new Date().toISOString()
+            };
+            localStorage.setItem('physicsKingProgress', JSON.stringify(progress));
+        }
+        
+        function getProgress(heroId) {
+            let progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            return progress[heroId] || { percentage: 0, completed: false };
+        }
+        
+        function completeLearning() {
+            saveProgress(HERO_ID, 100);
+            alert('🎉 恭喜！你已完成本英雄的学习！');
+            window.location.href = 'index.html';
+        }
+        
+        window.addEventListener('load', function() {
+            const progress = getProgress(HERO_ID);
+            const progressFill = document.querySelector('.progress-fill-large');
+            const progressText = document.querySelector('.progress-text-large');
+            if (progressFill && progressText) {
+                progressFill.style.width = progress.percentage + '%';
+                progressText.textContent = '学习进度 ' + progress.percentage + '%';
+            }
+        });
+    </script>
 </body>
 </html>
