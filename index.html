@@ -880,10 +880,10 @@
             <!-- 掌握情况检验 -->
             <div class="mastery-check" id="masteryCheck">
                 <div class="mastery-title">📊 学习掌握情况检验</div>
-                <div class="mastery-desc">完成5道诊断题，系统会根据你的答题情况推荐最适合的学习路径</div>
+                <div class="mastery-desc">完成10道诊断题，系统会根据你的答题情况推荐最适合的学习路径</div>
                 <div class="diagnostic-test" id="diagnosticTest">
                     <div class="test-intro">
-                        <p>📝 快速诊断测试（5道题，约3分钟）</p>
+                        <p>📝 快速诊断测试（10道题，约5分钟）</p>
                         <p style="font-size: 13px; color: rgba(255,255,255,0.6);">测试范围：初中物理基础概念、公式应用、简单计算</p>
                     </div>
                     <button class="mastery-submit" onclick="startDiagnosticTest()">🎯 开始诊断测试</button>
@@ -1984,7 +1984,7 @@
             { id: 'magnetism', name: '磁场', emoji: '🧲', difficulty: 4, category: '电学' }
         ];
         
-        // 诊断测试题目（5道）
+        // 诊断测试题目（10道）
         const diagnosticQuestions = [
             {
                 id: 1,
@@ -2025,6 +2025,46 @@
                 options: ['1000 Pa', '10000 Pa', '100000 Pa', '1000000 Pa'],
                 correct: 2,
                 knowledge: 'pressure'
+            },
+            {
+                id: 6,
+                category: '物态变化',
+                question: '下列现象中属于凝固的是？',
+                options: ['冰雪消融', '湿衣服晾干', '水结冰', '水烧开后冒白气'],
+                correct: 2,
+                knowledge: 'state'
+            },
+            {
+                id: 7,
+                category: '密度计算',
+                question: '一个金属块质量为270g，体积为100cm³，其密度为？',
+                options: ['2.7 g/cm³', '27 g/cm³', '0.37 g/cm³', '370 g/cm³'],
+                correct: 0,
+                knowledge: 'density'
+            },
+            {
+                id: 8,
+                category: '光现象',
+                question: '光从空气斜射入水中时，折射角与入射角的关系是？',
+                options: ['折射角大于入射角', '折射角等于入射角', '折射角小于入射角', '无法确定'],
+                correct: 2,
+                knowledge: 'light'
+            },
+            {
+                id: 9,
+                category: '简单机械',
+                question: '使用定滑轮的主要作用是？',
+                options: ['省力', '改变力的方向', '省距离', '省功'],
+                correct: 1,
+                knowledge: 'lever'
+            },
+            {
+                id: 10,
+                category: '电功率',
+                question: '一个标有"220V 40W"的灯泡正常发光时的电流约为？',
+                options: ['0.18 A', '1.8 A', '5.5 A', '0.55 A'],
+                correct: 0,
+                knowledge: 'power'
             }
         ];
         
