@@ -1105,12 +1105,49 @@
         </section>
 
         <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="alert('📝 笔记已保存！')">
+            <button class="btn btn-secondary" onclick="openNotesPanel()">
                 <span>✏️</span>
                 <span>记笔记</span>
             </button>
             <button class="btn btn-primary" onclick="completeLearning()"><span>✅</span><span>完成学习</span></button>
         </div>
+    
+    <!-- 笔记面板 -->
+    <div class="notes-overlay" id="notesOverlay" onclick="closeNotesPanel()"></div>
+    <div class="notes-panel" id="notesPanel">
+        <div class="notes-header">
+            <span>📝 学习笔记</span>
+            <button class="notes-close" onclick="closeNotesPanel()">✕</button>
+        </div>
+        <div class="notes-content">
+            <textarea id="notesTextarea" placeholder="在这里记录你的学习心得、重点难点、易错点...
+
+例如：
+- 重点公式
+- 易错概念
+- 解题技巧"></textarea>
+        </div>
+        <div class="notes-actions">
+            <button class="btn btn-secondary" onclick="clearNotes()">🗑️ 清空</button>
+            <button class="btn btn-primary" onclick="saveNotes()">💾 保存笔记</button>
+        </div>
+    </div>
+
+    <style>
+        .notes-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .notes-overlay.show { display: block; opacity: 1; }
+        .notes-panel { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: var(--card-bg); border-left: 1px solid rgba(255,255,255,0.1); z-index: 9999; display: flex; flex-direction: column; transition: right 0.3s ease; box-shadow: -5px 0 30px rgba(0,0,0,0.5); }
+        .notes-panel.show { right: 0; }
+        .notes-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 18px; font-weight: 700; }
+        .notes-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; }
+        .notes-close:hover { background: rgba(255,255,255,0.1); }
+        .notes-content { flex: 1; padding: 20px; overflow: hidden; }
+        .notes-content textarea { width: 100%; height: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; color: #fff; font-size: 14px; line-height: 1.6; resize: none; font-family: inherit; }
+        .notes-content textarea:focus { outline: none; border-color: var(--accent); }
+        .notes-actions { display: flex; gap: 10px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .notes-actions .btn { flex: 1; padding: 12px 20px; font-size: 14px; }
+        @media (max-width: 480px) { .notes-panel { width: 100%; right: -100%; } }
+    </style>
     </main>
 
     <script>
@@ -1140,7 +1177,62 @@
             }
         }
 
-        // ========== 进度条拖动控制 ==========
+        
+        // ========== 笔记功能 ==========
+        function openNotesPanel() {
+            document.getElementById('notesOverlay').classList.add('show');
+            document.getElementById('notesPanel').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            loadNotes();
+        }
+
+        function closeNotesPanel() {
+            document.getElementById('notesOverlay').classList.remove('show');
+            document.getElementById('notesPanel').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('notesTextarea').value;
+            let allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            allNotes[HERO_ID] = {
+                content: notes,
+                updatedAt: new Date().toISOString()
+            };
+            localStorage.setItem('physicsKingNotes', JSON.stringify(allNotes));
+            
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ 已保存';
+            btn.style.background = 'var(--success)';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 1500);
+        }
+
+        function loadNotes() {
+            const allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            const textarea = document.getElementById('notesTextarea');
+            if (textarea && allNotes[HERO_ID]) {
+                textarea.value = allNotes[HERO_ID].content || '';
+            }
+        }
+
+        function clearNotes() {
+            if (confirm('确定要清空所有笔记吗？此操作不可恢复。')) {
+                document.getElementById('notesTextarea').value = '';
+                saveNotes();
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNotesPanel();
+            }
+        });
+
+// ========== 进度条拖动控制 ==========
         const progressBar = document.querySelector('.progress-bar-video');
         const progressFill = document.getElementById('videoProgress');
         let isDragging = false;
@@ -1684,7 +1776,8 @@
             const progressText = document.querySelector('.progress-text-large');
             if (progressFill && progressText) {
                 progressFill.style.width = progress.percentage + '%';
-                progressText.textContent = '学习进度 ' + progress.percentage + '%';
+                loadNotes();
+            progressText.textContent = '学习进度 ' + progress.percentage + '%';
             }
         });
     </script>
