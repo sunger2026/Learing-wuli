@@ -698,27 +698,51 @@
             font-size: 14px;
             margin-bottom: 15px;
         }
+        .test-intro {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .test-progress {
+            text-align: center;
+            color: var(--accent-gold);
+            font-size: 14px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(0,212,255,0.1);
+            border-radius: 8px;
+        }
+        .test-questions {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .mastery-question {
             background: rgba(255,255,255,0.05);
             border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
         }
         .mastery-question-text {
-            font-size: 14px;
-            margin-bottom: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.6;
         }
         .mastery-options {
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            flex-direction: column;
+            gap: 10px;
         }
         .mastery-option {
-            padding: 8px 15px;
+            padding: 12px 15px;
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            font-size: 13px;
+            border-radius: 8px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -731,8 +755,10 @@
             border-color: var(--accent);
         }
         .mastery-submit {
-            margin-top: 15px;
-            padding: 12px 30px;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px 30px;
             background: linear-gradient(135deg, var(--accent), var(--accent-gold));
             border: none;
             border-radius: 25px;
@@ -749,24 +775,31 @@
             margin-bottom: 20px;
         }
         .mastery-result-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--success);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            text-align: center;
         }
         .mastery-result-desc {
             font-size: 14px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.6;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.8;
+        }
+        .mastery-result-desc p {
+            margin-bottom: 10px;
         }
         .mastery-restart {
+            display: block;
+            width: 100%;
             margin-top: 15px;
-            padding: 10px 20px;
+            padding: 12px 20px;
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 20px;
             color: #fff;
             cursor: pointer;
+            font-size: 14px;
         }
 
         /* 响应式 */
@@ -847,9 +880,16 @@
             <!-- 掌握情况检验 -->
             <div class="mastery-check" id="masteryCheck">
                 <div class="mastery-title">📊 学习掌握情况检验</div>
-                <div class="mastery-desc">回答几个简单问题，系统会为你推荐最适合的学习路径</div>
-                <div class="mastery-questions" id="masteryQuestions">
-                    <!-- 问题由JS动态生成 -->
+                <div class="mastery-desc">完成5道诊断题，系统会根据你的答题情况推荐最适合的学习路径</div>
+                <div class="diagnostic-test" id="diagnosticTest">
+                    <div class="test-intro">
+                        <p>📝 快速诊断测试（5道题，约3分钟）</p>
+                        <p style="font-size: 13px; color: rgba(255,255,255,0.6);">测试范围：初中物理基础概念、公式应用、简单计算</p>
+                    </div>
+                    <button class="mastery-submit" onclick="startDiagnosticTest()">🎯 开始诊断测试</button>
+                </div>
+                <div class="test-questions" id="testQuestions" style="display: none;">
+                    <!-- 题目由JS动态生成 -->
                 </div>
             </div>
             
@@ -1944,32 +1984,309 @@
             { id: 'magnetism', name: '磁场', emoji: '🧲', difficulty: 4, category: '电学' }
         ];
         
-        // 掌握情况检验问题
-        const masteryQuestions = [
+        // 诊断测试题目（5道）
+        const diagnosticQuestions = [
             {
-                id: 'q1',
-                question: '你对初中物理基础（速度、声光现象）的掌握程度如何？',
-                options: [
-                    { value: 'strong', text: '基础扎实 ✅', desc: '已经熟练掌握' },
-                    { value: 'weak', text: '需要巩固 📚', desc: '有些概念不太清楚' },
-                    { value: 'none', text: '完全零基础 🆕', desc: '从头开始学习' }
-                ]
+                id: 1,
+                category: '基础概念',
+                question: '下列关于速度的说法正确的是？',
+                options: ['速度是标量，只有大小', '速度越大，物体运动越快', '平均速度等于速度的平均值', '瞬时速度就是平均速度'],
+                correct: 1,
+                knowledge: 'speed'
             },
             {
-                id: 'q2',
-                question: '你觉得物理学习中最大的困难是什么？',
-                options: [
-                    { value: 'concept', text: '概念理解 🤔', desc: '抽象概念难以理解' },
-                    { value: 'formula', text: '公式运用 📝', desc: '不知道何时用哪个公式' },
-                    { value: 'calculation', text: '计算能力 🧮', desc: '数学运算容易出错' },
-                    { value: 'experiment', text: '实验分析 🔬', desc: '实验题不知如何下手' }
-                ]
+                id: 2,
+                category: '公式应用',
+                question: '一个物体质量为2kg，受到5N的水平拉力，在光滑水平面上运动，其加速度为？',
+                options: ['10 m/s²', '2.5 m/s²', '0.4 m/s²', '无法确定'],
+                correct: 1,
+                knowledge: 'force'
             },
             {
-                id: 'q3',
-                question: '你每天能投入多少时间学习物理？',
-                options: [
-                    { value: 'short', text: '15-30分钟 ⏱️', desc: '碎片时间学习' },
+                id: 3,
+                category: '电学基础',
+                question: '根据欧姆定律，当电压一定时，电流与电阻的关系是？',
+                options: ['成正比', '成反比', '无关', '成平方关系'],
+                correct: 1,
+                knowledge: 'electricity'
+            },
+            {
+                id: 4,
+                category: '浮力概念',
+                question: '一个物体浸没在水中时受到的浮力与什么因素有关？',
+                options: ['物体的重力', '物体的密度', '排开液体的体积', '物体的形状'],
+                correct: 2,
+                knowledge: 'buoyancy'
+            },
+            {
+                id: 5,
+                category: '压强计算',
+                question: '水深10m处的压强约为多少？（g=10N/kg，ρ水=1000kg/m³）',
+                options: ['1000 Pa', '10000 Pa', '100000 Pa', '1000000 Pa'],
+                correct: 2,
+                knowledge: 'pressure'
+            }
+        ];
+        
+        let currentTestAnswers = [];
+        let currentQuestionIndex = 0;
+        
+        // 初始化掌握情况检验
+        function initMasteryCheck() {
+            const savedResult = localStorage.getItem('physicsKingMasteryResult');
+            if (savedResult) {
+                showMasteryResult(JSON.parse(savedResult));
+            }
+        }
+        
+        function startDiagnosticTest() {
+            currentTestAnswers = [];
+            currentQuestionIndex = 0;
+            
+            document.getElementById('diagnosticTest').style.display = 'none';
+            document.getElementById('testQuestions').style.display = 'block';
+            
+            showQuestion(0);
+        }
+        
+        function showQuestion(index) {
+            const container = document.getElementById('testQuestions');
+            const q = diagnosticQuestions[index];
+            
+            container.innerHTML = `
+                <div class="test-progress">题目 ${index + 1} / ${diagnosticQuestions.length} · ${q.category}</div>
+                <div class="mastery-question">
+                    <div class="mastery-question-text">${q.question}</div>
+                    <div class="mastery-options">
+                        ${q.options.map((opt, i) => `
+                            <div class="mastery-option" onclick="selectTestAnswer(${i})">${String.fromCharCode(65 + i)}. ${opt}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function selectTestAnswer(answerIndex) {
+            currentTestAnswers.push({
+                questionId: diagnosticQuestions[currentQuestionIndex].id,
+                answer: answerIndex,
+                correct: diagnosticQuestions[currentQuestionIndex].correct,
+                knowledge: diagnosticQuestions[currentQuestionIndex].knowledge
+            });
+            
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < diagnosticQuestions.length) {
+                showQuestion(currentQuestionIndex);
+            } else {
+                finishDiagnosticTest();
+            }
+        }
+        
+        function finishDiagnosticTest() {
+            // 计算得分和薄弱知识点
+            let correctCount = 0;
+            const weakKnowledges = [];
+            
+            currentTestAnswers.forEach(ans => {
+                if (ans.answer === ans.correct) {
+                    correctCount++;
+                } else {
+                    weakKnowledges.push(ans.knowledge);
+                }
+            });
+            
+            const score = Math.round((correctCount / diagnosticQuestions.length) * 100);
+            
+            // 生成推荐结果
+            const result = generateTestRecommendation(score, weakKnowledges, correctCount);
+            
+            // 保存结果
+            localStorage.setItem('physicsKingMasteryResult', JSON.stringify(result));
+            localStorage.setItem('physicsKingTestScore', score);
+            
+            // 显示结果
+            showMasteryResult(result);
+        }
+        
+        function generateTestRecommendation(score, weakKnowledges, correctCount) {
+            const progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            const incompletePaths = learningPaths.filter(p => !progress[p.id] || !progress[p.id].completed);
+            
+            let recommended = [];
+            let analysis = '';
+            let studyPlan = '';
+            
+            if (score >= 80) {
+                // 优秀 - 基础扎实，可以学习进阶内容
+                analysis = `🎉 诊断结果：基础扎实（${score}分）`;
+                studyPlan = '你的物理基础很好！建议直接学习进阶内容，或选择感兴趣的方向深入。';
+                
+                // 推荐较难的未学习内容
+                recommended = incompletePaths.filter(p => p.difficulty >= 3).slice(0, 3);
+                if (recommended.length < 3) {
+                    recommended = [...recommended, ...incompletePaths.filter(p => p.difficulty < 3).slice(0, 3 - recommended.length)];
+                }
+            } else if (score >= 60) {
+                // 中等 - 有基础但需巩固
+                analysis = `📚 诊断结果：基础尚可（${score}分）`;
+                studyPlan = '你有一定基础，但部分知识点需要巩固。建议系统学习，重点突破薄弱环节。';
+                
+                // 优先推荐薄弱知识点对应的内容
+                const weakCategories = [...new Set(weakKnowledges)];
+                const weakPaths = incompletePaths.filter(p => weakCategories.includes(p.id));
+                const otherPaths = incompletePaths.filter(p => !weakCategories.includes(p.id));
+                
+                recommended = [...weakPaths.slice(0, 2), ...otherPaths.slice(0, 1)];
+                if (recommended.length < 3) {
+                    recommended = [...recommended, ...otherPaths.slice(0, 3 - recommended.length)];
+                }
+            } else {
+                // 较差 - 需要从头学起
+                analysis = `🆕 诊断结果：需要系统学习（${score}分）`;
+                studyPlan = '建议从最基础的内容开始，循序渐进建立知识体系。不要急，一步一个脚印！';
+                
+                // 推荐最简单的内容
+                recommended = incompletePaths.filter(p => p.difficulty <= 2).slice(0, 3);
+                if (recommended.length < 3) {
+                    recommended = [...recommended, ...incompletePaths.filter(p => p.difficulty > 2).slice(0, 3 - recommended.length)];
+                }
+            }
+            
+            // 薄弱知识点提示
+            let tips = '';
+            if (weakKnowledges.length > 0) {
+                const weakNames = weakKnowledges.map(id => {
+                    const path = learningPaths.find(p => p.id === id);
+                    return path ? path.name : id;
+                });
+                const uniqueWeakNames = [...new Set(weakNames)];
+                tips = `💡 建议重点加强：${uniqueWeakNames.join('、')}`;
+            }
+            
+            return {
+                score: score,
+                correctCount: correctCount,
+                totalCount: diagnosticQuestions.length,
+                analysis: analysis,
+                studyPlan: studyPlan,
+                recommended: recommended,
+                tips: tips,
+                weakKnowledges: [...new Set(weakKnowledges)],
+                timestamp: new Date().toISOString()
+            };
+        }
+        
+        function showMasteryResult(result) {
+            const checkDiv = document.getElementById('masteryCheck');
+            const resultDiv = document.getElementById('pathRecommendation');
+            const testDiv = document.getElementById('testQuestions');
+            const introDiv = document.getElementById('diagnosticTest');
+            
+            if (introDiv) introDiv.style.display = 'none';
+            if (testDiv) testDiv.style.display = 'none';
+            if (resultDiv) {
+                resultDiv.style.display = 'block';
+                
+                const pathList = result.recommended.map(p => 
+                    `<span style="color: var(--accent-gold);">${p.emoji} ${p.name}</span>`
+                ).join(' → ');
+                
+                resultDiv.innerHTML = `
+                    <div class="mastery-result">
+                        <div class="mastery-result-title">${result.analysis}</div>
+                        <div class="mastery-result-desc">
+                            <p><strong>答对：</strong>${result.correctCount}/${result.totalCount} 题</p>
+                            <p><strong>推荐路径：</strong>${pathList}</p>
+                            <p><strong>学习计划：</strong>${result.studyPlan}</p>
+                            ${result.tips ? `<p>${result.tips}</p>` : ''}
+                        </div>
+                        <button class="mastery-restart" onclick="restartDiagnosticTest()">🔄 重新测试</button>
+                    </div>
+                `;
+            }
+            
+            updatePathFlow(result.recommended);
+        }
+        
+        function updatePathFlow(recommendedPaths) {
+            const pathFlow = document.getElementById('pathFlow');
+            if (!pathFlow) return;
+            
+            const progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            const allPaths = [...learningPaths];
+            
+            pathFlow.innerHTML = '';
+            allPaths.forEach((path, index) => {
+                const isCompleted = progress[path.id] && progress[path.id].completed;
+                const isRecommended = recommendedPaths.some(r => r.id === path.id);
+                
+                const pathItem = document.createElement('div');
+                let className = 'path-item';
+                if (isCompleted) className += ' completed';
+                else if (isRecommended) className += ' current';
+                
+                pathItem.className = className;
+                pathItem.innerHTML = `${path.emoji} ${path.name}`;
+                pathItem.onclick = () => window.location.href = 'hero-' + path.id + '.html';
+                pathFlow.appendChild(pathItem);
+                
+                if (index < allPaths.length - 1) {
+                    const arrow = document.createElement('span');
+                    arrow.className = 'path-arrow';
+                    arrow.textContent = '→';
+                    pathFlow.appendChild(arrow);
+                }
+            });
+        }
+        
+        function restartDiagnosticTest() {
+            localStorage.removeItem('physicsKingMasteryResult');
+            currentTestAnswers = [];
+            currentQuestionIndex = 0;
+            
+            const resultDiv = document.getElementById('pathRecommendation');
+            const introDiv = document.getElementById('diagnosticTest');
+            
+            if (resultDiv) resultDiv.style.display = 'none';
+            if (introDiv) {
+                introDiv.style.display = 'block';
+                document.getElementById('testQuestions').style.display = 'none';
+            }
+            
+            updateLearningPathBase();
+        }
+        
+        function updateLearningPathBase() {
+            const pathFlow = document.getElementById('pathFlow');
+            const progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            
+            if (!pathFlow) return;
+            
+            pathFlow.innerHTML = '';
+            learningPaths.forEach((path, index) => {
+                const isCompleted = progress[path.id] && progress[path.id].completed;
+                
+                const pathItem = document.createElement('div');
+                pathItem.className = 'path-item' + (isCompleted ? ' completed' : '');
+                pathItem.innerHTML = `${path.emoji} ${path.name}`;
+                pathItem.onclick = () => window.location.href = 'hero-' + path.id + '.html';
+                pathFlow.appendChild(pathItem);
+                
+                if (index < learningPaths.length - 1) {
+                    const arrow = document.createElement('span');
+                    arrow.className = 'path-arrow';
+                    arrow.textContent = '→';
+                    pathFlow.appendChild(arrow);
+                }
+            });
+        }
+        
+        // 页面加载时初始化
+        window.addEventListener('load', function() {
+            updateProgressDisplay();
+            initMasteryCheck();
+        });
                     { value: 'medium', text: '30-60分钟 ⏲️', desc: '每天一节课' },
                     { value: 'long', text: '1小时以上 🕐', desc: '专注深度学习' }
                 ]
