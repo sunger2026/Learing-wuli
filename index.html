@@ -1193,7 +1193,7 @@
                 </div>
 
                 <!-- 英雄4: 相互作用 -->
-                <div class="hero-card locked" onclick="openHero('force')">
+                <div class="hero-card" onclick="openHero('interaction')">
                     <div class="hero-image">💪</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1211,7 +1211,7 @@
                 </div>
 
                 <!-- 英雄5: 牛顿定律 -->
-                <div class="hero-card locked">
+                <div class="hero-card" onclick="openHero('newton')">
                     <div class="hero-image">🍎</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1223,7 +1223,7 @@
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 0%"></div>
                             </div>
-                            <span class="progress-text"> locked</span>
+                            <span class="progress-text"> 0%</span>
                         </div>
                     </div>
                 </div>
@@ -1747,7 +1747,29 @@
                 alert('🔒 该英雄还未解锁！请先完成前置课程。');
                 return;
             }
-            alert('🦸 正在召唤英雄...\n\n这里将打开 ' + heroId + ' 的学习页面，包含：\n- 知识点动画讲解\n- 例题演示\n- 练习题');
+            
+            // 英雄ID到页面文件的映射
+            const heroPages = {
+                'motion': 'hero-motion.html',
+                'uniform': 'hero-uniform.html',
+                'freefall': 'hero-freefall.html',
+                'force': 'hero-interaction.html',
+                'interaction': 'hero-interaction.html',
+                'newton': 'hero-newton.html',
+                'curve': 'hero-curve.html',
+                'projectile': 'hero-projectile.html',
+                'circular': 'hero-circular.html',
+                'gravity': 'hero-gravity.html',
+                'work': 'hero-work.html',
+                'energy': 'hero-energy.html'
+            };
+            
+            const page = heroPages[heroId];
+            if (page) {
+                window.location.href = page;
+            } else {
+                alert('🦸 正在开发中...\n\n' + heroId + ' 的学习页面即将上线！');
+            }
         }
 
         // 开始对战
