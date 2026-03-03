@@ -1139,7 +1139,7 @@
             </div>
             <div class="heroes-grid">
                 <!-- 英雄1: 运动的描述 -->
-                <div class="hero-card" onclick="openHero('motion')">
+                <div class="hero-card" onclick="openHero('motion', this)">
                     <div class="hero-image">🏃</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1157,7 +1157,7 @@
                 </div>
 
                 <!-- 英雄2: 匀变速直线运动 -->
-                <div class="hero-card" onclick="openHero('uniform')">
+                <div class="hero-card" onclick="openHero('uniform', this)">
                     <div class="hero-image">📈</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1175,7 +1175,7 @@
                 </div>
 
                 <!-- 英雄3: 自由落体 -->
-                <div class="hero-card" onclick="openHero('freefall')">
+                <div class="hero-card" onclick="openHero('freefall', this)">
                     <div class="hero-image">🍎</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1193,7 +1193,7 @@
                 </div>
 
                 <!-- 英雄4: 相互作用 -->
-                <div class="hero-card" onclick="openHero('interaction')">
+                <div class="hero-card" onclick="openHero('interaction', this)">
                     <div class="hero-image">💪</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1211,7 +1211,7 @@
                 </div>
 
                 <!-- 英雄5: 牛顿定律 -->
-                <div class="hero-card" onclick="openHero('newton')">
+                <div class="hero-card" onclick="openHero('newton', this)">
                     <div class="hero-image">🍎</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1256,7 +1256,7 @@
             </div>
             <div class="heroes-grid">
                 <!-- 必修二英雄1: 曲线运动 -->
-                <div class="hero-card" onclick="openHero('curve')">
+                <div class="hero-card" onclick="openHero('curve', this)">
                     <div class="hero-image">🌊</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1274,7 +1274,7 @@
                 </div>
 
                 <!-- 必修二英雄2: 平抛运动 -->
-                <div class="hero-card" onclick="openHero('projectile')">
+                <div class="hero-card" onclick="openHero('projectile', this)">
                     <div class="hero-image">🎯</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1292,7 +1292,7 @@
                 </div>
 
                 <!-- 必修二英雄3: 圆周运动 -->
-                <div class="hero-card" onclick="openHero('circular')">
+                <div class="hero-card" onclick="openHero('circular', this)">
                     <div class="hero-image">🎡</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1310,7 +1310,7 @@
                 </div>
 
                 <!-- 必修二英雄4: 万有引力 -->
-                <div class="hero-card" onclick="openHero('gravity')">
+                <div class="hero-card" onclick="openHero('gravity', this)">
                     <div class="hero-image">🌌</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1328,7 +1328,7 @@
                 </div>
 
                 <!-- 必修二英雄5: 功和功率 -->
-                <div class="hero-card" onclick="openHero('work')">
+                <div class="hero-card" onclick="openHero('work', this)">
                     <div class="hero-image">⚡</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1346,7 +1346,7 @@
                 </div>
 
                 <!-- 必修二英雄6: 机械能守恒 -->
-                <div class="hero-card" onclick="openHero('energy')">
+                <div class="hero-card" onclick="openHero('energy', this)">
                     <div class="hero-image">🔮</div>
                     <div class="hero-info">
                         <div class="hero-name">
@@ -1742,18 +1742,30 @@
         }
 
         // 打开英雄详情
-        function openHero(heroId) {
-            if (event.currentTarget.classList.contains('locked')) {
+        function openHero(heroId, element) {
+            // 检查是否锁定
+            if (element && element.classList.contains('locked')) {
                 alert('🔒 该英雄还未解锁！请先完成前置课程。');
                 return;
             }
             
             // 英雄ID到页面文件的映射
             const heroPages = {
+                'speed': 'hero-speed.html',
+                'sound': 'hero-sound.html',
+                'light': 'hero-light.html',
+                'state': 'hero-state.html',
+                'density': 'hero-density.html',
+                'force': 'hero-force.html',
+                'pressure': 'hero-pressure.html',
+                'buoyancy': 'hero-buoyancy.html',
+                'lever': 'hero-lever.html',
+                'electricity': 'hero-electricity.html',
+                'power': 'hero-power.html',
+                'magnetism': 'hero-magnetism.html',
                 'motion': 'hero-motion.html',
                 'uniform': 'hero-uniform.html',
                 'freefall': 'hero-freefall.html',
-                'force': 'hero-interaction.html',
                 'interaction': 'hero-interaction.html',
                 'newton': 'hero-newton.html',
                 'curve': 'hero-curve.html',
@@ -1768,7 +1780,7 @@
             if (page) {
                 window.location.href = page;
             } else {
-                alert('🦸 正在开发中...\n\n' + heroId + ' 的学习页面即将上线！');
+                alert('🦸 正在开发中...\\n\\n' + heroId + ' 的学习页面即将上线！');
             }
         }
 
