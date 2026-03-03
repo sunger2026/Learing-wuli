@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定律·牛顿 - 牛顿运动定律 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32;--silver: #c0c0c0;--gold: #ffd700;--platinum: #3eb489;--diamond: #b9f2ff;
+            --star: #e6e6fa;--king: #ff6b35;--dark-bg: #0a0e1a;--card-bg: rgba(20, 25, 45, 0.95);
+            --accent: #00d4ff;--accent-gold: #ffb800;--success: #32cd32;--error: #ff4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark-bg); min-height: 100vh; color: #fff; overflow-x: hidden; }
+        .header { background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--accent-gold), var(--king)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; }
+        .logo-text { font-size: 24px; font-weight: 900; background: linear-gradient(90deg, var(--accent-gold), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .back-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; color: #fff; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(-5px); }
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 40px 60px; }
+        .hero-header { background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(62,180,137,0.15)); border: 1px solid rgba(255,215,0,0.3); border-radius: 20px; padding: 40px; margin-bottom: 30px; position: relative; overflow: hidden; }
+        .hero-header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,215,0,0.2), transparent); animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        .hero-title-section { display: flex; align-items: center; gap: 30px; position: relative; z-index: 1; }
+        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, #ffd700, var(--platinum)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; box-shadow: 0 20px 40px rgba(255,215,0,0.3); }
+        .hero-meta { flex: 1; }
+        .hero-name-large { font-size: 36px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
+        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(255,215,0,0.2); color: #ffd700; border-radius: 20px; font-size: 14px; font-weight: 600; }
+        .hero-desc-large { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+        .hero-progress-large { margin-top: 20px; display: flex; align-items: center; gap: 15px; }
+        .progress-bar-large { flex: 1; max-width: 300px; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+        .progress-fill-large { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent-gold), var(--accent)); border-radius: 5px; transition: width 0.5s ease; }
+        .progress-text-large { font-size: 18px; font-weight: 700; color: var(--accent-gold); }
+        .learning-section { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .section-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .section-title { font-size: 22px; font-weight: 700; }
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .knowledge-card { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
+        .knowledge-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .knowledge-card.important { border-color: var(--accent-gold); background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3)); }
+        .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .knowledge-title .icon { font-size: 20px; }
+        .knowledge-content { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+        .knowledge-content ul { margin: 10px 0; padding-left: 20px; }
+        .knowledge-content li { margin: 8px 0; }
+        .formula-box { background: rgba(0,212,255,0.1); border-left: 4px solid var(--accent); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; font-family: 'Times New Roman', serif; font-size: 20px; color: var(--accent); }
+        .formula-box.important { background: rgba(255,184,0,0.1); border-left-color: var(--accent-gold); color: var(--accent-gold); }
+        .example-box { background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255,184,0,0.3); border-radius: 16px; padding: 25px; margin: 20px 0; }
+        .example-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 18px; font-weight: 700; color: var(--accent-gold); }
+        .example-content { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.9); }
+        .example-question { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .example-answer { background: rgba(50,205,50,0.1); border: 1px solid rgba(50,205,50,0.3); padding: 20px; border-radius: 12px; }
+        .example-answer.hidden { display: none; }
+        .toggle-answer { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, var(--accent), var(--platinum)); border: none; border-radius: 25px; color: #000; font-weight: 700; cursor: pointer; margin-top: 15px; transition: all 0.3s ease; }
+        .toggle-answer:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,212,255,0.4); }
+        .quiz-container { margin-top: 20px; }
+        .quiz-item { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .quiz-number { display: inline-flex; width: 30px; height: 30px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border-radius: 50%; align-items: center; justify-content: center; font-weight: 700; color: #000; margin-bottom: 15px; }
+        .quiz-question { font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        .quiz-option { display: flex; align-items: center; gap: 12px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
+        .quiz-option.selected { border-color: var(--accent); background: rgba(0,212,255,0.1); }
+        .quiz-option.correct { border-color: var(--success); background: rgba(50,205,50,0.1); }
+        .quiz-option.wrong { border-color: var(--error); background: rgba(255,68,68,0.1); }
+        .option-letter { width: 28px; height: 28px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .quiz-option.selected .option-letter, .quiz-option.correct .option-letter, .quiz-option.wrong .option-letter { background: rgba(0,0,0,0.3); }
+        .quiz-feedback { margin-top: 15px; padding: 15px 20px; border-radius: 12px; font-weight: 600; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); color: var(--success); }
+        .quiz-feedback.wrong { background: rgba(255,68,68,0.2); color: var(--error); }
+        .action-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 16px; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-gold)); color: #000; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,212,255,0.4); }
+        .btn-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+        .btn-secondary:hover { background: var(--accent); color: #000; }
+        @media (max-width: 768px) { .main-container { padding: 20px; } .hero-title-section { flex-direction: column; text-align: center; } .hero-name-large { font-size: 24px; flex-direction: column; } .knowledge-grid { grid-template-columns: 1fr; } .action-buttons { flex-direction: column; } }
+        .notes-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .notes-overlay.show { display: block; opacity: 1; }
+        .notes-panel { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: var(--card-bg); border-left: 1px solid rgba(255,255,255,0.1); z-index: 9999; display: flex; flex-direction: column; transition: right 0.3s ease; box-shadow: -5px 0 30px rgba(0,0,0,0.5); }
+        .notes-panel.show { right: 0; }
+        .notes-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 18px; font-weight: 700; }
+        .notes-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; }
+        .notes-close:hover { background: rgba(255,255,255,0.1); }
+        .notes-content { flex: 1; padding: 20px; overflow: hidden; }
+        .notes-content textarea { width: 100%; height: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; color: #fff; font-size: 14px; line-height: 1.6; resize: none; font-family: inherit; }
+        .notes-content textarea:focus { outline: none; border-color: var(--accent); }
+        .notes-actions { display: flex; gap: 10px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .notes-actions .btn { flex: 1; padding: 12px 20px; font-size: 14px; }
+        @media (max-width: 480px) { .notes-panel { width: 100%; right: -100%; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">物理王者</div>
+        </a>
+        <a href="index.html" class="back-btn">
+            <span>←</span>
+            <span>返回英雄列表</span>
+        </a>
+    </header>
+
+    <main class="main-container">
+        <section class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">🍎</div>
+                <div class="hero-meta">
+                    <h1 class="hero-name-large">定律·牛顿<span class="hero-tag">力学系</span></h1>
+                    <p class="hero-desc-large">掌握牛顿三大定律，理解力与运动的关系。这是高中物理的核心，连接了受力分析和运动学，是解决动力学问题的金钥匙！</p>
+                    <div class="hero-progress-large">
+                        <div class="progress-bar-large"><div class="progress-fill-large"></div></div>
+                        <span class="progress-text-large">学习进度 0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <h2 class="section-title">核心知识点</h2>
+            </div>
+
+            <div class="knowledge-grid">
+                <div class="knowledge-card important">
+                    <div class="knowledge-title"><span class="icon">1️⃣</span>牛顿第一定律（惯性定律）</div>
+                    <div class="knowledge-content">
+                        <p><strong>内容：</strong>一切物体总保持匀速直线运动状态或静止状态，直到有外力迫使它改变这种状态为止。</p>
+                        <p style="margin-top: 10px;"><strong>关键理解：</strong></p>
+                        <ul>
+                            <li>揭示了力的本质：力是改变物体运动状态的原因，不是维持运动的原因</li>
+                            <li>定义了惯性：物体保持原有运动状态的性质</li>
+                            <li>惯性大小只与质量有关，质量越大惯性越大</li>
+                        </ul>
+                        <p style="color: var(--accent-gold);">💡 惯性是物体的固有属性，与运动状态无关！</p>
+                    </div>
+                </div>
+
+                <div class="knowledge-card important">
+                    <div class="knowledge-title"><span class="icon">2️⃣</span>牛顿第二定律（F=ma）</div>
+                    <div class="knowledge-content">
+                        <p><strong>内容：</strong>物体的加速度与所受合外力成正比，与质量成反比，加速度方向与合外力方向相同。</p>
+                        
+                        <div class="formula-box important">F = ma</div>
+                        
+                        <p><strong>理解要点：</strong></p>
+                        <ul>
+                            <li>F是合外力，不是某一个力</li>
+                            <li>a与F同向，瞬时对应关系</li>
+                            <li>矢量式：Fₓ = maₓ，Fᵧ = maᵧ</li>
+                        </ul>
+
+                        <p><strong>两种表达形式：</strong></p>
+                        <ul>
+                            <li>已知力求运动：先求a，再求v、x</li>
+                            <li>已知运动求力：先求a，再求F</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="knowledge-card important">
+                    <div class="knowledge-title"><span class="icon">3️⃣</span>牛顿第三定律（作用力与反作用力）</div>
+                    <div class="knowledge-content">
+                        <p><strong>内容：</strong>两个物体之间的作用力和反作用力总是大小相等、方向相反、作用在同一条直线上。</p>
+
+                        <p style="margin-top: 10px;"><strong>特点：</strong></p>
+                        <ul>
+                            <li>大小相等、方向相反、共线</li>
+                            <li>作用在两个不同的物体上（不能相互抵消）</li>
+                            <li>同时产生、同时消失</li>
+                            <li>性质相同（都是弹力、或都是摩擦力等）</li>
+                        </ul>
+
+                        <p style="color: var(--accent-gold);">⚠️ 注意：作用力与反作用力 ≠ 平衡力！</p>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">⚖️</span>作用力与反作用力 vs 平衡力</div>
+                    <div class="knowledge-content">
+                        <table style="width:100%;border-collapse:collapse;margin:10px 0;">
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><th style="padding:10px;text-align:left;">比较项</th><th style="padding:10px;text-align:left;">作用力与反作用力</th><th style="padding:10px;text-align:left;">平衡力</th></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:10px;">作用物体</td><td style="padding:10px;">两个不同物体</td><td style="padding:10px;">同一物体</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:10px;">力的性质</td><td style="padding:10px;">相同</td><td style="padding:10px;">可以不同</td></tr>
+                            <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:10px;">同时性</td><td style="padding:10px;">同时产生、消失</td><td style="padding:10px;">不一定</td></tr>
+                            <tr><td style="padding:10px;">效果</td><td style="padding:10px;">不能抵消</td><td style="padding:10px;">可以抵消（平衡）</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">📐</span>牛顿第二定律解题步骤</div>
+                    <div class="knowledge-content">
+                        <p><strong>第一步：明确研究对象</strong>（单个物体或系统）</p>
+                        <p><strong>第二步：受力分析</strong>画出受力图</p>
+                        <p><strong>第三步：建立坐标系</strong>通常沿加速度方向为x轴</p>
+                        <p><strong>第四步：列方程</strong></p>
+                        <ul>
+                            <li>Fx = ma（沿加速度方向）</li>
+                            <li>Fy = 0（垂直加速度方向，平衡）</li>
+                        </ul>
+                        <p><strong>第五步：求解并检验</strong></p>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">🎮</span>游戏联想</div>
+                    <div class="knowledge-content">
+                        <ul>
+                            <li><strong>第一定律：</strong>鲁班的炮弹不受力就直线飞行（惯性）</li>
+                            <li><strong>第二定律：</strong>F=ma，装备越好（质量大）越难改变方向，加速需要更多力</li>
+                            <li><strong>第三定律：</strong>你打敌人多疼，反作用力让你手多疼（作用反作用）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2 class="section-title">经典例题</h2>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header"><span>📝</span><span>例题1：瞬时性问题</span></div>
+                
+                <div class="example-question">
+                    <p><strong>题目：</strong>如图所示，质量为m的小球用水平弹簧和倾角为30°的光滑木板AB托住，处于静止状态。弹簧被拉伸，弹力大小为mg/2。当木板AB突然向下撤离的瞬间，小球的加速度为（　）</p>
+                </div>
+
+                <button class="toggle-answer" onclick="toggleAnswer('answer1')"><span>👁️</span><span>查看解析</span></button>
+
+                <div class="example-answer hidden" id="answer1">
+                    <p><strong>解析：</strong></p>
+                    
+                    <p><strong>关键：分析撤去木板前后的受力变化</strong></p>
+
+                    <p><strong>撤去前（静止）：</strong></p>
+                    <ul>
+                        <li>重力 mg（向下）</li>
+                        <li>弹簧弹力 F = mg/2（水平向右）</li>
+                        <li>木板支持力 N（垂直木板向上）</li>
+                    </ul>
+
+                    <p><strong>撤去后（瞬时）：</strong></p>
+                    <ul>
+                        <li>弹簧弹力不变（弹簧形变来不及改变）F = mg/2</li>
+                        <li>重力 mg</li>
+                        <li>木板支持力变为0</li>
+                    </ul>
+
+                    <p><strong>求合外力：</strong></p>
+                    <p>水平方向：Fx = F = mg/2</p>
+                    <p>竖直方向：Fy = mg</p>
+                    <p>合力 F合 = √[(mg/2)² + (mg)²] = √(5mg²/4) = (√5/2)mg</p>
+                    
+                    <p>加速度 a = F合/m = (√5/2)g</p>
+
+                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：a = (√5/2)g</p>
+                    
+                    <p style="color: var(--accent-gold);">💡 弹簧弹力不能突变，绳的拉力可以突变！</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header"><span>📝</span><span>例题2：连接体问题</span></div>
+                
+                <div class="example-question">
+                    <p><strong>题目：</strong>如图所示，质量为M的木板放在光滑水平面上，木板上表面粗糙。质量为m的小木块以初速度v₀从木板左端滑上木板，求木块和木板的加速度。</p>
+                </div>
+
+                <button class="toggle-answer" onclick="toggleAnswer('answer2')"><span>👁️</span><span>查看解析</span></button>
+
+                <div class="example-answer hidden" id="answer2">
+                    <p><strong>解析：</strong></p>
+                    
+                    <p><strong>分析摩擦力方向：</strong></p>
+                    <ul>
+                        <li>木块m相对木板向右运动</li>
+                        <li>m受到的滑动摩擦力向左（阻碍相对运动）</li>
+                        <li>木板M受到的滑动摩擦力向右（作用力与反作用力）</li>
+                    </ul>
+
+                    <p><strong>设滑动摩擦因数为μ：</strong></p>
+                    
+                    <p>对木块m：f = μmg = ma₁</p>
+                    <p>∴ a₁ = μg（方向向左，减速）</p>
+
+                    <p>对木板M：f = μmg = Ma₂</p>
+                    <p>∴ a₂ = μmg/M（方向向右，加速）</p>
+
+                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：木块加速度a₁=μg（向左），木板加速度a₂=μmg/M（向右）</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header"><span>📝</span><span>例题3：超重与失重</span></div>
+                
+                <div class="example-question">
+                    <p><strong>题目：</strong>一个人站在体重计上，突然下蹲，体重计的示数如何变化？</p>
+                </div>
+
+                <button class="toggle-answer" onclick="toggleAnswer('answer3')"><span>👁️</span><span>查看解析</span></button>
+
+                <div class="example-answer hidden" id="answer3">
+                    <p><strong>解析：</strong>分析下蹲过程的运动状态：</p>
+                    
+                    <p><strong>阶段一：加速下蹲</strong>（速度向下且增大）</p>
+                    <ul><li>加速度向下，处于失重状态</li>
+                    <li>N = mg - ma < mg，示数变小</li></ul>
+
+                    <p><strong>阶段二：减速下蹲</strong>（速度向下且减小）</p>
+                    <ul><li>加速度向上，处于超重状态</li>
+                    <li>N = mg + ma > mg，示数变大</li></ul>
+
+                    <p><strong>结论：</strong>先变小（失重），后变大（超重），最后恢复mg</p>
+
+                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：示数先变小后变大</p>
+                    
+                    <p style="color: var(--accent-gold);">💡 口诀：上超下失（加速度向上超重，向下失重）</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <h2 class="section-title">实战演练</h2>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-item">
+                    <div class="quiz-number">1</div>
+                    <div class="quiz-question">关于牛顿第一定律，下列说法正确的是（　）</div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')"><div class="option-letter">A</div><div>牛顿第一定律可以通过实验直接验证</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback1')"><div class="option-letter">B</div><div>物体的运动需要力来维持</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback1')"><div class="option-letter">C</div><div>力是改变物体运动状态的原因</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')"><div class="option-letter">D</div><div>惯性大小与速度有关</div></div>
+                    </div>
+                    
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">2</div>
+                    <div class="quiz-question">一个质量为2kg的物体，在几个共点力作用下处于静止状态。现将其中一个大小为10N的力撤去，则物体的加速度为（　）</div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')"><div class="option-letter">A</div><div>2m/s²</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback2')"><div class="option-letter">B</div><div>5m/s²（提示：原来平衡，撤去一个力，合力等于被撤去的力，方向相反）</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback2')"><div class="option-letter">C</div><div>10m/s²</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')"><div class="option-letter">D</div><div>20m/s²</div></div>
+                    </div>
+                    
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">3</div>
+                    <div class="quiz-question">如图所示，电梯内有一弹簧秤，秤上挂一质量为m的物体。当电梯以加速度a匀加速上升时，弹簧秤的示数为（　）</div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')"><div class="option-letter">A</div><div>mg</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback3')"><div class="option-letter">B</div><div>mg - ma</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback3')"><div class="option-letter">C</div><div>mg + ma（提示：加速上升，超重，N - mg = ma）</div></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')"><div class="option-letter">D</div><div>ma</div></div>
+                    </div>
+                    
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="openNotesPanel()"><span>✏️</span><span>记笔记</span></button>
+            <button class="btn btn-primary" onclick="completeLearning()"><span>✅</span><span>完成学习</span></button>
+        </div>
+    
+        <div class="notes-overlay" id="notesOverlay" onclick="closeNotesPanel()"></div>
+        <div class="notes-panel" id="notesPanel">
+            <div class="notes-header"><span>📝 学习笔记</span><button class="notes-close" onclick="closeNotesPanel()">✕</button></div>
+            <div class="notes-content">
+                <textarea id="notesTextarea" placeholder="在这里记录你的学习心得、重点难点、易错点...
+
+牛顿定律重点：
+- 第一定律：力不是维持运动的原因
+- 第二定律：F=ma，瞬时对应关系
+- 第三定律：作用力与反作用力"></textarea>
+            </div>
+            <div class="notes-actions">
+                <button class="btn btn-secondary" onclick="clearNotes()">🗑️ 清空</button>
+                <button class="btn btn-primary" onclick="saveNotes()">💾 保存笔记</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('hidden');
+        }
+
+        function checkAnswer(element, option, isCorrect, feedbackId) {
+            const quizItem = element.closest('.quiz-item');
+            const options = quizItem.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            
+            const feedback = document.getElementById(feedbackId);
+            feedback.classList.add('show');
+            feedback.classList.add(isCorrect ? 'correct' : 'wrong');
+            
+            const explanations = {
+                'feedback1': isCorrect ? 
+                    '✅ 正确！牛顿第一定律揭示了力的本质：力是改变物体运动状态的原因。第一定律是理想实验定律，不能直接用实验验证（无法完全消除力）；惯性只与质量有关。' :
+                    '❌ 错误。C是正确的。牛顿第一定律是逻辑推理的结果，不能直接用实验验证。',
+                'feedback2': isCorrect ?
+                    '✅ 正确！原来静止说明合力为0，撤去10N的力后，其他力的合力为10N（方向与被撤去的力相反），所以a = 10/2 = 5m/s²' :
+                    '❌ 错误。原来平衡时合力为0，撤去一个力，剩下的力的合力与被撤去的力大小相等、方向相反。',
+                'feedback3': isCorrect ?
+                    '✅ 正确！加速上升，处于超重状态。由N - mg = ma，得N = mg + ma' :
+                    '❌ 错误。加速上升是超重，弹力大于重力，根据牛顿第二定律列方程。'
+            };
+            
+            feedback.textContent = explanations[feedbackId] || (isCorrect ? '✅ 回答正确！' : '❌ 回答错误！');
+        }
+
+        function openNotesPanel() {
+            document.getElementById('notesOverlay').classList.add('show');
+            document.getElementById('notesPanel').classList.add('show');
+            const saved = localStorage.getItem('notes-newton');
+            if (saved) document.getElementById('notesTextarea').value = saved;
+        }
+
+        function closeNotesPanel() {
+            document.getElementById('notesOverlay').classList.remove('show');
+            document.getElementById('notesPanel').classList.remove('show');
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('notesTextarea').value;
+            localStorage.setItem('notes-newton', notes);
+            alert('笔记已保存！');
+        }
+
+        function clearNotes() {
+            if (confirm('确定要清空笔记吗？')) {
+                document.getElementById('notesTextarea').value = '';
+            }
+        }
+
+        function completeLearning() {
+            localStorage.setItem('hero-newton-progress', '100');
+            alert('🎉 恭喜完成【定律·牛顿】的学习！');
+            document.querySelector('.progress-fill-large').style.width = '100%';
+            document.querySelector('.progress-text-large').textContent = '学习进度 100%';
+        }
+
+        window.onload = function() {
+            const progress = localStorage.getItem('hero-newton-progress') || '0';
+            document.querySelector('.progress-fill-large').style.width = progress + '%';
+            document.querySelector('.progress-text-large').textContent = '学习进度 ' + progress + '%';
+        };
+    </script>
+</body>
+</html>

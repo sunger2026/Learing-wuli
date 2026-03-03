@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加速·伽利略 - 匀变速直线运动 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32;
+            --silver: #c0c0c0;
+            --gold: #ffd700;
+            --platinum: #3eb489;
+            --diamond: #b9f2ff;
+            --star: #e6e6fa;
+            --king: #ff6b35;
+            --dark-bg: #0a0e1a;
+            --card-bg: rgba(20, 25, 45, 0.95);
+            --accent: #00d4ff;
+            --accent-gold: #ffb800;
+            --success: #32cd32;
+            --error: #ff4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--king));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-5px);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px 60px;
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(62,180,137,0.15));
+            border: 1px solid rgba(255,107,53,0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,107,53,0.2), transparent);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-title-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--king), var(--platinum));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 20px 40px rgba(255,107,53,0.3);
+        }
+
+        .hero-meta { flex: 1; }
+
+        .hero-name-large {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255,107,53,0.2);
+            color: var(--king);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .hero-desc-large {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        .hero-progress-large {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-bar-large {
+            flex: 1;
+            max-width: 300px;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill-large {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text-large {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .learning-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .knowledge-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .knowledge-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .knowledge-card.important {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3));
+        }
+
+        .knowledge-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .knowledge-title .icon { font-size: 20px; }
+
+        .knowledge-content {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+        }
+
+        .knowledge-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .knowledge-content li { margin: 8px 0; }
+
+        .formula-box {
+            background: rgba(0,212,255,0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 12px 12px 0;
+            font-family: 'Times New Roman', serif;
+            font-size: 20px;
+            color: var(--accent);
+        }
+
+        .formula-box.important {
+            background: rgba(255,184,0,0.1);
+            border-left-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3));
+            border: 1px solid rgba(255,184,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .example-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .example-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .example-question {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .example-answer {
+            background: rgba(50,205,50,0.1);
+            border: 1px solid rgba(50,205,50,0.3);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .example-answer.hidden { display: none; }
+
+        .toggle-answer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--accent), var(--platinum));
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-answer:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.4);
+        }
+
+        .quiz-container { margin-top: 20px; }
+
+        .quiz-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quiz-number {
+            display: inline-flex;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .quiz-question {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--accent);
+            background: rgba(0,212,255,0.1);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(50,205,50,0.1);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--error);
+            background: rgba(255,68,68,0.1);
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .quiz-option.selected .option-letter,
+        .quiz-option.correct .option-letter,
+        .quiz-option.wrong .option-letter {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.show { display: block; }
+
+        .quiz-feedback.correct {
+            background: rgba(50,205,50,0.2);
+            color: var(--success);
+        }
+
+        .quiz-feedback.wrong {
+            background: rgba(255,68,68,0.2);
+            color: var(--error);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .compare-table th,
+        .compare-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .compare-table th {
+            background: rgba(0,212,255,0.1);
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .compare-table tr:hover { background: rgba(255,255,255,0.05); }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            flex-shrink: 0;
+        }
+
+        .step-content { flex: 1; padding-top: 8px; }
+
+        .step-title { font-weight: 700; font-size: 16px; margin-bottom: 8px; }
+
+        .step-desc { color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+        @media (max-width: 768px) {
+            .main-container { padding: 20px; }
+            .hero-title-section { flex-direction: column; text-align: center; }
+            .hero-name-large { font-size: 24px; flex-direction: column; }
+            .knowledge-grid { grid-template-columns: 1fr; }
+            .action-buttons { flex-direction: column; }
+        }
+
+        .notes-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .notes-overlay.show { display: block; opacity: 1; }
+        .notes-panel { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: var(--card-bg); border-left: 1px solid rgba(255,255,255,0.1); z-index: 9999; display: flex; flex-direction: column; transition: right 0.3s ease; box-shadow: -5px 0 30px rgba(0,0,0,0.5); }
+        .notes-panel.show { right: 0; }
+        .notes-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 18px; font-weight: 700; }
+        .notes-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; }
+        .notes-close:hover { background: rgba(255,255,255,0.1); }
+        .notes-content { flex: 1; padding: 20px; overflow: hidden; }
+        .notes-content textarea { width: 100%; height: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; color: #fff; font-size: 14px; line-height: 1.6; resize: none; font-family: inherit; }
+        .notes-content textarea:focus { outline: none; border-color: var(--accent); }
+        .notes-actions { display: flex; gap: 10px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .notes-actions .btn { flex: 1; padding: 12px 20px; font-size: 14px; }
+        @media (max-width: 480px) { .notes-panel { width: 100%; right: -100%; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">物理王者</div>
+        </a>
+        <a href="index.html" class="back-btn">
+            <span>←</span>
+            <span>返回英雄列表</span>
+        </a>
+    </header>
+
+    <main class="main-container">
+        <!-- 英雄头部 -->
+        <section class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">📈</div>
+                <div class="hero-meta">
+                    <h1 class="hero-name-large">
+                        加速·伽利略
+                        <span class="hero-tag">物理系</span>
+                    </h1>
+                    <p class="hero-desc-large">
+                        掌握匀变速直线运动的规律，学会分析v-t图像和x-t图像，灵活运用五大运动学公式。
+                        这是高中物理运动学的核心内容！
+                    </p>
+                    <div class="hero-progress-large">
+                        <div class="progress-bar-large">
+                            <div class="progress-fill-large"></div>
+                        </div>
+                        <span class="progress-text-large">学习进度 0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心知识点 -->
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <h2 class="section-title">核心知识点</h2>
+            </div>
+
+            <div class="knowledge-grid">
+                <!-- 知识点1 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">🚗</span>
+                        匀变速直线运动
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>定义：</strong>沿一条直线，且加速度不变的运动。</p>
+                        <p style="margin-top: 10px;"><strong>特点：</strong></p>
+                        <ul>
+                            <li>加速度a恒定（大小和方向都不变）</li>
+                            <li>速度随时间均匀变化</li>
+                            <li>相等时间内速度变化量相等</li>
+                        </ul>
+                        <p style="margin-top: 10px; color: var(--accent-gold);">💡 匀加速：a与v同向；匀减速：a与v反向</p>
+                    </div>
+                </div>
+
+                <!-- 知识点2 -->
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">⚡</span>
+                        加速度
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>定义：</strong>速度变化量与发生这一变化所用时间的比值。</p>
+                        <div class="formula-box important">a = Δv / Δt = (v - v₀) / t</div>
+                        <p><strong>单位：</strong>m/s²（米每二次方秒）</p>
+                        <p style="margin-top: 10px;"><strong>物理意义：</strong>描述速度变化快慢的物理量</p>
+                        <p style="color: var(--accent-gold);">⚠️ a > 0 不一定加速！要看a与v的方向关系</p>
+                    </div>
+                </div>
+
+                <!-- 知识点3 -->
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">📐</span>
+                        五大运动学公式
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>基本公式（无x）：</strong></p>
+                        <div class="formula-box">v = v₀ + at</div>
+                        
+                        <p><strong>位移公式（无v）：</strong></p>
+                        <div class="formula-box">x = v₀t + ½at²</div>
+                        
+                        <p><strong>速度-位移公式（无t）：</strong></p>
+                        <div class="formula-box important">v² - v₀² = 2ax</div>
+                        
+                        <p><strong>平均速度公式：</strong></p>
+                        <div class="formula-box">x = (v₀ + v)t / 2</div>
+                        
+                        <p><strong>中间时刻速度：</strong></p>
+                        <div class="formula-box">v(t/2) = (v₀ + v) / 2</div>
+                    </div>
+                </div>
+
+                <!-- 知识点4 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">📊</span>
+                        v-t 图像解读
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>纵轴：</strong>速度 v</p>
+                        <p><strong>横轴：</strong>时间 t</p>
+                        <ul>
+                            <li><strong>斜率：</strong>加速度 a = Δv/Δt</li>
+                            <li><strong>面积：</strong>位移 x（上正下负）</li>
+                            <li><strong>截距：</strong>初速度 v₀</li>
+                        </ul>
+                        <p style="margin-top: 10px; color: var(--accent-gold);">💡 斜率为正→加速；斜率为负→减速</p>
+                    </div>
+                </div>
+
+                <!-- 知识点5 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">📉</span>
+                        x-t 图像解读
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>纵轴：</strong>位移 x</p>
+                        <p><strong>横轴：</strong>时间 t</p>
+                        <ul>
+                            <li><strong>斜率：</strong>速度 v = Δx/Δt</li>
+                            <li><strong>截距：</strong>初始位置</li>
+                            <li><strong>交点：</strong>两物体相遇</li>
+                        </ul>
+                        <p style="margin-top: 10px; color: var(--accent-gold);">💡 x-t图中，曲线不是运动轨迹！</p>
+                    </div>
+                </div>
+
+                <!-- 知识点6 -->
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">🎯</span>
+                        初速度为零的匀加速比例关系
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>设初速度 v₀ = 0：</strong></p>
+                        <ul>
+                            <li><strong>瞬时速度之比：</strong>v₁:v₂:v₃... = 1:2:3...</li>
+                            <li><strong>总位移之比：</strong>x₁:x₂:x₃... = 1:4:9... (即 1²:2²:3²...)</li>
+                            <li><strong>相等时间位移之比：</strong>xⅠ:xⅡ:xⅢ... = 1:3:5... (奇数比)</li>
+                            <li><strong>相等位移时间之比：</strong>t₁:t₂:t₃... = 1:(√2-1):(√3-√2)...</li>
+                        </ul>
+                        <p style="color: var(--accent-gold);">⭐ 这些比例关系可以大大简化计算！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 经典例题 -->
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2 class="section-title">经典例题</h2>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题1：刹车问题</span>
+                </div>
+                
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>汽车以10m/s的速度行驶，刹车后获得的加速度大小为2m/s²，求：</p>
+                    <p>(1) 刹车后3s末的速度；</p>
+                    <p>(2) 刹车后6s内的位移。</p>
+                </div>
+
+                <button class="toggle-answer" onclick="toggleAnswer('answer1')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+
+                <div class="example-answer hidden" id="answer1">
+                    <p><strong>解析：</strong></p>
+                    
+                    <p><strong>第一步：求刹车停止时间</strong></p>
+                    <p>设初速度方向为正，则 v₀ = 10m/s，a = -2m/s²</p>
+                    <p>由 v = v₀ + at，当 v = 0 时：</p>
+                    <p>0 = 10 + (-2)t → t = 5s</p>
+                    <p style="color: var(--accent-gold);">⚠️ 刹车时间只有5s！之后汽车静止不动</p>
+
+                    <p><strong>(1) 刹车后3s末的速度：</strong></p>
+                    <p>v = v₀ + at = 10 + (-2)×3 = 4m/s</p>
+
+                    <p><strong>(2) 刹车后6s内的位移：</strong></p>
+                    <p>注意：6s > 5s，所以汽车在5s时已停止</p>
+                    <p>只能用前5s计算，或用 v² - v₀² = 2ax</p>
+                    <p>0² - 10² = 2×(-2)×x → x = 25m</p>
+
+                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：(1) 4m/s；(2) 25m</p>
+                    <p style="color: var(--accent-gold);">💡 易错点：直接用6s代入会得到错误答案！</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题2：v-t图像分析</span>
+                </div>
+                
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>某物体的v-t图像如图所示（0-2s匀加速，2-4s匀速，4-6s匀减速至0）：</p>
+                    <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin: 15px 0; font-family: monospace;">
+                        v(m/s)<br>
+                        4 |    /‾‾‾‾\<br>
+                          |   /      \<br>
+                        0 |__/________\__ t(s)<br>
+                          0  2    4    6
+                    </div>
+                    <p>(1) 求各段的加速度；</p>
+                    <p>(2) 求6s内的总位移。</p>
+                </div>
+
+                <button class="toggle-answer" onclick="toggleAnswer('answer2')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+
+                <div class="example-answer hidden" id="answer2">
+                    <p><strong>解析：</strong></p>
+
+                    <p><strong>(1) 各段加速度：</strong></p>
+                    <ul>
+                        <li><strong>0-2s：</strong>a₁ = (4-0)/(2-0) = 2m/s²</li>
+                        <li><strong>2-4s：</strong>a₂ = 0（匀速运动）</li>
+                        <li><strong>4-6s：</strong>a₃ = (0-4)/(6-4) = -2m/s²</li>
+                    </ul>
+
+                    <p><strong>(2) 6s内的总位移（梯形面积）：</strong></p>
+                    <p>x = ½×(上底+下底)×高</p>
+                    <p>x = ½×(2+6)×4 = 16m</p>
+                    <p>或分段计算：x = ½×2×4 + 2×4 + ½×2×4 = 4 + 8 + 4 = 16m</p>
+
+                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：(1) a₁=2m/s², a₂=0, a₃=-2m/s²；(2) 16m</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题3：追及问题</span>
+                </div>
+                
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>A、B两车在同一直线上同向行驶，A在前，速度为v₁=10m/s；B在后，速度为v₂=20m/s，
+                    当B距A 50m时B开始刹车，加速度大小为2m/s²。问：B能否追上A？</p>
+                </div>
+
+                <button class="toggle-answer" onclick="toggleAnswer('answer3')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+
+                <div class="example-answer hidden" id="answer3">
+                    <p><strong>解析：</strong></p>
+
+                    <p><strong>关键思路：</strong>当两车速度相等时，若还未追上，则之后B速度小于A，更追不上。</p>
+
+                    <p><strong>第一步：求速度相等时的时间</strong></p>
+                    <p>v₁ = v₂ + at → 10 = 20 + (-2)t → t = 5s</p>
+
+                    <p><strong>第二步：计算此时两车的位移</strong></p>
+                    <p>A车位移：x₁ = v₁t = 10×5 = 50m</p>
+                    <p>B车位移：x₂ = v₂t + ½at² = 20×5 + ½×(-2)×5² = 100 - 25 = 75m</p>
+
+                    <p><strong>第三步：判断是否追上</strong></p>
+                    <p>B比A多走的距离：75 - 50 = 25m</p>
+                    <p>初始距离：50m</p>
+                    <p>25m < 50m，所以<strong>追不上</strong></p>
+
+                    <p><strong>最小距离：</strong>50 - 25 = 25m</p>
+
+                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：B不能追上A，最小距离为25m</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实战演练 -->
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <h2 class="section-title">实战演练</h2>
+            </div>
+
+            <div class="quiz-container">
+                <!-- 题目1 -->
+                <div class="quiz-item">
+                    <div class="quiz-number">1</div>
+                    <div class="quiz-question">
+                        关于匀变速直线运动，下列说法正确的是（　）
+                    </div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')">
+                            <div class="option-letter">A</div>
+                            <div>匀变速直线运动是速度变化率恒定的运动</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback1')">
+                            <div class="option-letter">B</div>
+                            <div>匀变速直线运动的加速度恒定，且加速度方向与速度方向在同一直线上</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')">
+                            <div class="option-letter">C</div>
+                            <div>匀变速直线运动的速度一定随时间均匀增大</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')">
+                            <div class="option-letter">D</div>
+                            <div>匀变速直线运动的速度方向一定不变</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <!-- 题目2 -->
+                <div class="quiz-item">
+                    <div class="quiz-number">2</div>
+                    <div class="quiz-question">
+                        某质点做匀加速直线运动，初速度为2m/s，加速度为3m/s²，则第3s内的位移是（　）
+                    </div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')">
+                            <div class="option-letter">A</div>
+                            <div>10.5m</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback2')">
+                            <div class="option-letter">B</div>
+                            <div>12.5m</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback2')">
+                            <div class="option-letter">C</div>
+                            <div>9.5m</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')">
+                            <div class="option-letter">D</div>
+                            <div>15.5m</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <!-- 题目3 -->
+                <div class="quiz-item">
+                    <div class="quiz-number">3</div>
+                    <div class="quiz-question">
+                        汽车以20m/s的速度做匀速直线运动，刹车后的加速度大小为5m/s²。那么开始刹车后2s内与开始刹车后6s内汽车通过的位移之比为（　）
+                    </div>
+                    
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')">
+                            <div class="option-letter">A</div>
+                            <div>1:4</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback3')">
+                            <div class="option-letter">B</div>
+                            <div>3:4</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback3')">
+                            <div class="option-letter">C</div>
+                            <div>3:5</div>
+                        </div>
+                        
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', true, 'feedback3')">
+                            <div class="option-letter">D</div>
+                            <div>3:4（提示：先算刹车时间）</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部按钮 -->
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="openNotesPanel()">
+                <span>✏️</span>
+                <span>记笔记</span>
+            </button>
+            
+            <button class="btn btn-primary" onclick="completeLearning()">
+                <span>✅</span>
+                <span>完成学习</span>
+            </button>
+        </div>
+    
+        <!-- 笔记面板 -->
+        <div class="notes-overlay" id="notesOverlay" onclick="closeNotesPanel()"></div>
+        <div class="notes-panel" id="notesPanel">
+            <div class="notes-header">
+                <span>📝 学习笔记</span>
+                <button class="notes-close" onclick="closeNotesPanel()">✕</button>
+            </div>
+            <div class="notes-content">
+                <textarea id="notesTextarea" placeholder="在这里记录你的学习心得、重点难点、易错点...
+
+匀变速直线运动重点：
+- 五大公式要灵活运用
+- 刹车问题注意停止时间
+- v-t图像面积=位移，斜率=加速度"></textarea>
+            </div>
+            <div class="notes-actions">
+                <button class="btn btn-secondary" onclick="clearNotes()">🗑️ 清空</button>
+                <button class="btn btn-primary" onclick="saveNotes()">💾 保存笔记</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 切换答案显示
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('hidden');
+        }
+
+        // 检查答案
+        function checkAnswer(element, option, isCorrect, feedbackId) {
+            // 移除同一题目的其他选项状态
+            const quizItem = element.closest('.quiz-item');
+            const options = quizItem.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'wrong');
+                opt.style.pointerEvents = 'none';
+            });
+            
+            // 标记当前选项
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('wrong');
+                // 显示正确答案
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            
+            // 显示反馈
+            const feedback = document.getElementById(feedbackId);
+            feedback.classList.add('show');
+            feedback.classList.add(isCorrect ? 'correct' : 'wrong');
+            
+            const explanations = {
+                'feedback1': isCorrect ? 
+                    '✅ 正确！匀变速直线运动的核心特征是加速度恒定，且加速度与速度方向在同一直线上（加速或减速）。' :
+                    '❌ 错误。A描述的是加速度的定义，但不够准确；C错误，因为匀变速包括加速和减速；D错误，如竖直上抛运动，速度方向会改变。',
+                'feedback2': isCorrect ?
+                    '✅ 正确！第3s内 = 前3s - 前2s。x₃ = (2×3 + ½×3×3²) - (2×2 + ½×3×2²) = 19.5 - 10 = 9.5m' :
+                    '❌ 错误。第n秒内 = 前n秒位移 - 前(n-1)秒位移。注意不是前3s的位移！',
+                'feedback3': isCorrect ?
+                    '✅ 正确！刹车时间 t = 20/5 = 4s。6s时车已停。x₂ = 20×2 - ½×5×2² = 30m；x₆ = 20×4 - ½×5×4² = 40m。比值为3:4' :
+                    '❌ 错误。先算刹车时间t=20/5=4s，6s内车只运动4s。然后分别计算位移。'
+            };
+            
+            feedback.textContent = explanations[feedbackId] || (isCorrect ? '✅ 回答正确！' : '❌ 回答错误！');
+        }
+
+        // 笔记面板功能
+        function openNotesPanel() {
+            document.getElementById('notesOverlay').classList.add('show');
+            document.getElementById('notesPanel').classList.add('show');
+            const saved = localStorage.getItem('notes-uniform');
+            if (saved) document.getElementById('notesTextarea').value = saved;
+        }
+
+        function closeNotesPanel() {
+            document.getElementById('notesOverlay').classList.remove('show');
+            document.getElementById('notesPanel').classList.remove('show');
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('notesTextarea').value;
+            localStorage.setItem('notes-uniform', notes);
+            alert('笔记已保存！');
+        }
+
+        function clearNotes() {
+            if (confirm('确定要清空笔记吗？')) {
+                document.getElementById('notesTextarea').value = '';
+            }
+        }
+
+        // 完成学习
+        function completeLearning() {
+            localStorage.setItem('hero-uniform-progress', '100');
+            alert('🎉 恭喜完成【加速·伽利略】的学习！');
+            // 更新进度条显示
+            document.querySelector('.progress-fill-large').style.width = '100%';
+            document.querySelector('.progress-text-large').textContent = '学习进度 100%';
+        }
+
+        // 加载保存的进度
+        window.onload = function() {
+            const progress = localStorage.getItem('hero-uniform-progress') || '0';
+            document.querySelector('.progress-fill-large').style.width = progress + '%';
+            document.querySelector('.progress-text-large').textContent = '学习进度 ' + progress + '%';
+        };
+    </script>
+</body>
+</html>
