@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星辰·引力 - 万有引力与航天 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32; --silver: #c0c0c0; --gold: #ffd700; --platinum: #3eb489;
+            --diamond: #b9f2ff; --star: #e6e6fa; --king: #ff6b35; --dark-bg: #0a0e1a;
+            --card-bg: rgba(20, 25, 45, 0.95); --accent: #5c6bc0; --accent-gold: #ffd700;
+            --success: #32cd32; --error: #ff4444; --space-blue: #1a237e;
+            --nebula-purple: #7c4dff; --starlight: #82b1ff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark-bg); min-height: 100vh; color: #fff; overflow-x: hidden; }
+        .header { background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--accent-gold), var(--king)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; }
+        .logo-text { font-size: 24px; font-weight: 900; background: linear-gradient(90deg, var(--accent-gold), var(--starlight)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .back-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; color: #fff; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(-5px); }
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 40px 60px; }
+        .hero-header { background: linear-gradient(135deg, rgba(26,35,126,0.3), rgba(124,77,255,0.2)); border: 1px solid rgba(92,107,192,0.4); border-radius: 20px; padding: 40px; margin-bottom: 30px; position: relative; overflow: hidden; }
+        .hero-header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(92,107,192,0.3), transparent); animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        .hero-title-section { display: flex; align-items: center; gap: 30px; position: relative; z-index: 1; }
+        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, var(--space-blue), var(--nebula-purple)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; box-shadow: 0 20px 40px rgba(26,35,126,0.4); }
+        .hero-meta { flex: 1; }
+        .hero-name-large { font-size: 36px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; background: linear-gradient(90deg, var(--starlight), var(--nebula-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(92,107,192,0.3); color: var(--starlight); border-radius: 20px; font-size: 14px; font-weight: 600; border: 1px solid rgba(92,107,192,0.5); }
+        .hero-desc-large { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+        .hero-progress-large { margin-top: 20px; display: flex; align-items: center; gap: 15px; }
+        .progress-bar-large { flex: 1; max-width: 300px; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+        .progress-fill-large { width: 0%; height: 100%; background: linear-gradient(90deg, var(--starlight), var(--nebula-purple)); border-radius: 5px; transition: width 0.5s ease; }
+        .progress-text-large { font-size: 18px; font-weight: 700; color: var(--starlight); }
+        .learning-section { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .section-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--space-blue), var(--nebula-purple)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .section-title { font-size: 22px; font-weight: 700; }
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .knowledge-card { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
+        .knowledge-card:hover { border-color: var(--space-blue); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(26,35,126,0.3); }
+        .knowledge-card.important { border-color: var(--accent-gold); background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(0,0,0,0.3)); }
+        .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--starlight); }
+        .knowledge-content { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+        .knowledge-content ul { margin: 10px 0; padding-left: 20px; }
+        .formula-box { background: rgba(26,35,126,0.2); border-left: 4px solid var(--nebula-purple); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; font-family: 'Times New Roman', serif; font-size: 22px; color: var(--accent-gold); text-align: center; }
+        .formula-box.small { font-size: 18px; padding: 12px 15px; }
+        .formula-detail { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; margin: 15px 0; }
+        .example-box { background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255,215,0,0.3); border-radius: 16px; padding: 25px; margin: 20px 0; }
+        .example-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 18px; font-weight: 700; color: var(--accent-gold); }
+        .example-question { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .example-answer { background: rgba(50,205,50,0.1); border: 1px solid rgba(50,205,50,0.3); padding: 20px; border-radius: 12px; }
+        .example-answer.hidden { display: none; }
+        .toggle-answer { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, var(--space-blue), var(--nebula-purple)); border: none; border-radius: 25px; color: #fff; font-weight: 700; cursor: pointer; margin-top: 15px; transition: all 0.3s ease; }
+        .toggle-answer:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(92,107,192,0.4); }
+        .quiz-container { margin-top: 20px; }
+        .quiz-item { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .quiz-number { display: inline-block; width: 30px; height: 30px; background: linear-gradient(135deg, var(--space-blue), var(--nebula-purple)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; margin-bottom: 15px; }
+        .quiz-question { font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        .quiz-option { display: flex; align-items: center; gap: 12px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--space-blue); }
+        .quiz-option.selected { border-color: var(--nebula-purple); background: rgba(124,77,255,0.1); }
+        .quiz-option.correct { border-color: var(--success); background: rgba(50,205,50,0.1); }
+        .quiz-option.wrong { border-color: var(--error); background: rgba(255,68,68,0.1); }
+        .option-letter { width: 28px; height: 28px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .quiz-feedback { margin-top: 15px; padding: 15px 20px; border-radius: 12px; font-weight: 600; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); color: var(--success); }
+        .quiz-feedback.wrong { background: rgba(255,68,68,0.2); color: var(--error); }
+        .action-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 16px; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--space-blue), var(--nebula-purple)); color: #fff; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(92,107,192,0.4); }
+        .btn-secondary { background: transparent; border: 2px solid var(--space-blue); color: var(--starlight); }
+        .btn-secondary:hover { background: var(--space-blue); color: #fff; }
+        .game-tip { background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,0,0,0.3)); border-left: 4px solid var(--king); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; }
+        .game-tip-title { color: var(--king); font-weight: 700; margin-bottom: 8px; }
+        .law-card { background: rgba(26,35,126,0.15); border-radius: 12px; padding: 15px; margin: 10px 0; border-left: 4px solid var(--nebula-purple); }
+        .law-card h4 { color: var(--accent-gold); margin-bottom: 8px; }
+        .velocity-badge { display: inline-block; padding: 5px 12px; background: rgba(255,215,0,0.2); border: 1px solid var(--accent-gold); border-radius: 15px; color: var(--accent-gold); font-size: 14px; font-weight: 600; margin: 5px; }
+        .unit-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .unit-table th, .unit-table td { padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .unit-table th { background: rgba(26,35,126,0.3); color: var(--starlight); }
+        .notes-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .notes-overlay.show { display: block; opacity: 1; }
+        .notes-panel { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: var(--card-bg); border-left: 1px solid rgba(255,255,255,0.1); z-index: 9999; display: flex; flex-direction: column; transition: right 0.3s ease; box-shadow: -5px 0 30px rgba(0,0,0,0.5); }
+        .notes-panel.show { right: 0; }
+        .notes-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 18px; font-weight: 700; background: linear-gradient(90deg, var(--space-blue), var(--nebula-purple)); }
+        .notes-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 5px 10px; border-radius: 5px; transition: background 0.3s; }
+        .notes-close:hover { background: rgba(255,255,255,0.1); }
+        .notes-content { flex: 1; padding: 20px; overflow: hidden; }
+        .notes-content textarea { width: 100%; height: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; color: #fff; font-size: 14px; line-height: 1.6; resize: none; font-family: inherit; }
+        .notes-content textarea:focus { outline: none; border-color: var(--nebula-purple); }
+        .notes-actions { display: flex; gap: 10px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .notes-actions .btn { flex: 1; padding: 12px 20px; font-size: 14px; }
+        @media (max-width: 768px) { .main-container { padding: 20px; } .hero-title-section { flex-direction: column; text-align: center; } .hero-name-large { font-size: 24px; flex-direction: column; } .knowledge-grid { grid-template-columns: 1fr; } .action-buttons { flex-direction: column; } .notes-panel { width: 100%; right: -100%; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><div class="logo-icon">⚡</div><div class="logo-text">物理王者</div></a>
+        <a href="index.html" class="back-btn"><span>←</span><span>返回英雄列表</span></a>
+    </header>
+
+    <main class="main-container">
+        <!-- 英雄头部 -->
+        <section class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">🌌</div>
+                <div class="hero-meta">
+                    <h1 class="hero-name-large">星辰·引力<span class="hero-tag">天体系</span></h1>
+                    <p class="hero-desc-large">开普勒三定律，万有引力定律，天体运动，卫星变轨问题。探索宇宙的奥秘，掌握天体运行的规律，成为星际战场的主宰！</p>
+                    <div class="hero-progress-large">
+                        <div class="progress-bar-large"><div class="progress-fill-large" id="heroProgress"></div></div>
+                        <span class="progress-text-large" id="progressText">学习进度 0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心知识点 -->
+        <section class="learning-section">
+            <div class="section-header"><div class="section-icon">📖</div><h2 class="section-title">核心知识点</h2></div>
+            <div class="knowledge-grid">
+                <!-- 开普勒三定律 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">🪐</span>开普勒三定律</div>
+                    <div class="knowledge-content">
+                        <div class="law-card"><h4>第一定律（轨道定律）</h4><p>所有行星绕太阳运动的轨道都是椭圆，太阳处在椭圆的一个焦点上。</p></div>
+                        <div class="law-card"><h4>第二定律（面积定律）</h4><p>对任意一个行星来说，它与太阳的连线在相等的时间内扫过相等的面积。</p><p style="color: var(--accent-gold); margin-top: 5px;">💡 近地点速度快，远地点速度慢</p></div>
+                        <div class="law-card"><h4>第三定律（周期定律）</h4><p>所有行星轨道的半长轴的三次方跟它的公转周期的二次方的比值都相等。</p><div class="formula-box small">a³/T² = k</div></div>
+                    </div>
+                </div>
+
+                <!-- 万有引力定律 -->
+                <div class="knowledge-card important">
+                    <div class="knowledge-title"><span class="icon">🌟</span>万有引力定律（核心）</div>
+                    <div class="knowledge-content">
+                        <p>自然界中任何两个物体都相互吸引，引力的大小与两物体的质量乘积成正比，与它们之间距离的平方成反比。</p>
+                        <div class="formula-box">F = G·m₁·m₂/r²</div>
+                        <div class="formula-detail">
+                            <p><strong>G</strong> = 6.67×10⁻¹¹ N·m²/kg²（引力常量）</p>
+                            <p><strong>m₁, m₂</strong> = 两物体质量（kg）</p>
+                            <p><strong>r</strong> = 两物体质心距离（m）</p>
+                        </div>
+                        <p style="margin-top: 15px; color: var(--accent-gold);">🎯 <strong>适用条件：</strong>质点间、质量分布均匀的球体间</p>
+                    </div>
+                </div>
+
+                <!-- 天体质量计算 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">⚖️</span>天体质量计算</div>
+                    <div class="knowledge-content">
+                        <p><strong>方法一：利用环绕天体</strong></p>
+                        <p>当卫星绕行星做匀速圆周运动时，万有引力提供向心力：</p>
+                        <div class="formula-box small">GMm/r² = mv²/r = mω²r = m(2π/T)²r</div>
+                        <p style="margin-top: 10px;"><strong>中心天体质量：</strong></p>
+                        <div class="formula-box small">M = 4π²r³/GT² = v²r/G</div>
+                        <p style="margin-top: 15px; color: var(--starlight);">💡 只能求中心天体质量，无法求环绕天体质量</p>
+                    </div>
+                </div>
+
+                <!-- 卫星环绕速度 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">🛰️</span>卫星环绕速度</div>
+                    <div class="knowledge-content">
+                        <p><strong>第一宇宙速度（环绕速度）</strong></p>
+                        <p>卫星在行星表面附近做匀速圆周运动的速度：</p>
+                        <div class="formula-box small">v₁ = √(GM/R) = √(gR) ≈ 7.9 km/s</div>
+                        <p style="margin-top: 15px;"><strong>高轨道卫星速度：</strong></p>
+                        <div class="formula-box small">v = √(GM/r)</div>
+                        <p style="color: var(--accent-gold); margin-top: 10px;">📌 轨道越高，速度越小！</p>
+                    </div>
+                </div>
+
+                <!-- 三种宇宙速度 -->
+                <div class="knowledge-card important">
+                    <div class="knowledge-title"><span class="icon">🚀</span>三种宇宙速度</div>
+                    <div class="knowledge-content">
+                        <table class="unit-table">
+                            <tr><th>宇宙速度</th><th>数值</th><th>意义</th></tr>
+                            <tr><td>第一宇宙速度</td><td><span class="velocity-badge">7.9 km/s</span></td><td>最小发射速度，最大环绕速度</td></tr>
+                            <tr><td>第二宇宙速度</td><td><span class="velocity-badge">11.2 km/s</span></td><td>脱离地球引力束缚</td></tr>
+                            <tr><td>第三宇宙速度</td><td><span class="velocity-badge">16.7 km/s</span></td><td>脱离太阳系引力束缚</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 卫星变轨 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">🔄</span>卫星变轨原理</div>
+                    <div class="knowledge-content">
+                        <p><strong>变轨原理：</strong>改变卫星速度，使万有引力不等于所需向心力</p>
+                        <div class="law-card"><h4>🚀 加速升轨</h4><p>速度增大 → 所需向心力增大 → 万有引力不足 → 做离心运动 → 轨道升高</p><p style="color: var(--accent-gold); margin-top: 5px;">结果：新轨道速度反而变小！</p></div>
+                        <div class="law-card"><h4>🛬 减速降轨</h4><p>速度减小 → 所需向心力减小 → 万有引力过大 → 做近心运动 → 轨道降低</p><p style="color: var(--accent-gold); margin-top: 5px;">结果：新轨道速度反而变大！</p></div>
+                    </div>
+                </div>
+
+                <!-- 双星系统 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">💫</span>双星系统</div>
+                    <div class="knowledge-content">
+                        <p><strong>定义：</strong>两颗恒星在相互引力作用下绕共同质心做匀速圆周运动。</p>
+                        <p style="margin-top: 10px;"><strong>特点：</strong></p>
+                        <ul>
+                            <li>两星角速度相同（ω₁ = ω₂）</li>
+                            <li>两星轨道半径之和等于间距（r₁ + r₂ = L）</li>
+                            <li>两星向心力相等（万有引力提供）</li>
+                        </ul>
+                        <div class="formula-box small" style="margin-top: 15px;">Gm₁m₂/L² = m₁ω²r₁ = m₂ω²r₂</div>
+                        <p style="margin-top: 10px; color: var(--starlight);">💡 质量比与轨道半径成反比：m₁/m₂ = r₂/r₁</p>
+                    </div>
+                </div>
+
+                <!-- 天体密度计算 -->
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">🌍</span>天体密度计算</div>
+                    <div class="knowledge-content">
+                        <p><strong>利用近地卫星周期求密度：</strong></p>
+                        <p>当卫星轨道半径 r ≈ R（星球半径）时：</p>
+                        <div class="formula-box small">ρ = 3π/GT²</div>
+                        <p style="margin-top: 15px;"><strong>一般公式：</strong></p>
+                        <div class="formula-box small">ρ = 3πr³/GT²R³</div>
+                        <p style="color: var(--accent-gold); margin-top: 10px;">🎯 只需测出近地卫星周期，即可求星球密度！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 王者峡谷应用 -->
+        <section class="learning-section">
+            <div class="section-header"><div class="section-icon">🎮</div><h2 class="section-title">王者峡谷里的引力</h2></div>
+            <div class="game-tip">
+                <div class="game-tip-title">🌌 用王者荣耀理解万有引力</div>
+                <ul style="line-height: 1.8;">
+                    <li><strong>后羿的大招：</strong>射出的神鸟就像卫星，飞出后沿抛物线运动。如果速度够快达到"宇宙速度"，就能绕地球飞行！</li>
+                    <li><strong>女娲的传送：</strong>技能无视距离瞬间传送，这违背了引力定律。现实中要实现星际旅行，需要精确计算轨道和速度。</li>
+                    <li><strong>大龙坑的地形：</strong>就像一个引力井，越靠近中心（龙坑），引力越大，需要更强的"推进力"（技能）才能逃脱。</li>
+                    <li><strong>打野刷野路线：</strong>就像卫星变轨！从野区到线上的路径选择，就像卫星在不同轨道间转移，需要计算最优路线。</li>
+                    <li><strong>团战走位：</strong>记住开普勒第二定律——近地点速度快！靠近敌方核心时移动要更谨慎，远离时可以快速调整位置。</li>
+                </ul>
+            </div>
+            <div class="game-tip" style="margin-top: 15px;">
+                <div class="game-tip-title">🎯 峡谷物理学——技能弹道分析</div>
+                <p style="line-height: 1.8;">游戏中很多技能看似直线飞行，实际上如果考虑行星引力，它们应该呈现曲线轨迹。
+                    <strong>鲁班的二技能</strong>（无敌鲨嘴炮）如果速度达到第一宇宙速度7.9km/s，
+                    就能绕峡谷一圈回到原地！这大约是普通技能的<span class="velocity-badge">10000倍</span>速度。</p>
+            </div>
+        </section>
+
+        <!-- 经典例题 -->
+        <section class="learning-section">
+            <div class="section-header"><div class="section-icon">💡</div><h2 class="section-title">经典例题</h2></div>
+
+            <div class="example-box">
+                <div class="example-header"><span>📝</span><span>例题1：万有引力计算</span></div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>已知地球质量 M = 6.0×10²⁴ kg，月球质量 m = 7.3×10²² kg，地月距离 r = 3.8×10⁸ m，引力常量 G = 6.67×10⁻¹¹ N·m²/kg²。</p>
+                    <p>求：地球对月球的万有引力大小。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer1')"><span>👁️</span><span>查看解析</span></button>
+                <div class="example-answer hidden" id="answer1">
+                    <p><strong>解析：</strong></p>
+                    <p>根据万有引力定律：</p>
+                    <div class="formula-box small">F = GMm/r²</div>
+                    <p>代入数据：</p>
+                    <p>F = (6.67×10⁻¹¹ × 6.0×10²⁴ × 7.3×10²²) / (3.8×10⁸)²</p>
+                    <p>F = (6.67 × 6.0 × 7.3) × 10³⁵ / (14.44 × 10¹⁶)</p>
+                    <p>F = 291.9 × 10³⁵ / 14.44 × 10¹⁶</p>
+                    <p style="color: var(--accent-gold); margin-top: 15px;">✅ 答案：F ≈ 2.0×10²⁰ N</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header"><span>📝</span><span>例题2：中心天体质量计算</span></div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>某人造地球卫星在距地面高度为 h 的圆形轨道上运行，已知地球半径为 R，地球表面重力加速度为 g。</p>
+                    <p>求：(1) 卫星的线速度 v； (2) 卫星的运行周期 T。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer2')"><span>👁️</span><span>查看解析</span></button>
+                <div class="example-answer hidden" id="answer2">
+                    <p><strong>解析：</strong></p>
+                    <p>设卫星轨道半径 r = R + h</p>
+                    <p style="margin-top: 10px;"><strong>(1) 求线速度：</strong></p>
+                    <p>万有引力提供向心力：</p>
+                    <p>GMm/r² = mv²/r</p>
+                    <p>得：v = √(GM/r)</p>
+                    <p>由黄金代换 GM = gR²：</p>
+                    <div class="formula-box small">v = √(gR²/(R+h)) = R√(g/(R+h))</div>
+                    <p style="margin-top: 10px;"><strong>(2) 求周期：</strong></p>
+                    <p>T = 2πr/v = 2π(R+h) / R√(g/(R+h))</p>
+                    <div class="formula-box small">T = 2π(R+h)/R · √((R+h)/g)</div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header"><span>📝</span><span>例题3：卫星变轨问题</span></div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>人造卫星先在较低的圆轨道1上运动，后在P点变轨进入较高的圆轨道2运行。</p>
+                    <p>下列说法正确的是（ ）</p>
+                    <p>A. 卫星在轨道1上的运行周期大于在轨道2上的运行周期</p>
+                    <p>B. 卫星在轨道1上的线速度大于在轨道2上的线速度</p>
+                    <p>C. 卫星在P点加速变轨进入轨道2</p>
+                    <p>D. 卫星在轨道2上经过P点的加速度小于在轨道1上经过P点的加速度</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer3')"><span>👁️</span><span>查看解析</span></button>
+                <div class="example-answer hidden" id="answer3">
+                    <p><strong>解析：</strong></p>
+                    <p>根据万有引力提供向心力，轨道越高：</p>
+                    <ul>
+                        <li>速度 v = √(GM/r)，r越大，v越小 ✓</li>
+                        <li>周期 T = 2π√(r³/GM)，r越大，T越大</li>
+                        <li>加速度 a = GM/r²，只与r有关，同一位置加速度相同</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>逐项分析：</strong></p>
+                    <p>A. 轨道1高度低，周期应<strong>小于</strong>轨道2 → ❌</p>
+                    <p>B. 轨道1高度低，速度<strong>大于</strong>轨道2 → ✅</p>
+                    <p>C. 从低轨道到高轨道需要<strong>加速</strong>升轨 → ✅</p>
+                    <p>D. 同一P点，加速度只与距离有关，应<strong>相等</strong> → ❌</p>
+                    <p style="color: var(--accent-gold); margin-top: 15px;">✅ 答案：B、C</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实战演练 -->
+        <section class="learning-section">
+            <div class="section-header"><div class="section-icon">⚔️</div><h2 class="section-title">实战演练</h2></div>
+
+            <div class="quiz-container">
+                <!-- 练习题1 -->
+                <div class="quiz-item" data-answered="">
+                    <div class="quiz-number">1</div>
+                    <div class="quiz-question">关于万有引力定律，下列说法正确的是（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')">
+                            <div class="option-letter">A</div>
+                            <div>公式F=Gm₁m₂/r²中的G是一个比例常数，没有单位</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback1')">
+                            <div class="option-letter">B</div>
+                            <div>当两物体间的距离趋近于零时，万有引力趋近于无穷大</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback1')">
+                            <div class="option-letter">C</div>
+                            <div>两物体间的万有引力总是大小相等、方向相反，是一对作用力与反作用力</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')">
+                            <div class="option-letter">D</div>
+                            <div>万有引力只存在于天体之间，地面物体之间不存在万有引力</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <!-- 练习题2 -->
+                <div class="quiz-item" data-answered="">
+                    <div class="quiz-number">2</div>
+                    <div class="quiz-question">已知地球半径为R，质量为M，万有引力常量为G。一颗人造卫星在距地面高度为h的圆轨道上运行，则卫星的线速度为（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', true, 'feedback2')">
+                            <div class="option-letter">A</div>
+                            <div>√(GM/(R+h))</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback2')">
+                            <div class="option-letter">B</div>
+                            <div>√(GM/R)</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback2')">
+                            <div class="option-letter">C</div>
+                            <div>√(GM/h)</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')">
+                            <div class="option-letter">D</div>
+                            <div>√(GM(R+h))</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <!-- 练习题3 -->
+                <div class="quiz-item" data-answered="">
+                    <div class="quiz-number">3</div>
+                    <div class="quiz-question">关于第一宇宙速度，下列说法正确的是（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')">
+                            <div class="option-letter">A</div>
+                            <div>第一宇宙速度是卫星绕地球做圆周运动的最大速度</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback3')">
+                            <div class="option-letter">B</div>
+                            <div>第一宇宙速度是卫星绕地球做圆周运动的最小发射速度</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback3')">
+                            <div class="option-letter">C</div>
+                            <div>第一宇宙速度v₁ = 11.2 km/s</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')">
+                            <div class="option-letter">D</div>
+                            <div>第一宇宙速度的大小与地球质量无关</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部按钮 -->
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="openNotesPanel()"><span>✏️</span><span>记笔记</span></button>
+            <button class="btn btn-primary" onclick="completeLearning()"><span>✅</span><span>完成学习</span></button>
+        </div>
+    </main>
+
+    <!-- 笔记面板 -->
+    <div class="notes-overlay" id="notesOverlay" onclick="closeNotesPanel()"></div>
+    <div class="notes-panel" id="notesPanel">
+        <div class="notes-header">
+            <span>📝 学习笔记</span>
+            <button class="notes-close" onclick="closeNotesPanel()">✕</button>
+        </div>
+        <div class="notes-content">
+            <textarea id="notesTextarea" placeholder="在这里记录你的学习心得、重点难点、易错点... 
+
+例如：
+- 万有引力公式中r的含义
+- 卫星变轨的口诀：加速升轨，减速降轨
+- 双星系统的特点"></textarea>
+        </div>
+        <div class="notes-actions">
+            <button class="btn btn-secondary" onclick="clearNotes()">🗑️ 清空</button>
+            <button class="btn btn-primary" onclick="saveNotes()">💾 保存笔记</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== 学习进度管理 ==========
+        const HERO_ID = 'gravity';
+
+        function saveProgress(heroId, percentage) {
+            let progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            progress[heroId] = {
+                percentage: percentage,
+                completed: percentage >= 100,
+                lastStudy: new Date().toISOString()
+            };
+            localStorage.setItem('physicsKingProgress', JSON.stringify(progress));
+        }
+
+        function getProgress(heroId) {
+            let progress = JSON.parse(localStorage.getItem('physicsKingProgress') || '{}');
+            return progress[heroId] || { percentage: 0, completed: false };
+        }
+
+        function completeLearning() {
+            saveProgress(HERO_ID, 100);
+            
+            // 显示完成动画效果
+            const btn = event.target.closest('.btn');
+            btn.innerHTML = '🎉 已完成！';
+            btn.style.background = 'linear-gradient(135deg, #32cd32, #228b22)';
+            
+            setTimeout(() => {
+                alert('🎉 恭喜！你已完成【星辰·引力】的学习！\n\n你已掌握：\n✓ 开普勒三定律\n✓ 万有引力定律\n✓ 天体质量计算\n✓ 卫星运动与变轨\n✓ 双星系统');
+                window.location.href = 'index.html';
+            }, 500);
+        }
+
+        // 页面加载时恢复进度
+        window.addEventListener('load', function() {
+            const progress = getProgress(HERO_ID);
+            const progressFill = document.getElementById('heroProgress');
+            const progressText = document.getElementById('progressText');
+            
+            if (progressFill && progressText) {
+                progressFill.style.width = progress.percentage + '%';
+                progressText.textContent = '学习进度 ' + progress.percentage + '%';
+            }
+            
+            loadNotes();
+        });
+
+        // ========== 笔记功能 ==========
+        function openNotesPanel() {
+            document.getElementById('notesOverlay').classList.add('show');
+            document.getElementById('notesPanel').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            loadNotes();
+        }
+
+        function closeNotesPanel() {
+            document.getElementById('notesOverlay').classList.remove('show');
+            document.getElementById('notesPanel').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('notesTextarea').value;
+            let allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            allNotes[HERO_ID] = {
+                content: notes,
+                updatedAt: new Date().toISOString()
+            };
+            localStorage.setItem('physicsKingNotes', JSON.stringify(allNotes));
+            
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ 已保存';
+            btn.style.background = 'var(--success)';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 1500);
+        }
+
+        function loadNotes() {
+            const allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            const textarea = document.getElementById('notesTextarea');
+            if (textarea && allNotes[HERO_ID]) {
+                textarea.value = allNotes[HERO_ID].content || '';
+            }
+        }
+
+        function clearNotes() {
+            if (confirm('确定要清空所有笔记吗？此操作不可恢复。')) {
+                document.getElementById('notesTextarea').value = '';
+                saveNotes();
+            }
+        }
+
+        // ESC键关闭笔记面板
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNotesPanel();
+            }
+        });
+
+        // ========== 例题解析切换 ==========
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.classList.toggle('hidden');
+            const btn = event.currentTarget;
+            const btnText = btn.querySelector('span:last-child');
+            if (answer.classList.contains('hidden')) {
+                btnText.textContent = '查看解析';
+            } else {
+                btnText.textContent = '收起解析';
+            }
+        }
+
+        // ========== 练习题答题 ==========
+        function checkAnswer(element, selected, isCorrect, feedbackId) {
+            const quizItem = element.closest('.quiz-item');
+            const options = quizItem.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById(feedbackId);
+
+            if (quizItem.dataset.answered) return;
+            quizItem.dataset.answered = 'true';
+
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            element.classList.add('selected');
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.className = 'quiz-feedback show correct';
+                feedback.innerHTML = '🎉 回答正确！你对引力的理解很到位！';
+                
+                // 更新进度（每答对一题增加20%）
+                const progress = getProgress(HERO_ID);
+                const newProgress = Math.min(progress.percentage + 20, 100);
+                saveProgress(HERO_ID, newProgress);
+                document.getElementById('heroProgress').style.width = newProgress + '%';
+                document.getElementById('progressText').textContent = '学习进度 ' + newProgress + '%';
+            } else {
+                element.classList.add('wrong');
+                feedback.className = 'quiz-feedback show wrong';
+                
+                // 显示正确答案
+                let correctText = '';
+                if (feedbackId === 'feedback1') {
+                    correctText = '❌ 回答错误。正确答案是C。万有引力是一对作用力与反作用力，总是大小相等、方向相反。G有单位（N·m²/kg²），r趋近于零时公式不适用（物体不能视为质点），且任何有质量的物体间都存在万有引力。';
+                } else if (feedbackId === 'feedback2') {
+                    correctText = '❌ 回答错误。正确答案是A。轨道半径应为r = R+h，由GMm/(R+h)² = mv²/(R+h)可得v = √(GM/(R+h))。';
+                } else if (feedbackId === 'feedback3') {
+                    correctText = '❌ 回答错误。正确答案是B。第一宇宙速度7.9km/s是最小发射速度，是最大环绕速度（轨道越低速度越大），与地球质量密切相关（v₁=√(GM/R)）。';
+                }
+                feedback.innerHTML = correctText;
+
+                // 标记正确答案
+                options.forEach(opt => {
+                    const onclickStr = opt.getAttribute('onclick') || '';
+                    if (onclickStr.includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        // ========== 额外的学习辅助功能 ==========
+        
+        // 公式速查表
+        const FORMULAS = {
+            '万有引力': 'F = Gm₁m₂/r²',
+            '向心加速度': 'a = v²/r = ω²r = 4π²r/T²',
+            '黄金代换': 'GM = gR²',
+            '第一宇宙速度': 'v₁ = √(gR) ≈ 7.9 km/s',
+            '开普勒第三定律': 'a³/T² = k',
+            '中心天体质量': 'M = 4π²r³/GT²',
+            '天体密度': 'ρ = 3π/GT²（近地卫星）'
+        };
+
+        // 学习提示
+        const STUDY_TIPS = [
+            '记住：轨道越高，速度越小，周期越大！',
+            '变轨口诀：加速升轨（离心），减速降轨（近心）',
+            '双星系统：两星角速度相同，质量与半径成反比',
+            '求中心天体质量时，环绕天体的质量会被约掉',
+            '黄金代换 GM = gR² 在不知道G和M时非常有用'
+        ];
+
+        // 随机显示学习提示
+        function showRandomTip() {
+            const tip = STUDY_TIPS[Math.floor(Math.random() * STUDY_TIPS.length)];
+            console.log('💡 学习提示：' + tip);
+        }
+
+        // 页面加载后显示随机提示
+        window.addEventListener('load', function() {
+            setTimeout(showRandomTip, 2000);
+        });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + S 保存笔记
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                const notesPanel = document.getElementById('notesPanel');
+                if (notesPanel.classList.contains('show')) {
+                    saveNotes();
+                } else {
+                    openNotesPanel();
+                }
+            }
+            
+            // Ctrl/Cmd + Enter 完成学习
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                completeLearning();
+            }
+        });
+
+        // 页面滚动时保存阅读进度
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(function() {
+                const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                const progress = getProgress(HERO_ID);
+                // 只有滚动进度大于当前进度时才更新
+                if (scrollPercent > progress.percentage && scrollPercent < 100) {
+                    saveProgress(HERO_ID, scrollPercent);
+                    document.getElementById('heroProgress').style.width = scrollPercent + '%';
+                    document.getElementById('progressText').textContent = '学习进度 ' + scrollPercent + '%';
+                }
+            }, 500);
+        });
+
+        // 打印学习报告
+        function printStudyReport() {
+            const progress = getProgress(HERO_ID);
+            const notes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}')[HERO_ID];
+            
+            console.log('=== 物理王者 - 星辰·引力 学习报告 ===');
+            console.log('学习进度：' + progress.percentage + '%');
+            console.log('完成状态：' + (progress.completed ? '已完成' : '进行中'));
+            console.log('最后学习：' + new Date(progress.lastStudy).toLocaleString());
+            console.log('笔记字数：' + (notes ? notes.content.length : 0));
+            console.log('=====================================');
+        }
+
+        // 导出学习笔记
+        function exportNotes() {
+            const allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            const notes = allNotes[HERO_ID];
+            
+            if (!notes || !notes.content) {
+                alert('暂无笔记可导出！');
+                return;
+            }
+            
+            const blob = new Blob([
+                '=== 星辰·引力 学习笔记 ===\n',
+                '导出时间：' + new Date().toLocaleString() + '\n\n',
+                notes.content
+            ], { type: 'text/plain;charset=utf-8' });
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '星辰引力学习笔记.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

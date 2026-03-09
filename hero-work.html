@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>能量·做功 - 功和功率 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32;
+            --silver: #c0c0c0;
+            --gold: #ffd700;
+            --platinum: #3eb489;
+            --diamond: #b9f2ff;
+            --star: #e6e6fa;
+            --king: #ff6b35;
+            --dark-bg: #0a0e1a;
+            --card-bg: rgba(20, 25, 45, 0.95);
+            --accent: #ffd700;
+            --accent-gold: #ff8c00;
+            --success: #32cd32;
+            --error: #ff4444;
+            --work-gold: #ffd700;
+            --work-light: #ff8c00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-5px);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px 60px;
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.15));
+            border: 1px solid rgba(255,215,0,0.4);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,215,0,0.3), transparent);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-title-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--work-gold), var(--work-light));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 20px 40px rgba(255,215,0,0.4);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 20px 40px rgba(255,215,0,0.4); }
+            50% { box-shadow: 0 20px 60px rgba(255,215,0,0.6); }
+        }
+
+        .hero-meta {
+            flex: 1;
+        }
+
+        .hero-name-large {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255,215,0,0.3);
+            color: var(--work-light);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255,215,0,0.5);
+        }
+
+        .hero-desc-large {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        .hero-progress-large {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-bar-large {
+            flex: 1;
+            max-width: 300px;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill-large {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--work-gold), var(--work-light));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text-large {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--work-light);
+        }
+
+        .learning-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--work-gold), var(--work-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .knowledge-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .knowledge-card:hover {
+            border-color: var(--work-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.2);
+        }
+
+        .knowledge-card.important {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(0,0,0,0.3));
+        }
+
+        .knowledge-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .knowledge-title .icon {
+            font-size: 20px;
+        }
+
+        .knowledge-content {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+        }
+
+        .knowledge-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .knowledge-content li {
+            margin: 8px 0;
+        }
+
+        .formula-box {
+            background: rgba(255,215,0,0.15);
+            border-left: 4px solid var(--work-gold);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 12px 12px 0;
+            font-family: 'Times New Roman', serif;
+            font-size: 22px;
+            color: var(--work-light);
+            text-align: center;
+        }
+
+        .formula-detail {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .formula-detail p {
+            margin: 8px 0;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, rgba(255,140,0,0.1), rgba(0,0,0,0.3));
+            border: 1px solid rgba(255,140,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .example-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .example-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .example-question {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .example-answer {
+            background: rgba(50,205,50,0.1);
+            border: 1px solid rgba(50,205,50,0.3);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .example-answer.hidden {
+            display: none;
+        }
+
+        .toggle-answer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--work-gold), var(--work-light));
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-answer:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+        }
+
+        .quiz-container {
+            margin-top: 20px;
+        }
+
+        .quiz-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quiz-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--work-gold), var(--work-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .quiz-question {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--work-gold);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--work-gold);
+            background: rgba(255,215,0,0.15);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(50,205,50,0.15);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--error);
+            background: rgba(255,68,68,0.15);
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .quiz-option.selected .option-letter,
+        .quiz-option.correct .option-letter,
+        .quiz-option.wrong .option-letter {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(50,205,50,0.2);
+            color: var(--success);
+        }
+
+        .quiz-feedback.wrong {
+            background: rgba(255,68,68,0.2);
+            color: var(--error);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--work-gold), var(--work-light));
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--work-gold);
+            color: var(--work-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--work-gold);
+            color: #000;
+        }
+
+        .game-tip {
+            background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,0,0,0.3));
+            border-left: 4px solid var(--king);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .game-tip-title {
+            color: var(--king);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .notes-overlay { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.7); 
+            z-index: 9998; 
+            display: none; 
+            opacity: 0; 
+            transition: opacity 0.3s ease; 
+        }
+        .notes-overlay.show { 
+            display: block; 
+            opacity: 1; 
+        }
+        .notes-panel { 
+            position: fixed; 
+            right: -400px; 
+            top: 0; 
+            width: 400px; 
+            height: 100%; 
+            background: var(--card-bg); 
+            border-left: 1px solid rgba(255,255,255,0.1); 
+            z-index: 9999; 
+            display: flex; 
+            flex-direction: column; 
+            transition: right 0.3s ease; 
+            box-shadow: -5px 0 30px rgba(0,0,0,0.5); 
+        }
+        .notes-panel.show { 
+            right: 0; 
+        }
+        .notes-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            font-size: 18px; 
+            font-weight: 700; 
+        }
+        .notes-close { 
+            background: none; 
+            border: none; 
+            color: #fff; 
+            font-size: 24px; 
+            cursor: pointer; 
+            padding: 5px 10px; 
+            border-radius: 5px; 
+            transition: background 0.3s; 
+        }
+        .notes-close:hover { 
+            background: rgba(255,255,255,0.1); 
+        }
+        .notes-content { 
+            flex: 1; 
+            padding: 20px; 
+            overflow: hidden; 
+        }
+        .notes-content textarea { 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 10px; 
+            padding: 15px; 
+            color: #fff; 
+            font-size: 14px; 
+            line-height: 1.6; 
+            resize: none; 
+            font-family: inherit; 
+        }
+        .notes-content textarea:focus { 
+            outline: none; 
+            border-color: var(--work-gold); 
+        }
+        .notes-actions { 
+            display: flex; 
+            gap: 10px; 
+            padding: 20px; 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+        }
+        .notes-actions .btn { 
+            flex: 1; 
+            padding: 12px 20px; 
+            font-size: 14px; 
+        }
+
+        .condition-list {
+            background: rgba(255,215,0,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .condition-list li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .condition-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(255,215,0,0.2);
+            color: var(--work-light);
+        }
+
+        .power-diagram {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            color: var(--work-light);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .main-container { padding: 20px; }
+            .hero-title-section { flex-direction: column; text-align: center; }
+            .hero-name-large { font-size: 24px; flex-direction: column; }
+            .knowledge-grid { grid-template-columns: 1fr; }
+            .action-buttons { flex-direction: column; }
+            .notes-panel { width: 100%; right: -100%; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">物理王者</div>
+        </a>
+        <a href="index.html" class="back-btn">
+            <span>←</span>
+            <span>返回英雄列表</span>
+        </a>
+    </header>
+
+    <main class="main-container">
+        <section class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">⚡</div>
+                <div class="hero-meta">
+                    <h1 class="hero-name-large">
+                        能量·做功
+                        <span class="hero-tag">能量系</span>
+                    </h1>
+                    <p class="hero-desc-large">
+                        功的定义，功率，机车启动问题。
+                        掌握功和功率，就像掌握王者峡谷的能量法则，让你的物理攻击无往不利！
+                    </p>
+                    <div class="hero-progress-large">
+                        <div class="progress-bar-large">
+                            <div class="progress-fill-large" id="heroProgress"></div>
+                        </div>
+                        <span class="progress-text-large" id="progressText">学习进度 0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <h2 class="section-title">核心知识点</h2>
+            </div>
+
+            <div class="knowledge-grid">
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">💪</span>
+                        功的定义 Work
+                    </div>
+                    <div class="knowledge-content">
+                        <p>力与物体在力的方向上移动距离的乘积叫做功。</p>
+                        <div class="formula-box">
+                            W = F · s · cosθ = F · x · cosθ
+                        </div>
+                        <div class="formula-detail">
+                            <p><strong>F</strong> = 力的大小（单位：牛顿 N）</p>
+                            <p><strong>s (或x)</strong> = 位移（单位：米 m）</p>
+                            <p><strong>θ</strong> = 力与位移方向的夹角</p>
+                            <p><strong>W</strong> = 功（单位：焦耳 J）</p>
+                        </div>
+                        <p style="margin-top: 15px; color: var(--accent-gold);">
+                            💡 <strong>关键理解：</strong>
+                        </p>
+                        <ul>
+                            <li>功是标量，只有大小没有方向</li>
+                            <li>当力与位移垂直时(θ=90°)，不做功(cos90°=0)</li>
+                            <li>当力与位移同向时(θ=0°)，W = Fs（最大）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">📊</span>
+                        正功与负功
+                    </div>
+                    <div class="knowledge-content">
+                        <p>根据力与位移的夹角判断做功的正负：</p>
+                        <div class="formula-box">
+                            0° ≤ θ < 90° → W > 0（正功）<br>
+                            θ = 90° → W = 0（不做功）<br>
+                            90° < θ ≤ 180° → W < 0（负功）
+                        </div>
+                        <p style="margin-top: 15px; color: var(--accent-gold);">
+                            💡 <strong>物理意义：</strong>
+                        </p>
+                        <ul>
+                            <li><strong>正功：</strong>力促进物体运动，是动力</li>
+                            <li><strong>负功：</strong>力阻碍物体运动，是阻力</li>
+                            <li><strong>不做功：</strong>力对物体运动无影响</li>
+                        </ul>
+                        <p style="margin-top: 10px; color: var(--error);">
+                            ⚠️ 常见误区：摩擦力一定做负功？不一定！如传送带带动物体时，静摩擦力做正功。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">⚡</span>
+                        功率 Power
+                    </div>
+                    <div class="knowledge-content">
+                        <p>单位时间内完成的功，表示做功的快慢。</p>
+                        <div class="formula-box">
+                            P = W/t = F·v·cosθ
+                        </div>
+                        <div class="formula-detail">
+                            <p><strong>P</strong> = 功率（单位：瓦特 W）</p>
+                            <p><strong>W</strong> = 功（单位：焦耳 J）</p>
+                            <p><strong>t</strong> = 时间（单位：秒 s）</p>
+                            <p><strong>F</strong> = 牵引力，<strong>v</strong> = 速度</p>
+                        </div>
+                        <p style="margin-top: 15px;">
+                            <strong>两种功率：</strong>
+                        </p>
+                        <ul>
+                            <li><strong>平均功率：</strong>P̄ = W/t = F·v̄·cosθ</li>
+                            <li><strong>瞬时功率：</strong>P = F·v·cosθ（某一时刻的功率）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">🚗</span>
+                        机车恒定功率启动
+                    </div>
+                    <div class="knowledge-content">
+                        <p>汽车以恒定功率启动时的运动特点：</p>
+                        <div class="formula-box">
+                            P = F·v（恒定）<br>
+                            F - f = ma
+                        </div>
+                        <p style="margin-top: 15px;">
+                            <strong>运动过程分析：</strong>
+                        </p>
+                        <ul>
+                            <li>启动时v小，F = P/v大，加速度a大</li>
+                            <li>速度增大，牵引力F减小，加速度a减小</li>
+                            <li>当F = f时，a = 0，达到最大速度vₘ</li>
+                            <li>之后匀速运动：vₘ = P/f</li>
+                        </ul>
+                        <div class="power-diagram">
+                            <div class="diagram-title">📈 恒定功率启动 v-t 图</div>
+                            <p style="font-size: 14px;">速度先快速增加，后增速变慢，最后趋于恒定值</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">🚀</span>
+                        机车恒定加速度启动
+                    </div>
+                    <div class="knowledge-content">
+                        <p>汽车以恒定加速度启动时的运动特点：</p>
+                        <div class="formula-box">
+                            F - f = ma（恒定）<br>
+                            P = F·v
+                        </div>
+                        <p style="margin-top: 15px;">
+                            <strong>运动过程分析（两个阶段）：</strong>
+                        </p>
+                        <ul>
+                            <li><strong>第一阶段（匀加速）：</strong>
+                                <br>• F恒定，a恒定，v均匀增加
+                                <br>• P = Fv 逐渐增大
+                                <br>• 直到P达到额定功率P₀
+                            </li>
+                            <li><strong>第二阶段（变加速）：</strong>
+                                <br>• P = P₀ 保持恒定
+                                <br>• v增大，F减小，a减小
+                                <br>• 直到F = f，达到最大速度
+                            </li>
+                        </ul>
+                        <div class="power-diagram">
+                            <div class="diagram-title">📈 恒定加速度启动 v-t 图</div>
+                            <p style="font-size: 14px;">先直线上升（匀加速），后曲线上升，最后水平</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">📐</span>
+                        功的计算方法总结
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>计算功的几种方法：</strong></p>
+                        <ul class="condition-list">
+                            <li><strong>定义法：</strong>W = Fscosθ（恒力做功）</li>
+                            <li><strong>功率法：</strong>W = Pt（功率恒定或已知平均功率）</li>
+                            <li><strong>动能定理：</strong>W合 = ΔEₖ = ½mv₂² - ½mv₁²</li>
+                            <li><strong>图像法：</strong>F-s图像中，图线与横轴围成的面积表示功</li>
+                            <li><strong>转换法：</strong>通过能量转化关系间接求功</li>
+                        </ul>
+                        <p style="margin-top: 15px; color: var(--accent-gold);">
+                            💡 <strong>选择技巧：</strong>
+                        </p>
+                        <ul>
+                            <li>恒力做功直接用定义式</li>
+                            <li>变力做功优先考虑动能定理</li>
+                            <li>机车问题优先考虑功率公式</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">🎮</div>
+                <h2 class="section-title">王者峡谷里的功与功率</h2>
+            </div>
+            <div class="game-tip">
+                <div class="game-tip-title">🗡️ 用王者荣耀理解功和功率</div>
+                <ul style="line-height: 1.8;">
+                    <li><strong>后羿射箭：</strong>拉弓的力F，箭移动距离s，做功W = Fs。拉得越满，做功越多，箭速越快！</li>
+                    <li><strong>亚瑟冲锋：</strong>大功率输出！短时间内做大量功，爆发伤害高。P = W/t，技能冷却短=功率大。</li>
+                    <li><strong>关羽骑马：</strong>持续做功的典范。马力（功率）恒定，速度越快，牵引力越小。</li>
+                    <li><strong>韩信跳跃：</strong>起跳时肌肉做功W = mgh，将化学能转化为重力势能，跳得越高做功越多。</li>
+                </ul>
+            </div>
+            
+            <div class="game-tip">
+                <div class="game-tip-title">⚡ 功率实战应用</div>
+                <ul style="line-height: 1.8;">
+                    <li><strong>打野效率：</strong>打野怪的速度就是功率！P = 伤害/时间，高功率=快速清野。</li>
+                    <li><strong>推塔速度：</strong>攻击频率 × 每次伤害 = 推塔功率，功率越大推塔越快。</li>
+                    <li><strong>技能连招：</strong>一套技能的总伤害/释放时间 = 技能功率，优化连招顺序提高功率输出。</li>
+                </ul>
+            </div>
+            
+            <div class="power-diagram">
+                <div class="diagram-title">🎮 峡谷功率对比表</div>
+                <table class="comparison-table">
+                    <tr>
+                        <th>英雄</th>
+                        <th>技能</th>
+                        <th>功率类型</th>
+                        <th>特点</th>
+                    </tr>
+                    <tr>
+                        <td>妲己</td>
+                        <td>一套技能</td>
+                        <td>高瞬时功率</td>
+                        <td>短时间爆发高伤害</td>
+                    </tr>
+                    <tr>
+                        <td>后羿</td>
+                        <td>普攻输出</td>
+                        <td>稳定功率</td>
+                        <td>持续稳定输出</td>
+                    </tr>
+                    <tr>
+                        <td>亚瑟</td>
+                        <td>沉默+旋转</td>
+                        <td>中高功率</td>
+                        <td>技能+普攻混合</td>
+                    </tr>
+                    <tr>
+                        <td>蔡文姬</td>
+                        <td>治疗技能</td>
+                        <td>治疗功率</td>
+                        <td>回复生命值的功率</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2 class="section-title">经典例题</h2>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题1：功的计算</span>
+                </div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>一个质量为10kg的物体，在水平地面上受到与水平方向成37°角的拉力F = 50N作用，</p>
+                    <p>沿水平面移动了10m。已知sin37°=0.6，cos37°=0.8。</p>
+                    <p>(1) 求拉力F做的功。</p>
+                    <p>(2) 若物体匀速运动，求摩擦力做的功。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer1')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+                <div class="example-answer hidden" id="answer1">
+                    <p><strong>解析：</strong></p>
+                    <p style="margin-top: 10px;"><strong>(1) 拉力做的功：</strong></p>
+                    <p>W<sub>F</sub> = F · s · cosθ = 50 × 10 × 0.8 = <strong>400 J</strong></p>
+                    
+                    <p style="margin-top: 10px;"><strong>(2) 摩擦力做的功：</strong></p>
+                    <p>物体匀速运动，水平方向合力为零</p>
+                    <p>f = Fcos37° = 50 × 0.8 = 40 N</p>
+                    <p>摩擦力与位移方向相反，做负功</p>
+                    <p>W<sub>f</sub> = -f · s = -40 × 10 = <strong>-400 J</strong></p>
+                    <p style="color: var(--accent-gold); margin-top: 15px;">
+                        ✅ 答案：(1) 400 J；(2) -400 J
+                    </p>
+                    <p style="color: var(--work-light); margin-top: 10px;">
+                        💡 注意：摩擦力做负功，也可以说成"物体克服摩擦力做功400J"
+                    </p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题2：功率计算</span>
+                </div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>一辆汽车的质量为2×10³kg，发动机的额定功率为80kW。</p>
+                    <p>汽车在平直公路上行驶时所受阻力恒为4000N。</p>
+                    <p>(1) 求汽车行驶的最大速度。</p>
+                    <p>(2) 若汽车以2m/s²的加速度匀加速启动，求维持匀加速运动的最长时间。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer2')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+                <div class="example-answer hidden" id="answer2">
+                    <p><strong>解析：</strong></p>
+                    
+                    <p style="margin-top: 10px;"><strong>(1) 最大速度：</strong></p>
+                    <p>当汽车达到最大速度时，牵引力F = 阻力f</p>
+                    <p>P = F·v<sub>m</sub> = f·v<sub>m</sub></p>
+                    <p>v<sub>m</sub> = P/f = 80000/4000 = <strong>20 m/s</strong></p>
+                    
+                    <p style="margin-top: 10px;"><strong>(2) 匀加速最长时间：</strong></p>
+                    <p>匀加速阶段：F - f = ma</p>
+                    <p>F = f + ma = 4000 + 2000×2 = 8000 N</p>
+                    <p>匀加速结束时的速度：v = P/F = 80000/8000 = 10 m/s</p>
+                    <p>由v = at，得 t = v/a = 10/2 = <strong>5 s</strong></p>
+                    
+                    <p style="color: var(--accent-gold); margin-top: 15px;">
+                        ✅ 答案：(1) 20 m/s；(2) 5 s
+                    </p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题3：机车启动综合问题</span>
+                </div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>一列火车总质量为500t，机车额定功率为600kW，轨道阻力为车重的0.01倍。</p>
+                    <p>火车从静止开始以额定功率启动（g=10m/s²）。</p>
+                    <p>(1) 当速度为10m/s时，火车的加速度是多少？</p>
+                    <p>(2) 火车的最大速度是多少？</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer3')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+                <div class="example-answer hidden" id="answer3">
+                    <p><strong>解析：</strong></p>
+                    
+                    <p style="margin-top: 10px;">首先计算阻力：f = 0.01mg = 0.01 × 500×10³ × 10 = 5×10⁴ N</p>
+                    
+                    <p style="margin-top: 10px;"><strong>(1) v = 10m/s时的加速度：</strong></p>
+                    <p>牵引力 F = P/v = 600×10³/10 = 6×10⁴ N</p>
+                    <p>由牛顿第二定律：F - f = ma</p>
+                    <p>a = (F-f)/m = (6×10⁴ - 5×10⁴)/(500×10³) = 0.02 m/s²</p>
+                    
+                    <p style="margin-top: 10px;"><strong>(2) 最大速度：</strong></p>
+                    <p>当F = f时，速度达到最大</p>
+                    <p>v<sub>m</sub> = P/f = 600×10³/(5×10⁴) = <strong>12 m/s</strong></p>
+                    
+                    <p style="color: var(--accent-gold); margin-top: 15px;">
+                        ✅ 答案：(1) 0.02 m/s²；(2) 12 m/s
+                    </p>
+                    <p style="color: var(--work-light); margin-top: 10px;">
+                        🎮 游戏联想：就像关羽骑马，速度越快，牵引力越小，加速越慢！
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <h2 class="section-title">实战演练</h2>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-item">
+                    <div class="quiz-number">1</div>
+                    <div class="quiz-question">
+                        关于功的概念，下列说法正确的是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')">
+                            <div class="option-letter">A</div>
+                            <div>力越大，做的功一定越多</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback1')">
+                            <div class="option-letter">B</div>
+                            <div>物体移动的距离越长，力做的功一定越多</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback1')">
+                            <div class="option-letter">C</div>
+                            <div>有力作用在物体上，力一定对物体做功</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', true, 'feedback1')">
+                            <div class="option-letter">D</div>
+                            <div>力对物体做功，必须同时满足：有力、有位移、力在位移方向有分量</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">2</div>
+                    <div class="quiz-question">
+                        一台起重机将质量为1000kg的货物匀加速提升10m，加速度为2m/s²，则起重机对货物做功的平均功率约为（g=10m/s²）（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')">
+                            <div class="option-letter">A</div>
+                            <div>1.0×10⁴ W</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback2')">
+                            <div class="option-letter">B</div>
+                            <div>1.2×10⁴ W</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback2')">
+                            <div class="option-letter">C</div>
+                            <div>约 2.4×10⁴ W（F=m(g+a)=12000N，W=120000J，t=√(2h/a)=√10≈3.16s，P≈38000W）</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')">
+                            <div class="option-letter">D</div>
+                            <div>4.0×10⁴ W</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">3</div>
+                    <div class="quiz-question">
+                        汽车以恒定功率P启动，在水平路面上行驶，设所受阻力恒为f，则下列说法正确的是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')">
+                            <div class="option-letter">A</div>
+                            <div>汽车做匀加速直线运动</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback3')">
+                            <div class="option-letter">B</div>
+                            <div>汽车的加速度保持不变</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback3')">
+                            <div class="option-letter">C</div>
+                            <div>汽车先做加速度减小的加速运动，后做匀速运动</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')">
+                            <div class="option-letter">D</div>
+                            <div>汽车的最大速度为P·f</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="openNotesPanel()">
+                <span>✏️</span>
+                <span>记笔记</span>
+            </button>
+            <button class="btn btn-primary" onclick="completeLearning()">
+                <span>✅</span>
+                <span>完成学习</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- 笔记面板 -->
+    <div class="notes-overlay" id="notesOverlay" onclick="closeNotesPanel()"></div>
+    <div class="notes-panel" id="notesPanel">
+        <div class="notes-header">
+            <span>📝 学习笔记 - 能量·做功</span>
+            <button class="notes-close" onclick="closeNotesPanel()">✕</button>
+        </div>
+        <div class="notes-content">
+            <textarea id="notesTextarea" placeholder="在这里记录你的学习心得、重点难点、易错点...
+
+例如：
+• 功的公式：W = Fscosθ，注意角度θ是力与位移的夹角
+• 正功负功判断：看力是促进还是阻碍运动
+• 功率公式：P = W/t = Fv，注意区分平均功率和瞬时功率
+• 机车启动：恒定功率启动时加速度逐渐减小
+• 最大速度条件：牵引力F = 阻力f"></textarea>
+        </div>
+        <div class="notes-actions">
+            <button class="btn btn-secondary" onclick="clearNotes()">🗑️ 清空</button>
+            <button class="btn btn-primary" onclick="saveNotes()">💾 保存笔记</button>
+        </div>
+    </div>
+
+    <script>
+        // 英雄ID
+        const HERO_ID = 'hero-work';
+
+        // 页面加载时恢复进度
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            loadNotes();
+        });
+
+        // ========== 学习进度 ==========
+        function loadProgress() {
+            const progress = localStorage.getItem(HERO_ID + '_progress') || '0';
+            updateProgressDisplay(parseInt(progress));
+        }
+
+        function updateProgressDisplay(percent) {
+            document.getElementById('heroProgress').style.width = percent + '%';
+            document.getElementById('progressText').textContent = '学习进度 ' + percent + '%';
+        }
+
+        function completeLearning() {
+            localStorage.setItem(HERO_ID + '_progress', '100');
+            localStorage.setItem(HERO_ID + '_completed', 'true');
+            localStorage.setItem(HERO_ID + '_completedAt', new Date().toISOString());
+            updateProgressDisplay(100);
+            
+            const btn = event.target;
+            btn.innerHTML = '🎉 已完成';
+            btn.style.background = 'var(--success)';
+            
+            setTimeout(() => {
+                alert('🎉 恭喜！你已完成「能量·做功」的学习！\n\n获得成就：功功率大师 ⚡');
+            }, 300);
+        }
+
+        // ========== 笔记功能 ==========
+        function openNotesPanel() {
+            document.getElementById('notesOverlay').classList.add('show');
+            document.getElementById('notesPanel').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            loadNotes();
+        }
+
+        function closeNotesPanel() {
+            document.getElementById('notesOverlay').classList.remove('show');
+            document.getElementById('notesPanel').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('notesTextarea').value;
+            let allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            allNotes[HERO_ID] = {
+                content: notes,
+                updatedAt: new Date().toISOString()
+            };
+            localStorage.setItem('physicsKingNotes', JSON.stringify(allNotes));
+            
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ 已保存';
+            btn.style.background = 'var(--success)';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 1500);
+        }
+
+        function loadNotes() {
+            const allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            const textarea = document.getElementById('notesTextarea');
+            if (textarea && allNotes[HERO_ID]) {
+                textarea.value = allNotes[HERO_ID].content || '';
+            }
+        }
+
+        function clearNotes() {
+            if (confirm('确定要清空所有笔记吗？此操作不可恢复。')) {
+                document.getElementById('notesTextarea').value = '';
+                saveNotes();
+            }
+        }
+
+        // ========== 例题展开/收起 ==========
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            const btn = event.target.closest('.toggle-answer');
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                btn.innerHTML = '👁️ 收起解析';
+            } else {
+                answer.classList.add('hidden');
+                btn.innerHTML = '👁️ 查看解析';
+            }
+        }
+
+        // ========== 练习题功能 ==========
+        function checkAnswer(element, option, isCorrect, feedbackId) {
+            const quizItem = element.closest('.quiz-item');
+            const options = quizItem.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById(feedbackId);
+            
+            // 禁用所有选项
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            // 标记选中
+            element.classList.add('selected');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.className = 'quiz-feedback show correct';
+                feedback.innerHTML = '✅ 回答正确！';
+            } else {
+                element.classList.add('wrong');
+                // 找到正确答案并标记
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+                feedback.className = 'quiz-feedback show wrong';
+                feedback.innerHTML = '❌ 回答错误，请查看解析理解正确答案。';
+            }
+        }
+
+        // ESC键关闭笔记面板
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNotesPanel();
+            }
+        });
+    </script>
+</body>
+</html>

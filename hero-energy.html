@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>守恒·能量 - 机械能守恒定律 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32;
+            --silver: #c0c0c0;
+            --gold: #ffd700;
+            --platinum: #3eb489;
+            --diamond: #b9f2ff;
+            --star: #e6e6fa;
+            --king: #ff6b35;
+            --dark-bg: #0a0e1a;
+            --card-bg: rgba(20, 25, 45, 0.95);
+            --accent: #9d4edd;
+            --accent-gold: #e0aaff;
+            --success: #32cd32;
+            --error: #ff4444;
+            --energy-purple: #9d4edd;
+            --energy-light: #c77dff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-5px);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px 60px;
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, rgba(157,78,221,0.2), rgba(100,50,180,0.15));
+            border: 1px solid rgba(157,78,221,0.4);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(157,78,221,0.3), transparent);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-title-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--energy-purple), var(--energy-light));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 20px 40px rgba(157,78,221,0.4);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 20px 40px rgba(157,78,221,0.4); }
+            50% { box-shadow: 0 20px 60px rgba(157,78,221,0.6); }
+        }
+
+        .hero-meta {
+            flex: 1;
+        }
+
+        .hero-name-large {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(157,78,221,0.3);
+            color: var(--energy-light);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(157,78,221,0.5);
+        }
+
+        .hero-desc-large {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        .hero-progress-large {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-bar-large {
+            flex: 1;
+            max-width: 300px;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill-large {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--energy-purple), var(--energy-light));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text-large {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--energy-light);
+        }
+
+        .learning-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--energy-purple), var(--energy-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .knowledge-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .knowledge-card:hover {
+            border-color: var(--energy-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(157,78,221,0.2);
+        }
+
+        .knowledge-card.important {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(224,170,255,0.1), rgba(0,0,0,0.3));
+        }
+
+        .knowledge-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .knowledge-title .icon {
+            font-size: 20px;
+        }
+
+        .knowledge-content {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+        }
+
+        .knowledge-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .knowledge-content li {
+            margin: 8px 0;
+        }
+
+        .formula-box {
+            background: rgba(157,78,221,0.15);
+            border-left: 4px solid var(--energy-purple);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 12px 12px 0;
+            font-family: 'Times New Roman', serif;
+            font-size: 22px;
+            color: var(--energy-light);
+            text-align: center;
+        }
+
+        .formula-detail {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .formula-detail p {
+            margin: 8px 0;
+        }
+
+        .example-box {
+            background: linear-gradient(135deg, rgba(224,170,255,0.1), rgba(0,0,0,0.3));
+            border: 1px solid rgba(224,170,255,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .example-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .example-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .example-question {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .example-answer {
+            background: rgba(50,205,50,0.1);
+            border: 1px solid rgba(50,205,50,0.3);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .example-answer.hidden {
+            display: none;
+        }
+
+        .toggle-answer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--energy-purple), var(--energy-light));
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-answer:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(157,78,221,0.4);
+        }
+
+        .quiz-container {
+            margin-top: 20px;
+        }
+
+        .quiz-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .quiz-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--energy-purple), var(--energy-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 15px;
+        }
+
+        .quiz-question {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--energy-purple);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--energy-purple);
+            background: rgba(157,78,221,0.15);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(50,205,50,0.15);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--error);
+            background: rgba(255,68,68,0.15);
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .quiz-option.selected .option-letter,
+        .quiz-option.correct .option-letter,
+        .quiz-option.wrong .option-letter {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(50,205,50,0.2);
+            color: var(--success);
+        }
+
+        .quiz-feedback.wrong {
+            background: rgba(255,68,68,0.2);
+            color: var(--error);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--energy-purple), var(--energy-light));
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(157,78,221,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--energy-purple);
+            color: var(--energy-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--energy-purple);
+            color: #000;
+        }
+
+        .game-tip {
+            background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,0,0,0.3));
+            border-left: 4px solid var(--king);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .game-tip-title {
+            color: var(--king);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .notes-overlay { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.7); 
+            z-index: 9998; 
+            display: none; 
+            opacity: 0; 
+            transition: opacity 0.3s ease; 
+        }
+        .notes-overlay.show { 
+            display: block; 
+            opacity: 1; 
+        }
+        .notes-panel { 
+            position: fixed; 
+            right: -400px; 
+            top: 0; 
+            width: 400px; 
+            height: 100%; 
+            background: var(--card-bg); 
+            border-left: 1px solid rgba(255,255,255,0.1); 
+            z-index: 9999; 
+            display: flex; 
+            flex-direction: column; 
+            transition: right 0.3s ease; 
+            box-shadow: -5px 0 30px rgba(0,0,0,0.5); 
+        }
+        .notes-panel.show { 
+            right: 0; 
+        }
+        .notes-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            font-size: 18px; 
+            font-weight: 700; 
+        }
+        .notes-close { 
+            background: none; 
+            border: none; 
+            color: #fff; 
+            font-size: 24px; 
+            cursor: pointer; 
+            padding: 5px 10px; 
+            border-radius: 5px; 
+            transition: background 0.3s; 
+        }
+        .notes-close:hover { 
+            background: rgba(255,255,255,0.1); 
+        }
+        .notes-content { 
+            flex: 1; 
+            padding: 20px; 
+            overflow: hidden; 
+        }
+        .notes-content textarea { 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 10px; 
+            padding: 15px; 
+            color: #fff; 
+            font-size: 14px; 
+            line-height: 1.6; 
+            resize: none; 
+            font-family: inherit; 
+        }
+        .notes-content textarea:focus { 
+            outline: none; 
+            border-color: var(--energy-purple); 
+        }
+        .notes-actions { 
+            display: flex; 
+            gap: 10px; 
+            padding: 20px; 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+        }
+        .notes-actions .btn { 
+            flex: 1; 
+            padding: 12px 20px; 
+            font-size: 14px; 
+        }
+
+        .conservation-diagram {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .diagram-title {
+            color: var(--energy-light);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .energy-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .energy-box {
+            background: rgba(157,78,221,0.2);
+            border: 2px solid var(--energy-purple);
+            border-radius: 12px;
+            padding: 15px 25px;
+            min-width: 120px;
+        }
+
+        .energy-box-title {
+            font-size: 14px;
+            color: var(--energy-light);
+            margin-bottom: 5px;
+        }
+
+        .energy-box-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .energy-arrow {
+            font-size: 30px;
+            color: var(--energy-light);
+        }
+
+        .condition-list {
+            background: rgba(157,78,221,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .condition-list li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .condition-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(157,78,221,0.2);
+            color: var(--energy-light);
+        }
+
+        @media (max-width: 768px) {
+            .main-container { padding: 20px; }
+            .hero-title-section { flex-direction: column; text-align: center; }
+            .hero-name-large { font-size: 24px; flex-direction: column; }
+            .knowledge-grid { grid-template-columns: 1fr; }
+            .action-buttons { flex-direction: column; }
+            .notes-panel { width: 100%; right: -100%; }
+            .energy-flow { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">物理王者</div>
+        </a>
+        <a href="index.html" class="back-btn">
+            <span>←</span>
+            <span>返回英雄列表</span>
+        </a>
+    </header>
+
+    <main class="main-container">
+        <section class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">🔮</div>
+                <div class="hero-meta">
+                    <h1 class="hero-name-large">
+                        守恒·能量
+                        <span class="hero-tag">能量系</span>
+                    </h1>
+                    <p class="hero-desc-large">
+                        动能定理，势能，机械能守恒定律，能量转化与守恒。
+                        掌握能量守恒，就像掌握王者峡谷的能量法则，让你的物理攻击无往不利！
+                    </p>
+                    <div class="hero-progress-large">
+                        <div class="progress-bar-large">
+                            <div class="progress-fill-large" id="heroProgress"></div>
+                        </div>
+                        <span class="progress-text-large" id="progressText">学习进度 0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <h2 class="section-title">核心知识点</h2>
+            </div>
+
+            <div class="knowledge-grid">
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">⚡</span>
+                        动能 Kinetic Energy
+                    </div>
+                    <div class="knowledge-content">
+                        <p>物体由于运动而具有的能量叫做动能。</p>
+                        <div class="formula-box">
+                            Eₖ = ½mv²
+                        </div>
+                        <div class="formula-detail">
+                            <p><strong>m</strong> = 质量（单位：千克 kg）</p>
+                            <p><strong>v</strong> = 速度（单位：米/秒 m/s）</p>
+                            <p><strong>Eₖ</strong> = 动能（单位：焦耳 J）</p>
+                        </div>
+                        <p style="margin-top: 15px; color: var(--accent-gold);">
+                            💡 <strong>关键理解：</strong>
+                        </p>
+                        <ul>
+                            <li>动能与质量成正比（m越大，Eₖ越大）</li>
+                            <li>动能与速度平方成正比（v翻倍，Eₖ变为4倍！）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">🏔️</span>
+                        重力势能 Gravitational PE
+                    </div>
+                    <div class="knowledge-content">
+                        <p>物体由于被举高而具有的能量叫做重力势能。</p>
+                        <div class="formula-box">
+                            Eₚ = mgh
+                        </div>
+                        <div class="formula-detail">
+                            <p><strong>m</strong> = 质量（单位：千克 kg）</p>
+                            <p><strong>g</strong> = 重力加速度（9.8 N/kg，常取10）</p>
+                            <p><strong>h</strong> = 高度（单位：米 m）</p>
+                            <p><strong>Eₚ</strong> = 重力势能（单位：焦耳 J）</p>
+                        </div>
+                        <p style="margin-top: 15px; color: var(--accent-gold);">
+                            💡 <strong>关键理解：</strong>
+                        </p>
+                        <ul>
+                            <li>重力势能与高度成正比</li>
+                            <li>零势能面可任意选取（通常选地面）</li>
+                            <li>高度是相对概念，势能也是相对的</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">🌀</span>
+                        弹性势能 Elastic PE
+                    </div>
+                    <div class="knowledge-content">
+                        <p>物体由于发生弹性形变而具有的能量叫做弹性势能。</p>
+                        <div class="formula-box">
+                            Eₚ弹 = ½kx²
+                        </div>
+                        <div class="formula-detail">
+                            <p><strong>k</strong> = 弹簧劲度系数（N/m）</p>
+                            <p><strong>x</strong> = 形变量（单位：米 m）</p>
+                        </div>
+                        <p style="margin-top: 15px;">
+                            <strong>特点：</strong>
+                        </p>
+                        <ul>
+                            <li>弹性形变越大，弹性势能越大</li>
+                            <li>弹簧压缩或拉伸都能储存能量</li>
+                            <li>应用于弹弓、发条、蹦床等</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">🎯</span>
+                        动能定理 Work-Energy Theorem
+                    </div>
+                    <div class="knowledge-content">
+                        <p>合外力对物体做的功等于物体动能的变化量。</p>
+                        <div class="formula-box">
+                            W合 = ΔEₖ = Eₖ末 - Eₖ初
+                        </div>
+                        <div class="formula-detail">
+                            <p style="text-align: center; font-size: 18px;">
+                                W合 = ½mv₂² - ½mv₁²
+                            </p>
+                        </div>
+                        <p style="margin-top: 15px;">
+                            <strong>理解要点：</strong>
+                        </p>
+                        <ul>
+                            <li>合外力做正功 → 动能增加</li>
+                            <li>合外力做负功 → 动能减少</li>
+                            <li>不需要考虑中间过程，只看初末状态！</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">
+                        <span class="icon">✨</span>
+                        机械能守恒定律
+                    </div>
+                    <div class="knowledge-content">
+                        <p>在只有重力或弹力做功的系统内，动能和势能可以相互转化，而机械能总量保持不变。</p>
+                        <div class="formula-box">
+                            Eₖ₁ + Eₚ₁ = Eₖ₂ + Eₚ₂
+                        </div>
+                        <div class="conservation-diagram">
+                            <div class="diagram-title">🔄 能量转化示意</div>
+                            <div class="energy-flow">
+                                <div class="energy-box">
+                                    <div class="energy-box-title">高处</div>
+                                    <div class="energy-box-value">Eₚ大 Eₖ小</div>
+                                </div>
+                                <span class="energy-arrow">↓</span>
+                                <div class="energy-box">
+                                    <div class="energy-box-title">下落中</div>
+                                    <div class="energy-box-value">Eₚ↓ Eₖ↑</div>
+                                </div>
+                                <span class="energy-arrow">↓</span>
+                                <div class="energy-box">
+                                    <div class="energy-box-title">低处</div>
+                                    <div class="energy-box-value">Eₚ小 Eₖ大</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="knowledge-card">
+                    <div class="knowledge-title">
+                        <span class="icon">🔒</span>
+                        机械能守恒条件
+                    </div>
+                    <div class="knowledge-content">
+                        <p><strong>必须同时满足以下条件：</strong></p>
+                        <ul class="condition-list">
+                            <li>只有重力做功（如自由落体、抛体运动）</li>
+                            <li>只有弹力做功（如弹簧振子）</li>
+                            <li>只有重力和弹力同时做功</li>
+                        </ul>
+                        <p style="margin-top: 15px; color: var(--error);">
+                            ⚠️ <strong>以下情况不守恒：</strong>
+                        </p>
+                        <ul>
+                            <li>有摩擦力做功（机械能转化为内能）</li>
+                            <li>有空气阻力做功</li>
+                            <li>有外力做功（如推力、拉力）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">🎮</div>
+                <h2 class="section-title">王者峡谷里的能量</h2>
+            </div>
+            <div class="game-tip">
+                <div class="game-tip-title">🗡️ 用王者荣耀理解能量转化</div>
+                <ul style="line-height: 1.8;">
+                    <li><strong>后羿的箭矢：</strong>拉弓时储存<span style="color:var(--energy-light)">弹性势能</span>，松手后转化为<span style="color:var(--accent-gold)">动能</span>射向敌人！Eₚ弹 → Eₖ</li>
+                    <li><strong>百里守约的狙击：</strong>子弹在高处具有<span style="color:var(--energy-light)">重力势能</span>，下落过程中势能转化为<span style="color:var(--accent-gold)">动能</span>，速度越来越快！</li>
+                    <li><strong>韩信的跳跃：</strong>起跳时动能转化为重力势能到达最高点，然后势能再转化回动能落下。若无空气阻力，机械能守恒！</li>
+                    <li><strong>鲁班的火箭：</strong>发射时火药化学能 → 燃气内能 → 火箭动能，能量转化链条清晰可见！</li>
+                </ul>
+            </div>
+            
+            <div class="game-tip">
+                <div class="game-tip-title">⚡ 能量守恒实战应用</div>
+                <ul style="line-height: 1.8;">
+                    <li><strong>从泉水跃下：</strong>假设泉水高度h=20m，英雄质量m=70kg，落地速度v = √(2gh) ≈ 20m/s（不考虑空气阻力）</li>
+                    <li><strong>蓝Buff的回复：</strong>就像能量补充站，将外部能量转化为英雄的"法力值"</li>
+                    <li><strong>防御塔攻击：</strong>塔的能量转化为对英雄的伤害，能量传递的直观体现</li>
+                </ul>
+            </div>
+            
+            <div class="conservation-diagram">
+                <div class="diagram-title">🎮 峡谷能量转化实例：后羿射箭</div>
+                <table class="comparison-table">
+                    <tr>
+                        <th>阶段</th>
+                        <th>能量形式</th>
+                        <th>能量大小</th>
+                        <th>说明</th>
+                    </tr>
+                    <tr>
+                        <td>拉满弓</td>
+                        <td>弹性势能</td>
+                        <td>Eₚ = ½kx²</td>
+                        <td>形变量最大，储能最多</td>
+                    </tr>
+                    <tr>
+                        <td>松手瞬间</td>
+                        <td>弹性势能 → 动能</td>
+                        <td>能量转化中</td>
+                        <td>弓弦恢复，推动箭矢</td>
+                    </tr>
+                    <tr>
+                        <td>箭矢飞出</td>
+                        <td>动能</td>
+                        <td>Eₖ = ½mv²</td>
+                        <td>速度最大，具有杀伤力</td>
+                    </tr>
+                    <tr>
+                        <td>击中目标</td>
+                        <td>动能 → 内能/形变能</td>
+                        <td>能量传递</td>
+                        <td>造成伤害，能量耗散</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2 class="section-title">经典例题</h2>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题1：动能定理应用</span>
+                </div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>一个质量为2kg的物体，在水平面上受到10N的水平拉力作用，从静止开始运动，经过5m后撤去拉力。</p>
+                    <p>已知物体与地面间的摩擦力为4N，求：</p>
+                    <p>(1) 拉力做的功是多少？</p>
+                    <p>(2) 物体在5m处的速度是多少？</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer1')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+                <div class="example-answer hidden" id="answer1">
+                    <p><strong>解析：</strong></p>
+                    <p style="margin-top: 10px;"><strong>(1) 拉力做的功：</strong></p>
+                    <p>W<sub>拉</sub> = F × s = 10N × 5m = <strong>50 J</strong></p>
+                    
+                    <p style="margin-top: 10px;"><strong>(2) 求速度（用动能定理）：</strong></p>
+                    <p>合外力做的功 = 动能变化量</p>
+                    <p>W<sub>合</sub> = (F - f) × s = (10 - 4) × 5 = 30 J</p>
+                    <p>由 W<sub>合</sub> = ½mv² - 0（初速度为0）</p>
+                    <p>30 = ½ × 2 × v²</p>
+                    <p>v² = 30，v = √30 ≈ <strong>5.48 m/s</strong></p>
+                    <p style="color: var(--accent-gold); margin-top: 15px;">
+                        ✅ 答案：(1) 50 J；(2) 5.48 m/s（或√30 m/s）
+                    </p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题2：机械能守恒定律</span>
+                </div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>一个质量为0.5kg的小球从高度为10m的光滑斜面顶端静止滑下，到达斜面底端时。</p>
+                    <p>(1) 若不计摩擦，求小球到达底端时的速度。</p>
+                    <p>(2) 若实际测得速度为12m/s，求克服摩擦力做的功。</p>
+                    <p>（取g = 10 m/s²）</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer2')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+                <div class="example-answer hidden" id="answer2">
+                    <p><strong>解析：</strong></p>
+                    
+                    <p style="margin-top: 10px;"><strong>(1) 机械能守恒求速度：</strong></p>
+                    <p>初状态（顶端）：Eₚ₁ = mgh = 0.5 × 10 × 10 = 50 J，Eₖ₁ = 0</p>
+                    <p>末状态（底端）：Eₚ₂ = 0，Eₖ₂ = ½mv²</p>
+                    <p>由机械能守恒：Eₚ₁ + Eₖ₁ = Eₚ₂ + Eₖ₂</p>
+                    <p>50 + 0 = 0 + ½ × 0.5 × v²</p>
+                    <p>v² = 200，v = <strong>10√2 ≈ 14.14 m/s</strong></p>
+                    
+                    <p style="margin-top: 10px;"><strong>(2) 有摩擦力时的功：</strong></p>
+                    <p>实际末动能：Eₖ' = ½ × 0.5 × 12² = 36 J</p>
+                    <p>能量损失 = 50 - 36 = 14 J</p>
+                    <p>由功能关系，克服摩擦力做的功 W<sub>f</sub> = <strong>14 J</strong></p>
+                    <p style="color: var(--accent-gold); margin-top: 15px;">
+                        💡 注意：有摩擦时机械能不守恒，减少的机械能转化为内能！
+                    </p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">
+                    <span>📝</span>
+                    <span>例题3：抛体运动中的能量转化</span>
+                </div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>将一个小球以10m/s的初速度从地面竖直上抛，不计空气阻力。</p>
+                    <p>(1) 小球能上升的最大高度是多少？</p>
+                    <p>(2) 当小球上升到最大高度的一半时，动能和势能各是多少？</p>
+                    <p>（取g = 10 m/s²，小球质量m = 0.2kg）</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer3')">
+                    <span>👁️</span>
+                    <span>查看解析</span>
+                </button>
+                <div class="example-answer hidden" id="answer3">
+                    <p><strong>解析：</strong></p>
+                    
+                    <p style="margin-top: 10px;"><strong>(1) 求最大高度：</strong></p>
+                    <p>初状态（地面）：Eₖ₁ = ½ × 0.2 × 10² = 10 J，Eₚ₁ = 0</p>
+                    <p>最高点：Eₖ₂ = 0，Eₚ₂ = mgh</p>
+                    <p>由机械能守恒：10 + 0 = 0 + 0.2 × 10 × h</p>
+                    <p>h = <strong>5 m</strong></p>
+                    
+                    <p style="margin-top: 10px;"><strong>(2) 高度为2.5m时的能量：</strong></p>
+                    <p>重力势能：Eₚ = mgh = 0.2 × 10 × 2.5 = <strong>5 J</strong></p>
+                    <p>由机械能守恒：Eₖ + Eₚ = 10 J</p>
+                    <p>动能：Eₖ = 10 - 5 = <strong>5 J</strong></p>
+                    
+                    <p style="color: var(--accent-gold); margin-top: 15px;">
+                        ✅ 答案：(1) 5m；(2) Eₚ = 5J，Eₖ = 5J
+                    </p>
+                    <p style="color: var(--energy-light); margin-top: 10px;">
+                        🎮 游戏联想：就像韩信跳跃，上升时动能变势能，下降时势能变动能，总能量不变！
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <h2 class="section-title">实战演练</h2>
+            </div>
+
+            <div class="quiz-container">
+                <div class="quiz-item">
+                    <div class="quiz-number">1</div>
+                    <div class="quiz-question">
+                        一个物体从高处自由下落，不计空气阻力。下列说法正确的是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')">
+                            <div class="option-letter">A</div>
+                            <div>物体的动能减少，重力势能增加</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback1')">
+                            <div class="option-letter">B</div>
+                            <div>物体的机械能不断减少</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback1')">
+                            <div class="option-letter">C</div>
+                            <div>物体的动能增加，重力势能减少，机械能守恒</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')">
+                            <div class="option-letter">D</div>
+                            <div>物体的动能不变，重力势能不变</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">2</div>
+                    <div class="quiz-question">
+                        质量为2kg的物体，速度从3m/s增加到5m/s，合外力对物体做的功是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')">
+                            <div class="option-letter">A</div>
+                            <div>8 J</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback2')">
+                            <div class="option-letter">B</div>
+                            <div>16 J</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback2')">
+                            <div class="option-letter">C</div>
+                            <div>16 J（计算：½×2×5² - ½×2×3² = 25-9 = 16J）</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')">
+                            <div class="option-letter">D</div>
+                            <div>25 J</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">3</div>
+                    <div class="quiz-question">
+                        关于机械能守恒的条件，下列说法正确的是（　）
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')">
+                            <div class="option-letter">A</div>
+                            <div>物体受到的合外力为零，机械能一定守恒</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback3')">
+                            <div class="option-letter">B</div>
+                            <div>物体做匀速直线运动，机械能一定守恒</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback3')">
+                            <div class="option-letter">C</div>
+                            <div>物体只受重力作用，机械能一定守恒</div>
+                        </div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', true, 'feedback3')">
+                            <div class="option-letter">D</div>
+                            <div>只有重力或弹力做功时，机械能守恒</div>
+                        </div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="openNotesPanel()">
+                <span>✏️</span>
+                <span>记笔记</span>
+            </button>
+            <button class="btn btn-primary" onclick="completeLearning()">
+                <span>✅</span>
+                <span>完成学习</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- 笔记面板 -->
+    <div class="notes-overlay" id="notesOverlay" onclick="closeNotesPanel()"></div>
+    <div class="notes-panel" id="notesPanel">
+        <div class="notes-header">
+            <span>📝 学习笔记 - 守恒·能量</span>
+            <button class="notes-close" onclick="closeNotesPanel()">✕</button>
+        </div>
+        <div class="notes-content">
+            <textarea id="notesTextarea" placeholder="在这里记录你的学习心得、重点难点、易错点...
+
+例如：
+• 动能定理：W合 = ΔEk
+• 机械能守恒条件：只有重力或弹力做功
+• 易错点：速度平方关系 v² = 2gh"></textarea>
+        </div>
+        <div class="notes-actions">
+            <button class="btn btn-secondary" onclick="clearNotes()">🗑️ 清空</button>
+            <button class="btn btn-primary" onclick="saveNotes()">💾 保存笔记</button>
+        </div>
+    </div>
+
+    <script>
+        // 英雄ID
+        const HERO_ID = 'hero-energy';
+
+        // 页面加载时恢复进度
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            loadNotes();
+        });
+
+        // ========== 学习进度 ==========
+        function loadProgress() {
+            const progress = localStorage.getItem(HERO_ID + '_progress') || '0';
+            updateProgressDisplay(parseInt(progress));
+        }
+
+        function updateProgressDisplay(percent) {
+            document.getElementById('heroProgress').style.width = percent + '%';
+            document.getElementById('progressText').textContent = '学习进度 ' + percent + '%';
+        }
+
+        function completeLearning() {
+            localStorage.setItem(HERO_ID + '_progress', '100');
+            localStorage.setItem(HERO_ID + '_completed', 'true');
+            localStorage.setItem(HERO_ID + '_completedAt', new Date().toISOString());
+            updateProgressDisplay(100);
+            
+            const btn = event.target;
+            btn.innerHTML = '🎉 已完成';
+            btn.style.background = 'var(--success)';
+            
+            setTimeout(() => {
+                alert('🎉 恭喜！你已完成「守恒·能量」的学习！\n\n获得成就：能量大师 ⚡');
+            }, 300);
+        }
+
+        // ========== 笔记功能 ==========
+        function openNotesPanel() {
+            document.getElementById('notesOverlay').classList.add('show');
+            document.getElementById('notesPanel').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            loadNotes();
+        }
+
+        function closeNotesPanel() {
+            document.getElementById('notesOverlay').classList.remove('show');
+            document.getElementById('notesPanel').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('notesTextarea').value;
+            let allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            allNotes[HERO_ID] = {
+                content: notes,
+                updatedAt: new Date().toISOString()
+            };
+            localStorage.setItem('physicsKingNotes', JSON.stringify(allNotes));
+            
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '✅ 已保存';
+            btn.style.background = 'var(--success)';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+            }, 1500);
+        }
+
+        function loadNotes() {
+            const allNotes = JSON.parse(localStorage.getItem('physicsKingNotes') || '{}');
+            const textarea = document.getElementById('notesTextarea');
+            if (textarea && allNotes[HERO_ID]) {
+                textarea.value = allNotes[HERO_ID].content || '';
+            }
+        }
+
+        function clearNotes() {
+            if (confirm('确定要清空所有笔记吗？此操作不可恢复。')) {
+                document.getElementById('notesTextarea').value = '';
+                saveNotes();
+            }
+        }
+
+        // ========== 例题展开/收起 ==========
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            const btn = event.target.closest('.toggle-answer');
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                btn.innerHTML = '👁️ 收起解析';
+            } else {
+                answer.classList.add('hidden');
+                btn.innerHTML = '👁️ 查看解析';
+            }
+        }
+
+        // ========== 练习题功能 ==========
+        function checkAnswer(element, option, isCorrect, feedbackId) {
+            const quizItem = element.closest('.quiz-item');
+            const options = quizItem.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById(feedbackId);
+            
+            // 禁用所有选项
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            // 标记选中
+            element.classList.add('selected');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.className = 'quiz-feedback show correct';
+                feedback.innerHTML = '✅ 回答正确！';
+            } else {
+                element.classList.add('wrong');
+                // 找到正确答案并标记
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+                feedback.className = 'quiz-feedback show wrong';
+                feedback.innerHTML = '❌ 回答错误，请查看解析理解正确答案。';
+            }
+        }
+
+        // ESC键关闭笔记面板
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNotesPanel();
+            }
+        });
+    </script>
+</body>
+</html>
