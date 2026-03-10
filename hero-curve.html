@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弧光·曲线 - 曲线运动 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32; --silver: #c0c0c0; --gold: #ffd700;
+            --platinum: #3eb489; --diamond: #b9f2ff; --star: #e6e6fa;
+            --king: #ff6b35; --dark-bg: #0a0e1a; --card-bg: rgba(20, 25, 45, 0.95);
+            --accent: #00d4ff; --accent-gold: #ffb800; --success: #32cd32; --error: #ff4444;
+            --hero-color: #ff6b9d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto+Sans SC', sans-serif; background: var(--dark-bg); min-height: 100vh; color: #fff; }
+        .header { background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--accent-gold), var(--king)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; }
+        .logo-text { font-size: 24px; font-weight: 900; background: linear-gradient(90deg, var(--accent-gold), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .back-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; color: #fff; text-decoration: none; }
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 40px 60px; }
+        .hero-header { background: linear-gradient(135deg, rgba(255,107,157,0.15), rgba(0,212,255,0.15)); border: 1px solid rgba(255,107,157,0.3); border-radius: 20px; padding: 40px; margin-bottom: 30px; }
+        .hero-title-section { display: flex; align-items: center; gap: 30px; }
+        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, var(--hero-color), var(--accent)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; }
+        .hero-name-large { font-size: 36px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
+        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(255,107,157,0.2); color: var(--hero-color); border-radius: 20px; font-size: 14px; font-weight: 600; }
+        .hero-desc-large { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+        .learning-section { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .section-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .section-title { font-size: 24px; font-weight: 700; }
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .knowledge-card { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        .knowledge-card.important { border-color: var(--accent-gold); background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,212,255,0.05)); }
+        .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
+        .formula-box { background: rgba(0,0,0,0.3); border: 1px solid var(--accent-gold); border-radius: 10px; padding: 20px; text-align: center; font-size: 24px; font-weight: 700; color: var(--accent-gold); margin: 15px 0; }
+        .formula-detail { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 15px; margin-top: 10px; }
+        .example-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
+        .example-header { font-size: 18px; font-weight: 700; color: var(--accent-gold); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .example-question { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 20px; margin-bottom: 15px; line-height: 1.8; }
+        .example-answer { background: rgba(50,205,50,0.1); border: 1px solid var(--success); border-radius: 10px; padding: 20px; line-height: 1.8; }
+        .example-answer.hidden { display: none; }
+        .toggle-answer { background: linear-gradient(135deg, var(--success), #228b22); border: none; color: #fff; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .game-tip { background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(255,107,53,0.1)); border: 1px solid rgba(255,107,157,0.3); border-radius: 15px; padding: 25px; }
+        .game-tip-title { font-size: 20px; font-weight: 700; color: var(--hero-color); margin-bottom: 15px; }
+        .quiz-container { display: flex; flex-direction: column; gap: 20px; }
+        .quiz-item { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        .quiz-number { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border-radius: 50%; font-weight: 700; margin-bottom: 15px; }
+        .quiz-question { font-size: 16px; margin-bottom: 15px; line-height: 1.6; }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+        .quiz-option { display: flex; align-items: center; gap: 15px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer; }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
+        .quiz-option.correct { background: rgba(50,205,50,0.2); border-color: var(--success); }
+        .quiz-option.wrong { background: rgba(255,68,68,0.2); border-color: var(--error); }
+        .option-letter { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; font-weight: 700; }
+        .quiz-feedback { margin-top: 15px; padding: 15px; border-radius: 10px; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); border: 1px solid var(--success); color: var(--success); }
+        .quiz-feedback.wrong { background: rgba(255,68,68,0.2); border: 1px solid var(--error); color: var(--error); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><div class="logo-icon">⚛️</div><div class="logo-text">物理王者</div></a>
+        <a href="index.html" class="back-btn"><span>←</span><span>返回英雄殿</span></a>
+    </header>
+
+    <main class="main-container">
+        <div class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">🌙</div>
+                <div class="hero-meta">
+                    <h1 class="hero-name-large">弧光·曲线 <span class="hero-tag">必修二</span></h1>
+                    <p class="hero-desc-large">曲线运动的条件，运动的合成与分解，速度方向，合运动与分运动的关系。</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <h2 class="section-title">核心知识点</h2>
+            </div>
+            <div class="knowledge-grid">
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">🎯 曲线运动的条件</div>
+                    <p>当物体所受<strong>合外力方向与速度方向不在同一直线</strong>上时，物体做曲线运动。</p>
+                    <ul style="margin-top: 15px; padding-left: 20px; line-height: 1.8;">
+                        <li>合外力方向与速度方向成一定夹角</li>
+                        <li>曲线运动的轨迹向合外力方向弯曲</li>
+                        <li>曲线运动中速度方向时刻改变</li>
+                    </ul>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">➡️ 曲线运动的速度方向</div>
+                    <p>曲线上某点的速度方向就是该点的<strong>切线方向</strong>。</p>
+                    <p style="margin-top: 10px; color: var(--accent-gold);">💡 曲线运动一定是变速运动（速度方向改变）</p>
+                </div>
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">✂️ 运动的合成与分解</div>
+                    <p>复杂运动可以分解为几个简单运动的合运动。</p>
+                    <div class="formula-box" style="font-size: 18px;">平行四边形定则</div>
+                    <p style="margin-top: 10px;">合位移、合速度、合加速度都遵循平行四边形定则。</p>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">🔄 合运动与分运动的关系</div>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li><strong>等时性：</strong>各分运动与合运动同时开始、同时结束</li>
+                        <li><strong>独立性：</strong>各分运动互不影响</li>
+                        <li><strong>等效性：</strong>合运动与分运动效果相同</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">🎮</div>
+                <h2 class="section-title">王者峡谷里的曲线运动</h2>
+            </div>
+            <div class="game-tip">
+                <div class="game-tip-title">🌙 用王者荣耀理解曲线运动</div>
+                <ul style="line-height: 1.8;">
+                    <li><strong>嫦娥的一技能：</strong>月辰飞出呈曲线轨迹，因为初始速度方向与受力方向（向目标点）不在同一直线</li>
+                    <li><strong>鲁班的二技能：</strong>导弹飞行是曲线运动，因为重力让它向下弯曲</li>
+                    <li><strong>闪现+技能：</strong>英雄一边移动一边放技能，这是运动的合成——水平位移和技能位移的合成</li>
+                    <li><strong>王昭君的大招：</strong>在移动中释放大招，你的运动可以分解为水平移动和施法动作</li>
+                    <li><strong>甄姬的二技能：</strong>水流在敌人之间弹射，每次改变方向都是曲线运动</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2 class="section-title">经典例题</h2>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题1：曲线运动条件判断</div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>关于曲线运动，下列说法正确的是（　）</p>
+                    <p>A. 物体在恒力作用下不可能做曲线运动</p>
+                    <p>B. 物体在变力作用下一定做曲线运动</p>
+                    <p>C. 做曲线运动的物体速度方向一定改变</p>
+                    <p>D. 曲线运动的速度大小一定改变</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer1')">查看解析</button>
+                <div class="example-answer hidden" id="answer1">
+                    <p><strong>解析：</strong></p>
+                    <p><strong>A. 错误</strong> —— 平抛运动就是恒力（重力）作用下的曲线运动</p>
+                    <p><strong>B. 错误</strong> —— 如果变力方向与速度方向始终在同一直线，物体仍做直线运动</p>
+                    <p><strong>C. 正确 ✓</strong> —— 曲线运动的速度方向时刻沿切线方向，方向一定改变</p>
+                    <p><strong>D. 错误</strong> —— 匀速圆周运动速度大小不变，只是方向改变</p>
+                    <p style="color: var(--accent-gold); margin-top: 10px;">✅ 答案：C</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题2：运动的合成</div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>小船在静水中的速度为 3 m/s，河水流速为 4 m/s。若小船垂直河岸方向行驶，求：</p>
+                    <p>(1) 小船的实际速度大小</p>
+                    <p>(2) 小船实际运动方向与河岸的夹角</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer2')">查看解析</button>
+                <div class="example-answer hidden" id="answer2">
+                    <p><strong>解析：</strong></p>
+                    <p>小船的运动可以分解为：</p>
+                    <ul>
+                        <li>垂直河岸方向：v₁ = 3 m/s（船在静水中的速度）</li>
+                        <li>沿河岸方向：v₂ = 4 m/s（水流速度）</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>(1) 实际速度大小：</strong></p>
+                    <div class="formula-box" style="font-size: 20px;">v = √(v₁² + v₂²) = √(9 + 16) = 5 m/s</div>
+                    <p><strong>(2) 与河岸夹角：</strong></p>
+                    <p>tan θ = v₁/v₂ = 3/4 = 0.75</p>
+                    <p>θ = arctan(0.75) ≈ <strong>37°</strong></p>
+                    <p style="color: var(--accent-gold); margin-top: 10px;">💡 实际运动方向偏向水流方向</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题3：速度分解</div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>一人以速度 v 匀速拉绳，绳与水平方向夹角为 θ，求船的速度。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer3')">查看解析</button>
+                <div class="example-answer hidden" id="answer3">
+                    <p><strong>解析：</strong></p>
+                    <p>将船的速度 v船 分解为沿绳方向和垂直绳方向：</p>
+                    <ul>
+                        <li>沿绳方向的分速度 = 拉绳速度 v</li>
+                        <li>v = v船 × cos θ</li>
+                    </ul>
+                    <div class="formula-box" style="font-size: 20px;">v船 = v / cos θ</div>
+                    <p style="color: var(--accent-gold); margin-top: 10px;">⚠️ 注意：船速大于拉绳速度（cos θ < 1）</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <h2 class="section-title">实战演练</h2>
+            </div>
+            <div class="quiz-container">
+                <div class="quiz-item">
+                    <div class="quiz-number">1</div>
+                    <div class="quiz-question">关于曲线运动，下列说法正确的是（　）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'f1')"><span class="option-letter">A</span><span>曲线运动一定是变速运动，变速运动一定是曲线运动</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'f1')"><span class="option-letter">B</span><span>物体在恒力作用下一定做直线运动</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'f1')"><span class="option-letter">C</span><span>做曲线运动的物体所受合外力一定不为零</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'f1')"><span class="option-letter">D</span><span>曲线运动的加速度一定改变</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="f1"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">2</div>
+                    <div class="quiz-question">一个物体做曲线运动，则该物体（　）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'f2')"><span class="option-letter">A</span><span>速度一定不变</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'f2')"><span class="option-letter">B</span><span>所受合外力一定不为零</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'f2')"><span class="option-letter">C</span><span>加速度一定改变</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'f2')"><span class="option-letter">D</span><span>速度方向与合外力方向一定相同</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="f2"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">3</div>
+                    <div class="quiz-question">关于运动的合成与分解，下列说法正确的是（　）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'f3')"><span class="option-letter">A</span><span>合运动的速度一定大于分运动的速度</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'f3')"><span class="option-letter">B</span><span>合运动的时间大于分运动的时间</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'f3')"><span class="option-letter">C</span><span>两个匀速直线运动的合运动一定是匀速直线运动</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'f3')"><span class="option-letter">D</span><span>两个直线运动的合运动一定是直线运动</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="f3"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+        function checkAnswer(el, ans, correct, fid) {
+            const fb = document.getElementById(fid);
+            document.querySelectorAll(`#${fid}`).forEach(e => e.style.display = 'none');
+            if (correct) {
+                el.classList.add('correct');
+                fb.className = 'quiz-feedback show correct';
+                fb.innerHTML = '✅ 正确！';
+            } else {
+                el.classList.add('wrong');
+                fb.className = 'quiz-feedback show wrong';
+                fb.innerHTML = '❌ 错误，再想想！';
+            }
+        }
+    </script>
+</body>
+</html>

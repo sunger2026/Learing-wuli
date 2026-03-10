@@ -46,6 +46,7 @@
         .knowledge-content { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.7; }
         .knowledge-content ul { margin: 10px 0; padding-left: 20px; }
         .knowledge-content li { margin: 8px 0; }
+        .knowledge-content ol { margin: 10px 0; padding-left: 20px; }
         .formula-box { background: rgba(0,212,255,0.1); border-left: 4px solid var(--accent); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; font-family: 'Times New Roman', serif; font-size: 20px; color: var(--accent); }
         .formula-box.important { background: rgba(255,184,0,0.1); border-left-color: var(--accent-gold); color: var(--accent-gold); }
         .example-box { background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255,184,0,0.3); border-radius: 16px; padding: 25px; margin: 20px 0; }
@@ -92,6 +93,21 @@
         .notes-actions { display: flex; gap: 10px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         .notes-actions .btn { flex: 1; padding: 12px 20px; font-size: 14px; }
         @media (max-width: 480px) { .notes-panel { width: 100%; right: -100%; } }
+        .game-scenario { background: linear-gradient(135deg, rgba(147,112,219,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(147,112,219,0.3); border-radius: 16px; padding: 20px; margin: 15px 0; }
+        .game-scenario-title { font-size: 16px; font-weight: 700; color: #9370db; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .game-scenario-content { font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+        .hero-ability { display: flex; align-items: flex-start; gap: 15px; padding: 15px; background: rgba(0,0,0,0.2); border-radius: 12px; margin: 10px 0; }
+        .ability-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--king), var(--accent-gold)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+        .ability-content { flex: 1; }
+        .ability-name { font-weight: 700; color: var(--accent-gold); margin-bottom: 5px; }
+        .ability-desc { font-size: 14px; color: rgba(255,255,255,0.7); }
+        .tip-box { background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3)); border-left: 4px solid var(--accent-gold); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; }
+        .tip-box-title { font-weight: 700; color: var(--accent-gold); margin-bottom: 8px; }
+        .tip-box-content { font-size: 14px; color: rgba(255,255,255,0.8); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 14px; }
+        .comparison-table th { background: rgba(255,255,255,0.1); padding: 12px; text-align: left; border-bottom: 2px solid rgba(255,255,255,0.2); }
+        .comparison-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .comparison-table tr:hover { background: rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
@@ -112,7 +128,7 @@
                 <div class="hero-avatar">💪</div>
                 <div class="hero-meta">
                     <h1 class="hero-name-large">力场·相互作用<span class="hero-tag">力学系</span></h1>
-                    <p class="hero-desc-large">掌握重力、弹力、摩擦力的本质，学会受力分析的基本方法。这是解决力学问题的核心技能！</p>
+                    <p class="hero-desc-large">掌握重力、弹力、摩擦力的本质，学会受力分析的基本方法。这是解决力学问题的核心技能！理解力的相互作用规律，让你在物理战场中所向披靡！</p>
                     <div class="hero-progress-large">
                         <div class="progress-bar-large"><div class="progress-fill-large"></div></div>
                         <span class="progress-text-large">学习进度 0%</span>
@@ -129,84 +145,114 @@
 
             <div class="knowledge-grid">
                 <div class="knowledge-card important">
-                    <div class="knowledge-title"><span class="icon">🌍</span>重力</div>
+                    <div class="knowledge-title"><span class="icon">🌍</span>重力（Gravity）</div>
                     <div class="knowledge-content">
-                        <p><strong>产生原因：</strong>地球对物体的吸引</p>
-                        <p><strong>大小：</strong>G = mg（m为质量，g为重力加速度）</p>
-                        <p><strong>方向：</strong>竖直向下（指向地心）</p>
-                        <p><strong>重心：</strong>重力的等效作用点</p>
+                        <p><strong>产生原因：</strong>地球对物体的吸引作用</p>
+                        <p><strong>大小计算公式：</strong></p>
+                        <div class="formula-box important">G = mg</div>
+                        <p>其中 m 为物体质量，g 为重力加速度（g ≈ 9.8 m/s²，通常取 10 m/s²）</p>
+                        <p style="margin-top: 10px;"><strong>方向：</strong>竖直向下（指向地心）</p>
+                        <p><strong>作用点：</strong>重心——重力的等效作用点</p>
                         <ul>
-                            <li>质量分布均匀的物体：重心在几何中心</li>
-                            <li>重心可以在物体外部（如圆环）</li>
+                            <li>质量分布均匀的规则物体：重心在几何中心</li>
+                            <li>重心可以在物体外部（如圆环、空心球）</li>
+                            <li>重心位置与物体质量分布和形状有关</li>
                         </ul>
-                        <p style="color: var(--accent-gold);">⚠️ 重力 ≠ 地球引力（还有向心力影响）</p>
+                        <div class="tip-box">
+                            <div class="tip-box-title">⚠️ 易错提醒</div>
+                            <div class="tip-box-content">重力 ≠ 地球引力！重力是地球引力的一个分力（另一个是随地球自转所需的向心力），但通常近似认为重力等于地球引力。</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="knowledge-card important">
-                    <div class="knowledge-title"><span class="icon">🌀</span>弹力</div>
+                    <div class="knowledge-title"><span class="icon">🌀</span>弹力（Elastic Force）</div>
                     <div class="knowledge-content">
-                        <p><strong>产生条件：</strong></p>
-                        <ul>
+                        <p><strong>产生条件（缺一不可）：</strong></p>
+                        <ol>
                             <li>物体直接接触</li>
-                            <li>发生弹性形变</li>
-                        </ul>
+                            <li>发生弹性形变（有形变才有弹力）</li>
+                        </ol>
                         
-                        <p><strong>方向：</strong></p>
+                        <p style="margin-top: 10px;"><strong>弹力方向判断：</strong></p>
                         <ul>
-                            <li>压力/支持力：垂直于接触面，指向被压/被支持物体</li>
-                            <li>绳子拉力：沿绳子指向绳子收缩方向</li>
-                            <li>弹簧弹力：沿弹簧轴线，指向原长位置</li>
+                            <li>压力/支持力：垂直于接触面，指向被压/被支持的物体</li>
+                            <li>绳子拉力：沿绳子方向，指向绳子收缩的方向</li>
+                            <li>弹簧弹力：沿弹簧轴线，指向恢复原长的方向</li>
+                            <li>杆的弹力：不一定沿杆方向（需要结合其他条件判断）</li>
                         </ul>
 
-                        <p><strong>胡克定律：</strong></p>
+                        <p><strong>胡克定律（弹簧弹力）：</strong></p>
                         <div class="formula-box important">F = kx</div>
-                        <p>k为劲度系数，x为形变量（伸长或压缩量）</p>
+                        <p>其中 k 为劲度系数（单位 N/m），x 为形变量（伸长量或压缩量，不是弹簧长度）</p>
+                        
+                        <div class="tip-box">
+                            <div class="tip-box-title">💡 解题技巧</div>
+                            <div class="tip-box-content">弹簧串联：1/k总 = 1/k₁ + 1/k₂；弹簧并联：k总 = k₁ + k₂。串联后更"软"，并联后更"硬"。</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="knowledge-card important">
-                    <div class="knowledge-title"><span class="icon">🛑</span>摩擦力</div>
+                    <div class="knowledge-title"><span class="icon">🛑</span>摩擦力（Friction）</div>
                     <div class="knowledge-content">
-                        <p><strong>产生条件：</strong>接触、挤压、粗糙、有相对运动或相对运动趋势</p>
+                        <p><strong>产生条件（四个条件缺一不可）：</strong></p>
+                        <ol>
+                            <li>接触面粗糙</li>
+                            <li>物体间相互接触并挤压（有正压力）</li>
+                            <li>有相对运动或相对运动趋势</li>
+                        </ol>
 
-                        <p><strong>【滑动摩擦力】</strong></p>
+                        <p style="margin-top: 15px;"><strong>【滑动摩擦力】</strong></p>
                         <div class="formula-box">f = μN</div>
                         <ul>
-                            <li>μ为动摩擦因数，与接触面材料有关</li>
-                            <li>N为正压力（不一定等于重力！）</li>
-                            <li>方向：与相对运动方向相反</li>
+                            <li>μ 为动摩擦因数，只与接触面材料和粗糙程度有关</li>
+                            <li>N 为正压力（垂直于接触面），<span style="color: var(--accent-gold);">不一定等于重力！</span></li>
+                            <li>方向：与物体相对运动方向相反（阻碍相对运动）</li>
+                            <li>大小与相对运动速度无关</li>
                         </ul>
 
-                        <p><strong>【静摩擦力】</strong></p>
+                        <p style="margin-top: 15px;"><strong>【静摩擦力】</strong></p>
                         <ul>
-                            <li>大小：0 < f静 ≤ fmax，由平衡条件求解</li>
-                            <li>最大静摩擦力：fmax = μ₀N（μ₀略大于μ）</li>
+                            <li>大小：0 < f静 ≤ fmax，由平衡条件或运动状态求解</li>
+                            <li>最大静摩擦力：fmax = μ₀N（μ₀ 略大于 μ）</li>
                             <li>方向：与相对运动趋势方向相反</li>
+                            <li>静摩擦力是被动力，随外力变化而变化</li>
                         </ul>
 
-                        <p style="color: var(--accent-gold);">💡 口诀：滑压粗对动，静压粗对趋</p>
+                        <div class="tip-box">
+                            <div class="tip-box-title">🎯 口诀速记</div>
+                            <div class="tip-box-content">滑压粗对动（滑动摩擦需：接触面粗糙、有压力、相对运动）<br>静压粗对趋（静摩擦需：接触面粗糙、有压力、相对运动趋势）</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="knowledge-card">
                     <div class="knowledge-title"><span class="icon">📐</span>受力分析步骤</div>
                     <div class="knowledge-content">
-                        <p><strong>步骤一：确定研究对象</strong>（隔离体）</p>
-                        <p><strong>步骤二：按顺序分析力</strong></p>
+                        <p><strong>第一步：确定研究对象</strong></p>
+                        <p>明确你要分析哪个物体的受力，可以是一个物体或几个物体组成的系统。</p>
+                        
+                        <p style="margin-top: 10px;"><strong>第二步：按顺序分析力</strong></p>
                         <ol>
-                            <li>重力（一定存在，竖直向下）</li>
-                            <li>弹力（看接触面，垂直于接触面）</li>
-                            <li>摩擦力（看是否有相对运动/趋势）</li>
-                            <li>其他力（如电场力、磁场力等）</li>
+                            <li><strong>重力</strong>：一定存在，方向竖直向下</li>
+                            <li><strong>弹力</strong>：看有几个接触面/点，每个接触处可能有弹力</li>
+                            <li><strong>摩擦力</strong>：看是否有相对运动或相对运动趋势</li>
+                            <li><strong>其他力</strong>：如电场力、磁场力、浮力等</li>
                         </ol>
 
-                        <p><strong>步骤三：检查</strong></p>
+                        <p style="margin-top: 10px;"><strong>第三步：画出受力图并检查</strong></p>
                         <ul>
-                            <li>每个力都要有施力物体</li>
-                            <li>不分析内力（对整体受力分析时）</li>
+                            <li>每个力都要有施力物体（没有施力物体的力不存在）</li>
+                            <li>只分析外力，不分析内力（对系统整体分析时）</li>
                             <li>检查是否漏力或多力</li>
+                            <li>检查力的方向是否正确</li>
                         </ul>
+
+                        <div class="tip-box">
+                            <div class="tip-box-title">💡 假设法判断弹力</div>
+                            <div class="tip-box-content">假设去掉接触面，如果物体运动状态改变，则原来有弹力；如果状态不变，则原来无弹力。</div>
+                        </div>
                     </div>
                 </div>
 
@@ -214,29 +260,62 @@
                     <div class="knowledge-title"><span class="icon">⚖️</span>力的合成与分解</div>
                     <div class="knowledge-content">
                         <p><strong>平行四边形定则：</strong></p>
-                        <p>两个共点力的合力，可以用表示这两个力的线段为邻边作平行四边形，对角线表示合力的大小和方向。</p>
+                        <p>以两个分力为邻边作平行四边形，对角线表示合力的大小和方向。</p>
 
-                        <p><strong>常用结论：</strong></p>
+                        <p style="margin-top: 10px;"><strong>合力计算公式：</strong></p>
+                        <div class="formula-box">F = √(F₁² + F₂² + 2F₁F₂cosθ)</div>
+                        <p>其中 θ 为两分力夹角</p>
+
+                        <p style="margin-top: 10px;"><strong>常用结论：</strong></p>
                         <ul>
-                            <li>F₁、F₂夹角为θ，合力 F = √(F₁² + F₂² + 2F₁F₂cosθ)</li>
-                            <li>F₁ = F₂ = F，夹角120°，合力 = F</li>
+                            <li>两分力大小相等 F₁ = F₂ = F，夹角 120°，则合力 = F</li>
+                            <li>两分力大小相等，夹角 60°，则合力 = F√3</li>
+                            <li>两分力大小相等，夹角 90°，则合力 = F√2</li>
                             <li>合力范围：|F₁ - F₂| ≤ F合 ≤ F₁ + F₂</li>
                         </ul>
 
-                        <p><strong>正交分解法：</strong>将力沿x轴和y轴分解</p>
+                        <p style="margin-top: 10px;"><strong>正交分解法：</strong></p>
+                        <p>建立直角坐标系，将力沿 x 轴和 y 轴分解：</p>
                         <div class="formula-box">Fx = Fcosθ，Fy = Fsinθ</div>
+                        <p>通常选择使尽量多的力落在坐标轴上的方向。</p>
                     </div>
                 </div>
 
                 <div class="knowledge-card">
-                    <div class="knowledge-title"><span class="icon">🎮</span>游戏联想</div>
+                    <div class="knowledge-title"><span class="icon">🔍</span>三种力的比较</div>
                     <div class="knowledge-content">
-                        <ul>
-                            <li><strong>重力：</strong>峡谷里的引力，把你往中路拉</li>
-                            <li><strong>弹力：</strong>墙体碰撞，把你弹开</li>
-                            <li><strong>摩擦力：</strong>减速带，让你停下来</li>
-                            <li><strong>受力分析：</strong>团战前先看清敌方几个人在揍你😂</li>
-                        </ul>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>性质</th>
+                                <th>重力</th>
+                                <th>弹力</th>
+                                <th>摩擦力</th>
+                            </tr>
+                            <tr>
+                                <td>产生条件</td>
+                                <td>地球吸引</td>
+                                <td>接触+形变</td>
+                                <td>粗糙+挤压+相对运动/趋势</td>
+                            </tr>
+                            <tr>
+                                <td>大小</td>
+                                <td>G=mg</td>
+                                <td>弹簧:F=kx</td>
+                                <td>滑动:f=μN<br>静:由平衡求</td>
+                            </tr>
+                            <tr>
+                                <td>方向</td>
+                                <td>竖直向下</td>
+                                <td>垂直于接触面</td>
+                                <td>与相对运动/趋势相反</td>
+                            </tr>
+                            <tr>
+                                <td>施力物体</td>
+                                <td>地球</td>
+                                <td>施力物体</td>
+                                <td>接触面</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -244,258 +323,49 @@
 
         <section class="learning-section">
             <div class="section-header">
-                <div class="section-icon">💡</div>
-                <h2 class="section-title">经典例题</h2>
+                <div class="section-icon">🎮</div>
+                <h2 class="section-title">王者峡谷应用</h2>
+            </div>
+            
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">将物理知识应用到王者荣耀的游戏场景中，让学习更有趣！</p>
+
+            <div class="game-scenario">
+                <div class="game-scenario-title">🍎 场景一：重力与跳跃机制</div>
+                <div class="game-scenario-content">
+                    <p>在王者峡谷中，所有英雄受到重力的作用。当你控制英雄跳跃时：</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>起跳瞬间：地面给予向上的弹力 > 重力，产生向上的加速度</li>
+                        <li>空中阶段：只受重力，做竖直上抛运动</li>
+                        <li>落地瞬间：地面对英雄有向上的支持力（弹力）</li>
+                    </ul>
+                    <p style="color: var(--accent-gold);">💡 物理知识：不同质量的英雄（如坦克vs射手）在相同重力加速度下，起跳和下落规律完全相同！</p>
+                </div>
             </div>
 
-            <div class="example-box">
-                <div class="example-header"><span>📝</span><span>例题1：摩擦力方向的判断</span></div>
-                
-                <div class="example-question">
-                    <p><strong>题目：</strong>如图，物体A放在传送带上，随传送带一起向上匀速运动。分析物体A受到的摩擦力方向。</p>
-                    <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin: 15px 0; text-align: center;">
-                        传送带倾斜向上运行 →<br>
-                        ┌─────────┐<br>
-                        │ 物体A   │<br>
-                        └─────────┘
+            <div class="game-scenario">
+                <div class="game-scenario-title">🧱 场景二：墙体碰撞与弹力</div>
+                <div class="game-scenario-content">
+                    <p>当英雄撞击墙体或使用位移技能撞墙时：</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>墙体对英雄产生弹力，方向垂直于墙面</li>
+                        <li>弹力大小与撞击速度、英雄"硬度"有关</li>
+                        <li>如果英雄有穿墙技能，说明弹力不足以阻止运动（魔法力量 > 弹力）</li>
+                    </ul>
+                    <div class="hero-ability">
+                        <div class="ability-icon">🏃</div>
+                        <div class="ability-content">
+                            <div class="ability-name">达摩 - 一技能：真言·无相</div>
+                            <div class="ability-desc">位移技能撞墙时，墙体对达摩产生弹力阻止其继续前进。如果能穿墙，说明位移距离大于墙体厚度！</div>
+                        </div>
                     </div>
                 </div>
-
-                <button class="toggle-answer" onclick="toggleAnswer('answer1')"><span>👁️</span><span>查看解析</span></button>
-
-                <div class="example-answer hidden" id="answer1">
-                    <p><strong>解析：</strong></p>
-                    
-                    <p><strong>关键：判断相对运动趋势方向</strong></p>
-
-                    <p>假设传送带光滑（没有摩擦力）：</p>
-                    <ul>
-                        <li>物体A会由于重力沿斜面向下的分力而下滑</li>
-                        <li>即相对于传送带，物体有向下滑动的趋势</li>
-                    </ul>
-
-                    <p>因此，静摩擦力的方向与相对运动趋势方向相反：</p>
-                    <p style="color: var(--accent-gold);"><strong>摩擦力方向沿斜面向上</strong></p>
-
-                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：沿斜面向上</p>
-                    
-                    <p style="color: var(--accent-gold);">💡 技巧：假设光滑法判断摩擦力方向</p>
-                </div>
             </div>
 
-            <div class="example-box">
-                <div class="example-header"><span>📝</span><span>例题2：弹簧连接体</span></div>
-                
-                <div class="example-question">
-                    <p><strong>题目：</strong>如图所示，质量为m的物体A放在水平地面上，通过弹簧（劲度系数为k）与墙壁连接。用手缓慢向右拉动物体A，当物体移动距离为x时，地面对物体A的摩擦力大小为多少？（动摩擦因数为μ）</p>
-                </div>
-
-                <button class="toggle-answer" onclick="toggleAnswer('answer2')"><span>👁️</span><span>查看解析</span></button>
-
-                <div class="example-answer hidden" id="answer2">
-                    <p><strong>解析：</strong></p>
-                    
-                    <p><strong>分析物体A的受力：</strong></p>
-                    <ul>
-                        <li>竖直方向：重力mg（向下），支持力N（向上），N = mg</li>
-                        <li>水平方向：弹簧拉力F = kx（向左，弹簧伸长x），摩擦力f（向右）</li>
-                    </ul>
-
-                    <p>由于缓慢拉动，物体处于平衡状态：</p>
-                    <p>f = F = kx（方向向右，与相对运动方向相反）</p>
-
-                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：摩擦力大小为kx，方向向右</p>
-                    
-                    <p style="color: var(--accent-gold);">💡 注意：此时摩擦力是滑动摩擦力，大小由平衡条件决定，不是μmg！</p>
-                </div>
-            </div>
-
-            <div class="example-box">
-                <div class="example-header"><span>📝</span><span>例题3：整体法与隔离法</span></div>
-                
-                <div class="example-question">
-                    <p><strong>题目：</strong>两个质量均为m的木块A、B叠放在水平地面上，A在上B在下。用水平力F拉A，使A、B一起匀速运动。求A对B的摩擦力和地面对B的摩擦力。</p>
-                </div>
-
-                <button class="toggle-answer" onclick="toggleAnswer('answer3')"><span>👁️</span><span>查看解析</span></button>
-
-                <div class="example-answer hidden" id="answer3">
-                    <p><strong>解析：</strong></p>
-                    
-                    <p><strong>第一步：整体法分析</strong></p>
-                    <p>将A、B看作整体，匀速运动受力平衡：</p>
-                    <ul>
-                        <li>水平方向：拉力F向右，地面对B的摩擦力f地向左</li>
-                        <li>f地 = F</li>
-                    </ul>
-
-                    <p><strong>第二步：隔离法分析B</strong></p>
-                    <p>物体B匀速运动，水平方向受力平衡：</p>
-                    <ul>
-                        <li>地面对B的摩擦力f地 = F（向左）</li>
-                        <li>A对B的摩擦力fAB（向右，与f地平衡）</li>
-                        <li>fAB = f地 = F</li>
-                    </ul>
-
-                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：A对B的摩擦力为F（向右），地面对B的摩擦力为F（向左）</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">⚔️</div>
-                <h2 class="section-title">实战演练</h2>
-            </div>
-
-            <div class="quiz-container">
-                <div class="quiz-item">
-                    <div class="quiz-number">1</div>
-                    <div class="quiz-question">关于弹力，下列说法正确的是（　）</div>
-                    
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')"><div class="option-letter">A</div><div>物体只要接触就一定有弹力</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback1')"><div class="option-letter">B</div><div>弹力方向总是垂直于接触面指向受力物体</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback1')"><div class="option-letter">C</div><div>弹力方向总是垂直于接触面指向施力物体恢复原状的方向</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')"><div class="option-letter">D</div><div>轻绳的弹力方向一定沿绳指向绳收缩的方向</div></div>
-                    </div>
-                    
-                    <div class="quiz-feedback" id="feedback1"></div>
-                </div>
-
-                <div class="quiz-item">
-                    <div class="quiz-number">2</div>
-                    <div class="quiz-question">如图所示，物体A靠在竖直墙面上，在竖直向上的力F作用下，A、B一起匀速上升。则物体A的受力个数为（　）</div>
-                    
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')"><div class="option-letter">A</div><div>2个</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback2')"><div class="option-letter">B</div><div>3个</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback2')"><div class="option-letter">C</div><div>4个（重力、F、B对A的弹力、B对A的摩擦力）</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')"><div class="option-letter">D</div><div>5个</div></div>
-                    </div>
-                    
-                    <div class="quiz-feedback" id="feedback2"></div>
-                </div>
-
-                <div class="quiz-item">
-                    <div class="quiz-number">3</div>
-                    <div class="quiz-question">一根轻质弹簧一端固定，用大小为F₁的力压弹簧的另一端，平衡时长度为l₁；改用大小为F₂的力拉弹簧，平衡时长度为l₂。弹簧的拉伸或压缩均在弹性限度内，该弹簧的劲度系数为（　）</div>
-                    
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')"><div class="option-letter">A</div><div>(F₂-F₁)/(l₂-l₁)</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback3')"><div class="option-letter">B</div><div>(F₂+F₁)/(l₂-l₁)（提示：设原长l₀，压缩时F₁=k(l₀-l₁)，拉伸时F₂=k(l₂-l₀)）</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback3')"><div class="option-letter">C</div><div>(F₂+F₁)/(l₂+l₁)</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')"><div class="option-letter">D</div><div>(F₂-F₁)/(l₂+l₁)</div></div>
-                    </div>
-                    
-                    <div class="quiz-feedback" id="feedback3"></div>
-                </div>
-            </div>
-        </section>
-
-        <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="openNotesPanel()"><span>✏️</span><span>记笔记</span></button>
-            <button class="btn btn-primary" onclick="completeLearning()"><span>✅</span><span>完成学习</span></button>
-        </div>
-    
-        <div class="notes-overlay" id="notesOverlay" onclick="closeNotesPanel()"></div>
-        <div class="notes-panel" id="notesPanel">
-            <div class="notes-header"><span>📝 学习笔记</span><button class="notes-close" onclick="closeNotesPanel()">✕</button></div>
-            <div class="notes-content">
-                <textarea id="notesTextarea" placeholder="在这里记录你的学习心得、重点难点、易错点...
-
-相互作用重点：
-- 弹力产生条件：接触+形变
-- 摩擦力方向判断：假设光滑法
-- 受力分析顺序：重力→弹力→摩擦力"></textarea>
-            </div>
-            <div class="notes-actions">
-                <button class="btn btn-secondary" onclick="clearNotes()">🗑️ 清空</button>
-                <button class="btn btn-primary" onclick="saveNotes()">💾 保存笔记</button>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function toggleAnswer(id) {
-            const answer = document.getElementById(id);
-            answer.classList.toggle('hidden');
-        }
-
-        function checkAnswer(element, option, isCorrect, feedbackId) {
-            const quizItem = element.closest('.quiz-item');
-            const options = quizItem.querySelectorAll('.quiz-option');
-            options.forEach(opt => {
-                opt.classList.remove('selected', 'correct', 'wrong');
-                opt.style.pointerEvents = 'none';
-            });
-            
-            if (isCorrect) {
-                element.classList.add('correct');
-            } else {
-                element.classList.add('wrong');
-                options.forEach(opt => {
-                    if (opt.getAttribute('onclick').includes('true')) {
-                        opt.classList.add('correct');
-                    }
-                });
-            }
-            
-            const feedback = document.getElementById(feedbackId);
-            feedback.classList.add('show');
-            feedback.classList.add(isCorrect ? 'correct' : 'wrong');
-            
-            const explanations = {
-                'feedback1': isCorrect ? 
-                    '✅ 正确！弹力方向垂直于接触面，指向施力物体恢复原状的方向。A错在忽略形变；B描述的是指向受力物体，不对；D描述正确但不是本题答案。' :
-                    '❌ 错误。C是正确答案。记住：弹力方向与施力物体的形变方向相反。',
-                'feedback2': isCorrect ?
-                    '✅ 正确！A受4个力：重力、F、B对A的弹力、B对A的摩擦力。由于匀速运动，墙面对A没有作用力。' :
-                    '❌ 错误。用隔离法分析A，注意匀速运动说明受力平衡。',
-                'feedback3': isCorrect ?
-                    '✅ 正确！设原长l₀，F₁=k(l₀-l₁)，F₂=k(l₂-l₀)，两式相加得F₁+F₂=k(l₂-l₁)，所以k=(F₂+F₁)/(l₂-l₁)' :
-                    '❌ 错误。设弹簧原长，根据压缩和拉伸两种情况列方程求解。'
-            };
-            
-            feedback.textContent = explanations[feedbackId] || (isCorrect ? '✅ 回答正确！' : '❌ 回答错误！');
-        }
-
-        function openNotesPanel() {
-            document.getElementById('notesOverlay').classList.add('show');
-            document.getElementById('notesPanel').classList.add('show');
-            const saved = localStorage.getItem('notes-interaction');
-            if (saved) document.getElementById('notesTextarea').value = saved;
-        }
-
-        function closeNotesPanel() {
-            document.getElementById('notesOverlay').classList.remove('show');
-            document.getElementById('notesPanel').classList.remove('show');
-        }
-
-        function saveNotes() {
-            const notes = document.getElementById('notesTextarea').value;
-            localStorage.setItem('notes-interaction', notes);
-            alert('笔记已保存！');
-        }
-
-        function clearNotes() {
-            if (confirm('确定要清空笔记吗？')) {
-                document.getElementById('notesTextarea').value = '';
-            }
-        }
-
-        function completeLearning() {
-            localStorage.setItem('hero-interaction-progress', '100');
-            alert('🎉 恭喜完成【力场·相互作用】的学习！');
-            document.querySelector('.progress-fill-large').style.width = '100%';
-            document.querySelector('.progress-text-large').textContent = '学习进度 100%';
-        }
-
-        window.onload = function() {
-            const progress = localStorage.getItem('hero-interaction-progress') || '0';
-            document.querySelector('.progress-fill-large').style.width = progress + '%';
-            document.querySelector('.progress-text-large').textContent = '学习进度 ' + progress + '%';
-        };
-    </script>
-</body>
-</html>
+            <div class="game-scenario">
+                <div class="game-scenario-title">🛑 场景三：摩擦力与减速机制</div>
+                <div class="game-scenario-content">
+                    <p>游戏中英雄的移动和停止都涉及摩擦力：</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>静摩擦力：</strong>英雄站在地面上不滑动，靠静摩擦力支撑</li>
+                        <li><strong>滑动摩擦：</strong>英雄在冰面（如王昭君大招）上移动，摩擦因数μ变小，更容易滑行</li>
+                        <li><strong>滚动摩擦：</strong>英雄骑乘坐骑时，滚动摩擦比滑动摩擦小

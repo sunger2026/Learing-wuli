@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋风·圆舞 - 圆周运动 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32; --silver: #c0c0c0; --gold: #ffd700;
+            --platinum: #3eb489; --diamond: #b9f2ff; --star: #e6e6fa;
+            --king: #ff6b35; --dark-bg: #0a0e1a; --card-bg: rgba(20, 25, 45, 0.95);
+            --accent: #00d4ff; --accent-gold: #ffb800; --success: #32cd32; --error: #ff4444;
+            --hero-color: #9b59b6;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark-bg); min-height: 100vh; color: #fff; }
+        .header { background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--accent-gold), var(--king)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; }
+        .logo-text { font-size: 24px; font-weight: 900; background: linear-gradient(90deg, var(--accent-gold), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .back-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; color: #fff; text-decoration: none; }
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 40px 60px; }
+        .hero-header { background: linear-gradient(135deg, rgba(155,89,182,0.15), rgba(0,212,255,0.15)); border: 1px solid rgba(155,89,182,0.3); border-radius: 20px; padding: 40px; margin-bottom: 30px; }
+        .hero-title-section { display: flex; align-items: center; gap: 30px; }
+        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, var(--hero-color), var(--accent)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; }
+        .hero-name-large { font-size: 36px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
+        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(155,89,182,0.2); color: var(--hero-color); border-radius: 20px; font-size: 14px; font-weight: 600; }
+        .hero-desc-large { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+        .learning-section { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .section-icon { width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .section-title { font-size: 24px; font-weight: 700; }
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .knowledge-card { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        .knowledge-card.important { border-color: var(--accent-gold); background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,212,255,0.05)); }
+        .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; }
+        .formula-box { background: rgba(0,0,0,0.3); border: 1px solid var(--accent-gold); border-radius: 10px; padding: 20px; text-align: center; font-size: 20px; font-weight: 700; color: var(--accent-gold); margin: 15px 0; }
+        .formula-detail { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 15px; margin-top: 10px; }
+        .example-box { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
+        .example-header { font-size: 18px; font-weight: 700; color: var(--accent-gold); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .example-question { background: rgba(0,0,0,0.2); border-radius: 10px; padding: 20px; margin-bottom: 15px; line-height: 1.8; }
+        .example-answer { background: rgba(50,205,50,0.1); border: 1px solid var(--success); border-radius: 10px; padding: 20px; line-height: 1.8; }
+        .example-answer.hidden { display: none; }
+        .toggle-answer { background: linear-gradient(135deg, var(--success), #228b22); border: none; color: #fff; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .game-tip { background: linear-gradient(135deg, rgba(155,89,182,0.1), rgba(255,107,53,0.1)); border: 1px solid rgba(155,89,182,0.3); border-radius: 15px; padding: 25px; }
+        .game-tip-title { font-size: 20px; font-weight: 700; color: var(--hero-color); margin-bottom: 15px; }
+        .quiz-container { display: flex; flex-direction: column; gap: 20px; }
+        .quiz-item { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); }
+        .quiz-number { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border-radius: 50%; font-weight: 700; margin-bottom: 15px; }
+        .quiz-question { font-size: 16px; margin-bottom: 15px; line-height: 1.6; }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+        .quiz-option { display: flex; align-items: center; gap: 15px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; cursor: pointer; }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
+        .quiz-option.correct { background: rgba(50,205,50,0.2); border-color: var(--success); }
+        .quiz-option.wrong { background: rgba(255,68,68,0.2); border-color: var(--error); }
+        .option-letter { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; font-weight: 700; }
+        .quiz-feedback { margin-top: 15px; padding: 15px; border-radius: 10px; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); border: 1px solid var(--success); color: var(--success); }
+        .quiz-feedback.wrong { background: rgba(255,68,68,0.2); border: 1px solid var(--error); color: var(--error); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo"><div class="logo-icon">⚛️</div><div class="logo-text">物理王者</div></a>
+        <a href="index.html" class="back-btn"><span>←</span><span>返回英雄殿</span></a>
+    </header>
+
+    <main class="main-container">
+        <div class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">🌀</div>
+                <div class="hero-meta">
+                    <h1 class="hero-name-large">旋风·圆舞 <span class="hero-tag">必修二</span></h1>
+                    <p class="hero-desc-large">圆周运动描述，线速度、角速度、周期、向心加速度、向心力。</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <h2 class="section-title">核心知识点</h2>
+            </div>
+            <div class="knowledge-grid">
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">🎯 描述圆周运动的物理量</div>
+                    <div class="formula-box" style="font-size: 14px;">
+                        线速度：v = 2πr/T = ωr<br>
+                        角速度：ω = 2π/T = v/r<br>
+                        周期：T = 2π/ω = 2πr/v<br>
+                        转速：n = 1/T (单位：r/s)
+                    </div>
+                    <p style="margin-top: 10px;">关系：<strong>v = ωr</strong>（线速度 = 角速度 × 半径）</p>
+                </div>
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">🔄 向心加速度</div>
+                    <div class="formula-box" style="font-size: 16px;">
+                        a = v²/r = ω²r = ωv = 4π²r/T²
+                    </div>
+                    <ul style="margin-top: 10px; padding-left: 20px; line-height: 1.8;">
+                        <li>方向：指向圆心（时刻改变）</li>
+                        <li>物理意义：描述速度方向变化快慢</li>
+                        <li>匀速圆周运动加速度大小不变，方向时刻改变</li>
+                    </ul>
+                </div>
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">⚡ 向心力</div>
+                    <div class="formula-box" style="font-size: 16px;">
+                        F = mv²/r = mω²r = mωv
+                    </div>
+                    <ul style="margin-top: 10px; padding-left: 20px; line-height: 1.8;">
+                        <li>方向：指向圆心</li>
+                        <li>来源：可以是重力、弹力、摩擦力等或它们的合力</li>
+                        <li>效果：只改变速度方向，不改变速度大小</li>
+                    </ul>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">📐 传动装置特点</div>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li><strong>同轴转动：</strong>角速度 ω 相同，v 与 r 成正比</li>
+                        <li><strong>皮带传动：</strong>线速度 v 相同，ω 与 r 成反比</li>
+                        <li><strong>齿轮传动：</strong>边缘线速度相同，方向相反</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">🎮</div>
+                <h2 class="section-title">王者峡谷里的圆周运动</h2>
+            </div>
+            <div class="game-tip">
+                <div class="game-tip-title">🌀 用王者荣耀理解圆周运动</div>
+                <ul style="line-height: 1.8;">
+                    <li><strong>小乔的二技能：</strong>旋风围绕敌人旋转，这就是圆周运动！旋转越快，向心力越大</li>
+                    <li><strong>钟馗的钩子：</strong>把人甩起来做圆周运动，绳子拉力提供向心力</li>
+                    <li><strong>东皇太一的大招：</strong>压制期间双方做圆周旋转，角速度相同</li>
+                    <li><strong>李白的一技能：</strong>画圈突进，可以看作圆周运动的一部分</li>
+                    <li><strong>团战绕后：</strong>绕着野怪或防御塔走位，保持半径不变的圆周运动</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2 class="section-title">经典例题</h2>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题1：基本量计算</div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>一物体做匀速圆周运动，半径 r = 0.5 m，周期 T = 2 s。求：</p>
+                    <p>(1) 线速度 v</p>
+                    <p>(2) 角速度 ω</p>
+                    <p>(3) 向心加速度 a</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer1')">查看解析</button>
+                <div class="example-answer hidden" id="answer1">
+                    <p><strong>解析：</strong></p>
+                    <p><strong>(1) 线速度：</strong></p>
+                    <div class="formula-box" style="font-size: 18px;">v = 2πr/T = 2π×0.5/2 = 0.5π ≈ 1.57 m/s</div>
+                    <p><strong>(2) 角速度：</strong></p>
+                    <div class="formula-box" style="font-size: 18px;">ω = 2π/T = 2π/2 = π ≈ 3.14 rad/s</div>
+                    <p><strong>(3) 向心加速度：</strong></p>
+                    <div class="formula-box" style="font-size: 18px;">a = v²/r = (0.5π)²/0.5 = 0.5π² ≈ 4.93 m/s²</div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题2：向心力来源</div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>质量为 m 的小球在光滑水平面上做匀速圆周运动，绳子拉力为 F，半径为 r。若保持角速度不变，将半径增大到 2r，求新的拉力。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer2')">查看解析</button>
+                <div class="example-answer hidden" id="answer2">
+                    <p><strong>解析：</strong></p>
+                    <p>绳子拉力提供向心力：F = mω²r</p>
+                    <p>当 r' = 2r，ω 不变时：</p>
+                    <div class="formula-box" style="font-size: 18px;">F' = mω²(2r) = 2mω²r = 2F</div>
+                    <p style="color: var(--accent-gold);">✅ 新拉力是原来的 2 倍</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题3：圆锥摆</div>
+                <div class="example-question">
+                    <p><strong>题目：</strong></p>
+                    <p>如图所示，质量为 m 的小球用长为 L 的细线悬挂，在水平面内做匀速圆周运动，细线与竖直方向夹角为 θ。求：</p>
+                    <p>(1) 绳子拉力</p>
+                    <p>(2) 小球运动的角速度</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer('answer3')">查看解析</button>
+                <div class="example-answer hidden" id="answer3">
+                    <p><strong>解析：</strong></p>
+                    <p>受力分析：重力 mg（向下），拉力 T（沿绳）</p>
+                    <p>竖直方向：T·cosθ = mg</p>
+                    <div class="formula-box" style="font-size: 18px;">T = mg/cosθ</div>
+                    <p>水平方向（向心力）：T·sinθ = mω²r</p>
+                    <p>其中 r = L·sinθ（圆周运动半径）</p>
+                    <p>代入：mg·tanθ = mω²L·sinθ</p>
+                    <div class="formula-box" style="font-size: 18px;">ω = √(g/Lcosθ)</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <h2 class="section-title">实战演练</h2>
+            </div>
+            <div class="quiz-container">
+                <div class="quiz-item">
+                    <div class="quiz-number">1</div>
+                    <div class="quiz-question">关于匀速圆周运动，下列说法正确的是（　）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'f1')"><span class="option-letter">A</span><span>速度不变</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'f1')"><span class="option-letter">B</span><span>加速度指向圆心</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'f1')"><span class="option-letter">C</span><span>加速度为零</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'f1')"><span class="option-letter">D</span><span>是平衡状态</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="f1"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">2</div>
+                    <div class="quiz-question">甲、乙两物体做匀速圆周运动，若它们的线速度相等，半径之比为 2:1，则它们的向心加速度之比为（　）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'f2')"><span class="option-letter">A</span><span>1:2</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'f2')"><span class="option-letter">B</span><span>1:2</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'f2')"><span class="option-letter">C</span><span>2:1</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'f2')"><span class="option-letter">D</span><span>4:1</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="f2"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <div class="quiz-number">3</div>
+                    <div class="quiz-question">关于向心力，下列说法正确的是（　）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'f3')"><span class="option-letter">A</span><span>是物体做圆周运动时产生的力</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'f3')"><span class="option-letter">B</span><span>是物体受到的新种类的力</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'f3')"><span class="option-letter">C</span><span>可以由重力、弹力、摩擦力等提供</span></div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'f3')"><span class="option-letter">D</span><span>只改变速度大小，不改变方向</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="f3"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+        function checkAnswer(el, ans, correct, fid) {
+            const fb = document.getElementById(fid);
+            if (correct) {
+                el.classList.add('correct');
+                fb.className = 'quiz-feedback show correct';
+                fb.innerHTML = '✅ 正确！';
+            } else {
+                el.classList.add('wrong');
+                fb.className = 'quiz-feedback show wrong';
+                fb.innerHTML = '❌ 错误，再想想！';
+            }
+        }
+    </script>
+</body>
+</html>

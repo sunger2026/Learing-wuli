@@ -85,6 +85,49 @@
         .unit-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
         .unit-table th, .unit-table td { padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
         .unit-table th { background: rgba(26,35,126,0.3); color: var(--starlight); }
+        .summary-box { background: linear-gradient(135deg, rgba(26,35,126,0.2), rgba(124,77,255,0.1)); border: 1px solid rgba(92,107,192,0.3); border-radius: 12px; padding: 20px; margin: 15px 0; }
+        .summary-box h4 { color: var(--accent-gold); margin-bottom: 10px; font-size: 16px; }
+        .tip-card { background: rgba(255,107,53,0.1); border-left: 4px solid var(--king); padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+        .tip-card strong { color: var(--king); }
+        .formula-highlight { background: rgba(255,215,0,0.1); padding: 2px 8px; border-radius: 4px; color: var(--accent-gold); font-family: 'Times New Roman', serif; }
+        .key-point { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0; }
+        .key-point-icon { font-size: 18px; min-width: 24px; text-align: center; }
+        .key-point-content { flex: 1; }
+        .orbit-diagram { background: radial-gradient(circle at center, rgba(26,35,126,0.3) 0%, transparent 70%); border-radius: 50%; width: 150px; height: 150px; margin: 20px auto; position: relative; }
+        .orbit-planet { position: absolute; width: 30px; height: 30px; background: radial-gradient(circle at 30% 30%, #ffd700, #ff8c00); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+        .orbit-satellite { position: absolute; width: 10px; height: 10px; background: #82b1ff; border-radius: 50%; top: 20%; left: 50%; transform: translateX(-50%); box-shadow: 0 0 10px rgba(130,177,255,0.8); }
+        .orbit-path { position: absolute; width: 100%; height: 100%; border: 2px dashed rgba(130,177,255,0.4); border-radius: 50%; }
+        .progress-indicator { display: inline-block; width: 8px; height: 8px; background: var(--success); border-radius: 50%; margin-right: 8px; animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .achievement-badge { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: linear-gradient(135deg, var(--accent-gold), #ff8c00); color: #000; border-radius: 15px; font-size: 12px; font-weight: 700; margin: 3px; }
+        .study-timeline { position: relative; padding-left: 30px; }
+        .study-timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--space-blue), var(--nebula-purple)); }
+        .timeline-item { position: relative; margin: 20px 0; }
+        .timeline-item::before { content: ''; position: absolute; left: -26px; top: 5px; width: 12px; height: 12px; background: var(--nebula-purple); border-radius: 50%; border: 2px solid var(--starlight); }
+        .timeline-item.completed::before { background: var(--success); }
+        .comparison-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 15px 0; }
+        .comparison-table th { background: linear-gradient(135deg, var(--space-blue), var(--nebula-purple)); color: #fff; padding: 12px; text-align: center; }
+        .comparison-table td { padding: 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); }
+        .comparison-table tr:hover td { background: rgba(26,35,126,0.2); }
+        .concept-link { color: var(--starlight); text-decoration: none; border-bottom: 1px dashed var(--starlight); transition: all 0.3s; }
+        .concept-link:hover { color: var(--accent-gold); border-color: var(--accent-gold); }
+        .floating-hint { position: fixed; bottom: 20px; right: 20px; background: var(--card-bg); border: 1px solid rgba(92,107,192,0.5); border-radius: 12px; padding: 15px; max-width: 300px; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s ease; }
+        .floating-hint.show { transform: translateY(0); opacity: 1; }
+        .floating-hint-close { position: absolute; top: 5px; right: 8px; background: none; border: none; color: #fff; cursor: pointer; font-size: 16px; }
+        .formula-derivation { background: rgba(0,0,0,0.4); border-radius: 12px; padding: 20px; margin: 15px 0; border-left: 4px solid var(--accent-gold); }
+        .formula-step { display: flex; align-items: center; gap: 15px; margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; }
+        .formula-step-number { width: 28px; height: 28px; background: var(--space-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .formula-arrow { color: var(--accent-gold); font-size: 20px; }
+        .quick-nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 12px; }
+        .quick-nav-item { padding: 8px 16px; background: rgba(26,35,126,0.3); border: 1px solid rgba(92,107,192,0.3); border-radius: 20px; color: var(--starlight); text-decoration: none; font-size: 14px; transition: all 0.3s; }
+        .quick-nav-item:hover { background: var(--space-blue); border-color: var(--nebula-purple); transform: translateY(-2px); }
+        .highlight-box { background: linear-gradient(135deg, rgba(124,77,255,0.1), rgba(26,35,126,0.1)); border: 1px solid rgba(124,77,255,0.3); border-radius: 12px; padding: 20px; margin: 15px 0; }
+        .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(92,107,192,0.5), transparent); margin: 30px 0; }
+        .mini-quiz { background: rgba(26,35,126,0.2); border-radius: 10px; padding: 15px; margin: 10px 0; }
+        .mini-quiz-question { font-weight: 600; margin-bottom: 10px; color: var(--starlight); }
+        .mini-quiz-options { display: flex; gap: 10px; flex-wrap: wrap; }
+        .mini-quiz-option { padding: 8px 16px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        .mini-quiz-option:hover { background: rgba(92,107,192,0.3); border-color: var(--space-blue); }
         .notes-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .notes-overlay.show { display: block; opacity: 1; }
         .notes-panel { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: var(--card-bg); border-left: 1px solid rgba(255,255,255,0.1); z-index: 9999; display: flex; flex-direction: column; transition: right 0.3s ease; box-shadow: -5px 0 30px rgba(0,0,0,0.5); }
@@ -125,19 +168,36 @@
         <!-- 核心知识点 -->
         <section class="learning-section">
             <div class="section-header"><div class="section-icon">📖</div><h2 class="section-title">核心知识点</h2></div>
+            
+            <!-- 快速导航 -->
+            <div class="quick-nav">
+                <a href="#kepler" class="quick-nav-item">🪐 开普勒定律</a>
+                <a href="#gravity" class="quick-nav-item">🌟 万有引力</a>
+                <a href="#mass" class="quick-nav-item">⚖️ 质量计算</a>
+                <a href="#velocity" class="quick-nav-item">🛰️ 卫星速度</a>
+                <a href="#cosmic" class="quick-nav-item">🚀 宇宙速度</a>
+                <a href="#orbit" class="quick-nav-item">🔄 卫星变轨</a>
+                <a href="#binary" class="quick-nav-item">💫 双星系统</a>
+            </div>
+            
             <div class="knowledge-grid">
                 <!-- 开普勒三定律 -->
-                <div class="knowledge-card">
+                <div class="knowledge-card" id="kepler">
                     <div class="knowledge-title"><span class="icon">🪐</span>开普勒三定律</div>
                     <div class="knowledge-content">
                         <div class="law-card"><h4>第一定律（轨道定律）</h4><p>所有行星绕太阳运动的轨道都是椭圆，太阳处在椭圆的一个焦点上。</p></div>
                         <div class="law-card"><h4>第二定律（面积定律）</h4><p>对任意一个行星来说，它与太阳的连线在相等的时间内扫过相等的面积。</p><p style="color: var(--accent-gold); margin-top: 5px;">💡 近地点速度快，远地点速度慢</p></div>
                         <div class="law-card"><h4>第三定律（周期定律）</h4><p>所有行星轨道的半长轴的三次方跟它的公转周期的二次方的比值都相等。</p><div class="formula-box small">a³/T² = k</div></div>
+                        
+                        <div class="highlight-box" style="margin-top: 15px;">
+                            <h4 style="color: var(--accent-gold); margin-bottom: 10px;">📌 记忆口诀</h4>
+                            <p>"椭圆轨道焦点阳，面积相等扫得忙；周期平方半长立方，比值恒定记心上。"</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 万有引力定律 -->
-                <div class="knowledge-card important">
+                <div class="knowledge-card important" id="gravity">
                     <div class="knowledge-title"><span class="icon">🌟</span>万有引力定律（核心）</div>
                     <div class="knowledge-content">
                         <p>自然界中任何两个物体都相互吸引，引力的大小与两物体的质量乘积成正比，与它们之间距离的平方成反比。</p>
@@ -148,11 +208,15 @@
                             <p><strong>r</strong> = 两物体质心距离（m）</p>
                         </div>
                         <p style="margin-top: 15px; color: var(--accent-gold);">🎯 <strong>适用条件：</strong>质点间、质量分布均匀的球体间</p>
+                        
+                        <div class="tip-card" style="margin-top: 15px;">
+                            <strong>💡 重要说明：</strong>当物体不能视为质点时，r指两物体质心的距离；对于均匀球体，r指两球心的距离。
+                        </div>
                     </div>
                 </div>
 
                 <!-- 天体质量计算 -->
-                <div class="knowledge-card">
+                <div class="knowledge-card" id="mass">
                     <div class="knowledge-title"><span class="icon">⚖️</span>天体质量计算</div>
                     <div class="knowledge-content">
                         <p><strong>方法一：利用环绕天体</strong></p>
@@ -161,11 +225,29 @@
                         <p style="margin-top: 10px;"><strong>中心天体质量：</strong></p>
                         <div class="formula-box small">M = 4π²r³/GT² = v²r/G</div>
                         <p style="margin-top: 15px; color: var(--starlight);">💡 只能求中心天体质量，无法求环绕天体质量</p>
+                        
+                        <div class="formula-derivation" style="margin-top: 15px;">
+                            <h4 style="color: var(--accent-gold); margin-bottom: 10px;">📝 推导过程</h4>
+                            <div class="formula-step">
+                                <div class="formula-step-number">1</div>
+                                <div>万有引力提供向心力：GMm/r² = m(2π/T)²r</div>
+                            </div>
+                            <div class="formula-arrow" style="text-align: center;">↓</div>
+                            <div class="formula-step">
+                                <div class="formula-step-number">2</div>
+                                <div>消去m：GM/r² = 4π²r/T²</div>
+                            </div>
+                            <div class="formula-arrow" style="text-align: center;">↓</div>
+                            <div class="formula-step">
+                                <div class="formula-step-number">3</div>
+                                <div>整理得：M = 4π²r³/GT²</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 卫星环绕速度 -->
-                <div class="knowledge-card">
+                <div class="knowledge-card" id="velocity">
                     <div class="knowledge-title"><span class="icon">🛰️</span>卫星环绕速度</div>
                     <div class="knowledge-content">
                         <p><strong>第一宇宙速度（环绕速度）</strong></p>
@@ -174,11 +256,18 @@
                         <p style="margin-top: 15px;"><strong>高轨道卫星速度：</strong></p>
                         <div class="formula-box small">v = √(GM/r)</div>
                         <p style="color: var(--accent-gold); margin-top: 10px;">📌 轨道越高，速度越小！</p>
+                        
+                        <div class="orbit-diagram" style="margin-top: 20px;">
+                            <div class="orbit-path"></div>
+                            <div class="orbit-planet"></div>
+                            <div class="orbit-satellite"></div>
+                        </div>
+                        <p style="text-align: center; font-size: 12px; color: var(--starlight);">示意图：卫星绕地球运行</p>
                     </div>
                 </div>
 
                 <!-- 三种宇宙速度 -->
-                <div class="knowledge-card important">
+                <div class="knowledge-card important" id="cosmic">
                     <div class="knowledge-title"><span class="icon">🚀</span>三种宇宙速度</div>
                     <div class="knowledge-content">
                         <table class="unit-table">
@@ -187,21 +276,70 @@
                             <tr><td>第二宇宙速度</td><td><span class="velocity-badge">11.2 km/s</span></td><td>脱离地球引力束缚</td></tr>
                             <tr><td>第三宇宙速度</td><td><span class="velocity-badge">16.7 km/s</span></td><td>脱离太阳系引力束缚</td></tr>
                         </table>
+                        
+                        <div class="comparison-table" style="margin-top: 20px;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th>速度条件</th>
+                                    <th>运动结果</th>
+                                </tr>
+                                <tr>
+                                    <td>v < 7.9 km/s</td>
+                                    <td>落回地面</td>
+                                </tr>
+                                <tr>
+                                    <td>v = 7.9 km/s</td>
+                                    <td>近地圆轨道</td>
+                                </tr>
+                                <tr>
+                                    <td>7.9 < v < 11.2 km/s</td>
+                                    <td>椭圆轨道</td>
+                                </tr>
+                                <tr>
+                                    <td>11.2 ≤ v < 16.7 km/s</td>
+                                    <td>脱离地球，绕太阳</td>
+                                </tr>
+                                <tr>
+                                    <td>v ≥ 16.7 km/s</td>
+                                    <td>脱离太阳系</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 卫星变轨 -->
-                <div class="knowledge-card">
+                <div class="knowledge-card" id="orbit">
                     <div class="knowledge-title"><span class="icon">🔄</span>卫星变轨原理</div>
                     <div class="knowledge-content">
                         <p><strong>变轨原理：</strong>改变卫星速度，使万有引力不等于所需向心力</p>
                         <div class="law-card"><h4>🚀 加速升轨</h4><p>速度增大 → 所需向心力增大 → 万有引力不足 → 做离心运动 → 轨道升高</p><p style="color: var(--accent-gold); margin-top: 5px;">结果：新轨道速度反而变小！</p></div>
                         <div class="law-card"><h4>🛬 减速降轨</h4><p>速度减小 → 所需向心力减小 → 万有引力过大 → 做近心运动 → 轨道降低</p><p style="color: var(--accent-gold); margin-top: 5px;">结果：新轨道速度反而变大！</p></div>
+                        
+                        <div class="summary-box">
+                            <h4>📝 变轨要点总结</h4>
+                            <div class="key-point">
+                                <div class="key-point-icon">1️⃣</div>
+                                <div class="key-point-content">变轨瞬间：速度改变，加速度（由万有引力决定）不变</div>
+                            </div>
+                            <div class="key-point">
+                                <div class="key-point-icon">2️⃣</div>
+                                <div class="key-point-content">切点处：内外轨道的加速度相同（同一位置r相同）</div>
+                            </div>
+                            <div class="key-point">
+                                <div class="key-point-icon">3️⃣</div>
+                                <div class="key-point-content">椭圆轨道：近地点速度大，远地点速度小</div>
+                            </div>
+                            <div class="key-point">
+                                <div class="key-point-icon">4️⃣</div>
+                                <div class="key-point-content">圆轨道比较：高轨低速大周期</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 双星系统 -->
-                <div class="knowledge-card">
+                <div class="knowledge-card" id="binary">
                     <div class="knowledge-title"><span class="icon">💫</span>双星系统</div>
                     <div class="knowledge-content">
                         <p><strong>定义：</strong>两颗恒星在相互引力作用下绕共同质心做匀速圆周运动。</p>
@@ -213,6 +351,16 @@
                         </ul>
                         <div class="formula-box small" style="margin-top: 15px;">Gm₁m₂/L² = m₁ω²r₁ = m₂ω²r₂</div>
                         <p style="margin-top: 10px; color: var(--starlight);">💡 质量比与轨道半径成反比：m₁/m₂ = r₂/r₁</p>
+                        
+                        <div class="highlight-box" style="margin-top: 15px;">
+                            <h4 style="color: var(--accent-gold); margin-bottom: 10px;">🎯 双星系统解题步骤</h4>
+                            <div class="study-timeline">
+                                <div class="timeline-item completed"><strong>步骤1：</strong>明确两星角速度相等</div>
+                                <div class="timeline-item completed"><strong>步骤2：</strong>利用 r₁ + r₂ = L</div>
+                                <div class="timeline-item completed"><strong>步骤3：</strong>利用 m₁r₁ = m₂r₂</div>
+                                <div class="timeline-item"><strong>步骤4：</strong>联立方程求解</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -226,10 +374,21 @@
                         <p style="margin-top: 15px;"><strong>一般公式：</strong></p>
                         <div class="formula-box small">ρ = 3πr³/GT²R³</div>
                         <p style="color: var(--accent-gold); margin-top: 10px;">🎯 只需测出近地卫星周期，即可求星球密度！</p>
+                        
+                        <div class="mini-quiz" style="margin-top: 15px;">
+                            <div class="mini-quiz-question">🧠 思考：为什么近地卫星周期与密度有关？</div>
+                            <div class="mini-quiz-options">
+                                <span class="mini-quiz-option" onclick="this.style.background='var(--success)'; this.style.color='#000'">A. 周期越短，星球密度越大</span>
+                                <span class="mini-quiz-option" onclick="this.style.background='var(--error)'; this.style.color='#fff'">B. 周期越长，星球密度越大</span>
+                            </div>
+                            <p style="font-size: 12px; margin-top: 10px; color: var(--starlight);">答案：A（ρ = 3π/GT²，T越小ρ越大）</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <div class="section-divider"></div>
 
         <!-- 王者峡谷应用 -->
         <section class="learning-section">
@@ -407,6 +566,46 @@
                         </div>
                     </div>
                     <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 知识总结 -->
+        <section class="learning-section">
+            <div class="section-header"><div class="section-icon">🎯</div><h2 class="section-title">知识总结</h2></div>
+            
+            <div class="knowledge-grid">
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">📋</span>核心公式速记</div>
+                    <div class="knowledge-content">
+                        <div class="formula-box small">F = Gm₁m₂/r²</div>
+                        <p style="text-align: center; color: var(--accent-gold);">↓</p>
+                        <div class="formula-box small">GMm/r² = mv²/r = mω²r</div>
+                        <p style="text-align: center; color: var(--accent-gold);">↓</p>
+                        <div class="formula-box small">v = √(GM/r)，T = 2π√(r³/GM)</div>
+                    </div>
+                </div>
+                
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">🔑</span>解题关键</div>
+                    <div class="knowledge-content">
+                        <ul>
+                            <li><strong>明确研究对象：</strong>是中心天体还是环绕天体</li>
+                            <li><strong>找准轨道半径：</strong>r = R + h（注意区分天体半径和轨道高度）</li>
+                            <li><strong>灵活运用：</strong>黄金代换 GM = gR²</li>
+                            <li><strong>注意单位：</strong>统一使用国际单位制</li>
+                            <li><strong>变轨分析：</strong>比较万有引力与所需向心力</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="knowledge-card">
+                    <div class="knowledge-title"><span class="icon">⚠️</span>易错点提醒</div>
+                    <div class="knowledge-content">
+                        <div class="law-card"><h4>❌ r≠h</h4><p>轨道半径 r = R + h，不是高度h！</p></div>
+                        <div class="law-card"><h4>❌ 环绕天体质量会约掉</h4><p>只能求中心天体质量，不能求环绕天体质量</p></div>
+                        <div class="law-card"><h4>❌ 变轨后速度变化</h4><p>加速升轨后，新轨道速度反而变小！</p></div>
+                    </div>
                 </div>
             </div>
         </section>

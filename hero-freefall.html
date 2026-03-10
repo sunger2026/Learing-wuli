@@ -9,7 +9,7 @@
         :root {
             --bronze: #cd7f32;--silver: #c0c0c0;--gold: #ffd700;--platinum: #3eb489;--diamond: #b9f2ff;
             --star: #e6e6fa;--king: #ff6b35;--dark-bg: #0a0e1a;--card-bg: rgba(20, 25, 45, 0.95);
-            --accent: #00d4ff;--accent-gold: #ffb800;--success: #32cd32;--error: #ff4444;
+            --accent: #00d4ff;--accent-gold: #ffb800;--success: #32cd32;--error: #ff4444;--basic-purple: #9370db;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark-bg); min-height: 100vh; color: #fff; overflow-x: hidden; }
@@ -24,10 +24,10 @@
         .hero-header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(147,112,219,0.2), transparent); animation: pulse 4s ease-in-out infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.8; } }
         .hero-title-section { display: flex; align-items: center; gap: 30px; position: relative; z-index: 1; }
-        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, #9370db, var(--platinum)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; box-shadow: 0 20px 40px rgba(147,112,219,0.3); }
+        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, var(--basic-purple), var(--platinum)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; box-shadow: 0 20px 40px rgba(147,112,219,0.3); }
         .hero-meta { flex: 1; }
         .hero-name-large { font-size: 36px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; }
-        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(147,112,219,0.2); color: #9370db; border-radius: 20px; font-size: 14px; font-weight: 600; }
+        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(147,112,219,0.2); color: var(--basic-purple); border-radius: 20px; font-size: 14px; font-weight: 600; }
         .hero-desc-large { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
         .hero-progress-large { margin-top: 20px; display: flex; align-items: center; gap: 15px; }
         .progress-bar-large { flex: 1; max-width: 300px; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
@@ -39,15 +39,17 @@
         .section-title { font-size: 22px; font-weight: 700; }
         .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .knowledge-card { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
-        .knowledge-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .knowledge-card:hover { border-color: var(--basic-purple); transform: translateY(-3px); }
         .knowledge-card.important { border-color: var(--accent-gold); background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3)); }
         .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .knowledge-title .icon { font-size: 20px; }
         .knowledge-content { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.7; }
         .knowledge-content ul { margin: 10px 0; padding-left: 20px; }
         .knowledge-content li { margin: 8px 0; }
-        .formula-box { background: rgba(0,212,255,0.1); border-left: 4px solid var(--accent); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; font-family: 'Times New Roman', serif; font-size: 20px; color: var(--accent); }
+        .formula-box { background: rgba(147,112,219,0.1); border-left: 4px solid var(--basic-purple); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; font-family: 'Times New Roman', serif; font-size: 24px; color: var(--basic-purple); text-align: center; }
         .formula-box.important { background: rgba(255,184,0,0.1); border-left-color: var(--accent-gold); color: var(--accent-gold); }
+        .formula-detail { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; margin: 15px 0; }
+        .formula-detail p { margin: 8px 0; }
         .example-box { background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255,184,0,0.3); border-radius: 16px; padding: 25px; margin: 20px 0; }
         .example-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 18px; font-weight: 700; color: var(--accent-gold); }
         .example-content { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.9); }
@@ -62,8 +64,8 @@
         .quiz-question { font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
         .quiz-options { display: flex; flex-direction: column; gap: 12px; }
         .quiz-option { display: flex; align-items: center; gap: 12px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; }
-        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--accent); }
-        .quiz-option.selected { border-color: var(--accent); background: rgba(0,212,255,0.1); }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--basic-purple); }
+        .quiz-option.selected { border-color: var(--basic-purple); background: rgba(147,112,219,0.1); }
         .quiz-option.correct { border-color: var(--success); background: rgba(50,205,50,0.1); }
         .quiz-option.wrong { border-color: var(--error); background: rgba(255,68,68,0.1); }
         .option-letter { width: 28px; height: 28px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
@@ -78,7 +80,31 @@
         .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,212,255,0.4); }
         .btn-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
         .btn-secondary:hover { background: var(--accent); color: #000; }
-        @media (max-width: 768px) { .main-container { padding: 20px; } .hero-title-section { flex-direction: column; text-align: center; } .hero-name-large { font-size: 24px; flex-direction: column; } .knowledge-grid { grid-template-columns: 1fr; } .action-buttons { flex-direction: column; } }
+        .game-tip { background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,0,0,0.3)); border-left: 4px solid var(--king); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; }
+        .game-tip-title { color: var(--king); font-weight: 700; margin-bottom: 8px; }
+        .video-container { background: rgba(0,0,0,0.5); border-radius: 20px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .video-player { position: relative; background: linear-gradient(135deg, #1a1f3a, #0d1020); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+        #freefallAnimation { width: 100%; max-width: 800px; height: auto; display: block; margin: 0 auto; }
+        .video-controls { display: flex; align-items: center; gap: 15px; padding: 15px 20px; background: rgba(0,0,0,0.5); }
+        .play-btn { display: flex; align-items: center; gap: 8px; padding: 10px 25px; background: linear-gradient(135deg, var(--accent), var(--accent-gold)); border: none; border-radius: 25px; color: #000; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
+        .play-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(0,212,255,0.4); }
+        .progress-bar-video { flex: 1; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; cursor: pointer; }
+        .progress-fill-video { width: 0%; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-gold)); border-radius: 3px; transition: width 0.1s linear; }
+        .video-script { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 20px; }
+        .video-script h3 { color: var(--accent-gold); margin-bottom: 15px; font-size: 18px; }
+        .script-item { display: flex; gap: 15px; padding: 12px 15px; border-radius: 10px; margin-bottom: 8px; transition: all 0.3s ease; opacity: 0.5; }
+        .script-item.active { background: rgba(147,112,219,0.2); opacity: 1; border-left: 3px solid var(--basic-purple); }
+        .script-time { color: var(--accent-gold); font-weight: 700; font-size: 14px; min-width: 50px; }
+        .script-item p { color: rgba(255,255,255,0.9); line-height: 1.5; font-size: 14px; }
+        .script-item strong { color: var(--accent); }
+        .unit-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .unit-table th, .unit-table td { padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .unit-table th { background: rgba(147,112,219,0.2); color: var(--basic-purple); }
+        .step-list { counter-reset: step; list-style: none; }
+        .step-list li { position: relative; padding-left: 40px; margin: 15px 0; line-height: 1.6; }
+        .step-list li::before { counter-increment: step; content: counter(step); position: absolute; left: 0; width: 28px; height: 28px; background: linear-gradient(135deg, var(--basic-purple), var(--platinum)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #000; font-size: 14px; }
+        .experiment-box { background: linear-gradient(135deg, rgba(255,140,0,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255,140,0,0.3); border-radius: 16px; padding: 25px; margin: 20px 0; }
+        .experiment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 18px; font-weight: 700; color: #ff8c00; }
         .notes-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .notes-overlay.show { display: block; opacity: 1; }
         .notes-panel { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: var(--card-bg); border-left: 1px solid rgba(255,255,255,0.1); z-index: 9999; display: flex; flex-direction: column; transition: right 0.3s ease; box-shadow: -5px 0 30px rgba(0,0,0,0.5); }
@@ -91,7 +117,7 @@
         .notes-content textarea:focus { outline: none; border-color: var(--accent); }
         .notes-actions { display: flex; gap: 10px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         .notes-actions .btn { flex: 1; padding: 12px 20px; font-size: 14px; }
-        @media (max-width: 480px) { .notes-panel { width: 100%; right: -100%; } }
+        @media (max-width: 768px) { .main-container { padding: 20px; } .hero-title-section { flex-direction: column; text-align: center; } .hero-name-large { font-size: 24px; flex-direction: column; } .knowledge-grid { grid-template-columns: 1fr; } .action-buttons { flex-direction: column; } #freefallAnimation { height: 250px; } .notes-panel { width: 100%; right: -100%; } }
     </style>
 </head>
 <body>
@@ -111,11 +137,54 @@
             <div class="hero-title-section">
                 <div class="hero-avatar">🍎</div>
                 <div class="hero-meta">
-                    <h1 class="hero-name-large">重力·牛顿<span class="hero-tag">物理系</span></h1>
+                    <h1 class="hero-name-large">重力·牛顿<span class="hero-tag">必修一</span></h1>
                     <p class="hero-desc-large">探索自由落体运动和竖直上抛运动的规律，理解重力加速度g的本质。牛顿被苹果砸出的灵感，带你领略匀变速直线运动的特例！</p>
                     <div class="hero-progress-large">
-                        <div class="progress-bar-large"><div class="progress-fill-large"></div></div>
-                        <span class="progress-text-large">学习进度 0%</span>
+                        <div class="progress-bar-large"><div class="progress-fill-large" id="progressFill"></div></div>
+                        <span class="progress-text-large" id="progressText">学习进度 0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">🎬</div>
+                <h2 class="section-title">动画讲解：峡谷高空抛物线</h2>
+            </div>
+            <div class="video-container">
+                <div class="video-player">
+                    <canvas id="freefallAnimation" width="800" height="400"></canvas>
+                    <div class="video-controls">
+                        <button class="play-btn" onclick="toggleAnimation()">
+                            <span id="playIcon">▶️</span><span id="playText">播放动画</span>
+                        </button>
+                        <div class="progress-bar-video" onclick="seekAnimation(event)">
+                            <div class="progress-fill-video" id="animProgress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-script">
+                    <h3>📜 讲解脚本</h3>
+                    <div class="script-item active" data-time="0">
+                        <span class="script-time">00:00</span>
+                        <p><strong>场景一：</strong>后羿站在王者峡谷的高塔上</p>
+                    </div>
+                    <div class="script-item" data-time="20">
+                        <span class="script-time">00:04</span>
+                        <p><strong>自由落体：</strong>后羿跳下高塔，初速度为0，开始自由落体</p>
+                    </div>
+                    <div class="script-item" data-time="50">
+                        <span class="script-time">00:10</span>
+                        <p><strong>速度变化：</strong>每秒速度增加g=9.8m/s，v=gt</p>
+                    </div>
+                    <div class="script-item" data-time="80">
+                        <span class="script-time">00:16</span>
+                        <p><strong>竖直上抛：</strong>赵云用一技能跳起再落下</p>
+                    </div>
+                    <div class="script-item" data-time="110">
+                        <span class="script-time">00:22</span>
+                        <p><strong>对称性：</strong>上升时间=下降时间，同一高度速度相等</p>
                     </div>
                 </div>
             </div>
@@ -126,306 +195,55 @@
                 <div class="section-icon">📖</div>
                 <h2 class="section-title">核心知识点</h2>
             </div>
-
             <div class="knowledge-grid">
                 <div class="knowledge-card important">
-                    <div class="knowledge-title"><span class="icon">🍎</span>自由落体运动</div>
+                    <div class="knowledge-title"><span class="icon">🍎</span>自由落体运动定义</div>
                     <div class="knowledge-content">
-                        <p><strong>定义：</strong>只在重力作用下，从静止开始下落的运动。</p>
-                        <p style="margin-top: 10px;"><strong>条件：</strong>初速度 v₀ = 0；只受重力（忽略空气阻力）</p>
-                        <div class="formula-box important">g = 9.8 m/s² ≈ 10 m/s²（方向竖直向下）</div>
-                        <p style="color: var(--accent-gold);">💡 重力加速度与物体质量无关！铁球和羽毛在真空中同时落地</p>
+                        <p><strong>定义：</strong>只在重力作用下从静止开始下落的运动。</p>
+                        <p style="margin-top: 10px;"><strong>条件：</strong>初速度v₀=0；只受重力</p>
+                        <p style="margin-top: 10px;"><strong>性质：</strong>初速度为零的匀加速直线运动</p>
+                        <p style="color: var(--accent-gold); margin-top: 10px;">💡 伽利略实验：不同质量物体下落快慢相同！</p>
+                    </div>
+                </div>
+
+                <div class="knowledge-card important">
+                    <div class="knowledge-title"><span class="icon">🌍</span>重力加速度g</div>
+                    <div class="knowledge-content">
+                        <p><strong>大小：</strong>g = 9.8 m/s²（通常取10）</p>
+                        <p><strong>方向：</strong>竖直向下</p>
+                        <table class="unit-table">
+                            <tr><th>位置</th><th>g值(m/s²)</th></tr>
+                            <tr><td>赤道</td><td>9.78</td></tr>
+                            <tr><td>北京</td><td>9.80</td></tr>
+                            <tr><td>两极</td><td>9.83</td></tr>
+                        </table>
+                        <p style="color: var(--accent-gold);">⭐ 纬度越高，g值越大</p>
                     </div>
                 </div>
 
                 <div class="knowledge-card important">
                     <div class="knowledge-title"><span class="icon">📐</span>自由落体公式</div>
                     <div class="knowledge-content">
-                        <p><strong>速度公式：</strong></p><div class="formula-box">v = gt</div>
-                        <p><strong>位移公式：</strong></p><div class="formula-box">h = ½gt²</div>
-                        <p><strong>速度-位移公式：</strong></p><div class="formula-box important">v² = 2gh</div>
-                        <p style="color: var(--accent-gold);">⭐ 记忆口诀：初速为零匀加速，g替a直接代入</p>
+                        <p><strong>速度公式：</strong></p>
+                        <div class="formula-box">v = gt</div>
+                        <p><strong>位移公式：</strong></p>
+                        <div class="formula-box">h = ½gt²</div>
+                        <p><strong>速度-位移公式：</strong></p>
+                        <div class="formula-box important">v² = 2gh</div>
+                        <p style="color: var(--accent-gold);">⭐ 将匀变速公式中的a换成g，v₀=0即可</p>
                     </div>
                 </div>
 
                 <div class="knowledge-card important">
                     <div class="knowledge-title"><span class="icon">🚀</span>竖直上抛运动</div>
                     <div class="knowledge-content">
-                        <p><strong>定义：</strong>以一定初速度竖直向上抛出，只受重力的运动。</p>
-                        <p><strong>【全程法】</strong>取向上为正方向，则 a = -g</p>
+                        <p><strong>定义：</strong>以初速度v₀竖直向上抛出，只受重力的运动</p>
+                        <p style="margin-top: 10px;"><strong>【全程法】</strong>取向上为正，a = -g</p>
+                        <div class="formula-detail">
+                            <p>v = v₀ - gt</p>
+                            <p>h = v₀t - ½gt²</p>
+                            <p>v² - v₀² = -2gh</p>
+                        </div>
+                        <p><strong>重要结论：</strong></p>
                         <ul>
-                            <li>v = v₀ - gt</li>
-                            <li>h = v₀t - ½gt²</li>
-                            <li>v² - v₀² = -2gh</li>
-                        </ul>
-                        <p><strong>【重要结论】</strong></p>
-                        <ul>
-                            <li>上升到最高点时间：t = v₀/g</li>
-                            <li>最大高度：H = v₀²/(2g)</li>
-                            <li>上升时间 = 下降时间</li>
-                            <li>落回抛出点时速度大小 = v₀，方向向下</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title"><span class="icon">📊</span>竖直上抛的对称性</div>
-                    <div class="knowledge-content">
-                        <p><strong>时间对称性：</strong>上升到某点的时间 = 从该点下降的时间</p>
-                        <p><strong>速度对称性：</strong>同一高度，上升速度大小 = 下降速度大小，方向相反</p>
-                        <p><strong>能量对称性：</strong>同一高度，上升时动能 = 下降时动能</p>
-                        <p style="color: var(--accent-gold);">💡 利用对称性可以大大简化计算！</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title"><span class="icon">🌍</span>重力加速度g的变化</div>
-                    <div class="knowledge-content">
-                        <p><strong>g值随纬度变化：</strong></p>
-                        <ul>
-                            <li>赤道：g ≈ 9.78 m/s²（最小）</li>
-                            <li>两极：g ≈ 9.83 m/s²（最大）</li>
-                            <li>北京：g ≈ 9.80 m/s²</li>
-                        </ul>
-                        <p style="color: var(--accent-gold);">💡 考试中如果没有说明，g 取 10 m/s² 更方便计算</p>
-                    </div>
-                </div>
-
-                <div class="knowledge-card">
-                    <div class="knowledge-title"><span class="icon">🎮</span>游戏联想</div>
-                    <div class="knowledge-content">
-                        <ul>
-                            <li><strong>自由落体：</strong>从高地跳下来，重力让你加速坠落</li>
-                            <li><strong>竖直上抛：</strong>像苏烈的大招，跳上去再落下来</li>
-                            <li><strong>g的魔力：</strong>所有英雄跳起来的规律都一样！</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">💡</div>
-                <h2 class="section-title">经典例题</h2>
-            </div>
-
-            <div class="example-box">
-                <div class="example-header"><span>📝</span><span>例题1：自由落体测高度</span></div>
-                
-                <div class="example-question">
-                    <p><strong>题目：</strong>一个物体从某高度自由落下，经过最后196m所用的时间是4s，求物体下落的总高度和总时间。（g=9.8m/s²）</p>
-                </div>
-
-                <button class="toggle-answer" onclick="toggleAnswer('answer1')"><span>👁️</span><span>查看解析</span></button>
-
-                <div class="example-answer hidden" id="answer1">
-                    <p><strong>解析：</strong></p>
-                    <p>设总时间为t，总高度为H。</p>
-                    <p><strong>利用最后196m的条件：</strong></p>
-                    <p>H = ½gt²</p>
-                    <p>H - 196 = ½g(t-4)²</p>
-                    <p>两式相减：196 = ½g[t² - (t-4)²] = ½g(8t-16) = 4.9(8t-16)</p>
-                    <p>解得：t = 7s</p>
-                    <p>H = ½ × 9.8 × 7² = 240.1m</p>
-                    
-                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：总高度约240m，总时间7s</p>
-                </div>
-            </div>
-
-            <div class="example-box">
-                <div class="example-header"><span>📝</span><span>例题2：竖直上抛相遇问题</span></div>
-                
-                <div class="example-question">
-                    <p><strong>题目：</strong>从地面竖直上抛物体A，初速度为30m/s；同时从离地25m高处自由落下物体B。两物体何时相遇？相遇时离地多高？（g=10m/s²）</p>
-                </div>
-
-                <button class="toggle-answer" onclick="toggleAnswer('answer2')"><span>👁️</span><span>查看解析</span></button>
-
-                <div class="example-answer hidden" id="answer2">
-                    <p><strong>解析：</strong>设相遇时间为t，相遇高度为h。</p>
-                    <p>物体A（上抛）：h = 30t - 5t²</p>
-                    <p>物体B（下落）：h = 25 - 5t²</p>
-                    <p>联立：30t - 5t² = 25 - 5t² → 30t = 25 → t = 5/6 ≈ 0.83s</p>
-                    <p>h = 25 - 5×(5/6)² ≈ 21.5m</p>
-                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：约0.83s后相遇，离地约21.5m</p>
-                    <p style="color: var(--accent-gold);">💡 技巧：相遇时两物体在同一位置！</p>
-                </div>
-            </div>
-
-            <div class="example-box">
-                <div class="example-header"><span>📝</span><span>例题3：利用对称性</span></div>
-                
-                <div class="example-question">
-                    <p><strong>题目：</strong>以初速度v₀竖直上抛小球，从抛出到落回抛出点的时间是4s，求最大高度。（g=10m/s²）</p>
-                </div>
-
-                <button class="toggle-answer" onclick="toggleAnswer('answer3')"><span>👁️</span><span>查看解析</span></button>
-
-                <div class="example-answer hidden" id="answer3">
-                    <p><strong>解析：</strong>利用对称性！</p>
-                    <p>总时间4s，上升时间 = 下降时间 = 2s</p>
-                    <p>从最高点自由落体2s：H = ½gt² = ½×10×2² = 20m</p>
-                    <p>（也可先求v₀ = gt = 10×2 = 20m/s，再求H = v₀²/2g = 400/20 = 20m）</p>
-                    <p style="color: var(--success); margin-top: 15px;">✅ 答案：最大高度20m</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="learning-section">
-            <div class="section-header">
-                <div class="section-icon">⚔️</div>
-                <h2 class="section-title">实战演练</h2>
-            </div>
-
-            <div class="quiz-container">
-                <div class="quiz-item">
-                    <div class="quiz-number">1</div>
-                    <div class="quiz-question">关于自由落体运动，下列说法正确的是（　）</div>
-                    
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback1')"><div class="option-letter">A</div><div>物体从静止开始下落的运动就是自由落体运动</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', false, 'feedback1')"><div class="option-letter">B</div><div>自由落体运动的加速度总是9.8m/s²</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', true, 'feedback1')"><div class="option-letter">C</div><div>在地球表面附近，不同质量的物体自由落体加速度相同</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback1')"><div class="option-letter">D</div><div>自由落体运动的v-t图像是一条曲线</div></div>
-                    </div>
-                    
-                    <div class="quiz-feedback" id="feedback1"></div>
-                </div>
-
-                <div class="quiz-item">
-                    <div class="quiz-number">2</div>
-                    <div class="quiz-question">一个小球从高处自由落下，落地前最后1s下落的高度为25m，求小球下落的总高度。（g=10m/s²）</div>
-                    
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback2')"><div class="option-letter">A</div><div>45m</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback2')"><div class="option-letter">B</div><div>45m（提示：设总时间t，总高度½gt²，前(t-1)s高度½g(t-1)²，差值25m）</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback2')"><div class="option-letter">C</div><div>30m</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback2')"><div class="option-letter">D</div><div>60m</div></div>
-                    </div>
-                    
-                    <div class="quiz-feedback" id="feedback2"></div>
-                </div>
-
-                <div class="quiz-item">
-                    <div class="quiz-number">3</div>
-                    <div class="quiz-question">一个物体以20m/s的初速度竖直上抛，当它上升到最大高度的一半时，速度约为（　）（g=10m/s²）</div>
-                    
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, 'A', false, 'feedback3')"><div class="option-letter">A</div><div>10m/s</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'B', true, 'feedback3')"><div class="option-letter">B</div><div>10√2 ≈ 14.1m/s（提示：用v²-v₀²=-2gh，最大高度H=v₀²/2g=20m，一半高度10m）</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'C', false, 'feedback3')"><div class="option-letter">C</div><div>15m/s</div></div>
-                        <div class="quiz-option" onclick="checkAnswer(this, 'D', false, 'feedback3')"><div class="option-letter">D</div><div>20m/s</div></div>
-                    </div>
-                    
-                    <div class="quiz-feedback" id="feedback3"></div>
-                </div>
-            </div>
-        </section>
-
-        <div class="action-buttons">
-            <button class="btn btn-secondary" onclick="openNotesPanel()"><span>✏️</span><span>记笔记</span></button>
-            <button class="btn btn-primary" onclick="completeLearning()"><span>✅</span><span>完成学习</span></button>
-        </div>
-    
-        <div class="notes-overlay" id="notesOverlay" onclick="closeNotesPanel()"></div>
-        <div class="notes-panel" id="notesPanel">
-            <div class="notes-header"><span>📝 学习笔记</span><button class="notes-close" onclick="closeNotesPanel()">✕</button></div>
-            <div class="notes-content">
-                <textarea id="notesTextarea" placeholder="在这里记录你的学习心得、重点难点、易错点...
-
-自由落体与竖直上抛重点：
-- 自由落体：v₀=0，a=g
-- 竖直上抛：全程法更方便
-- 对称性可以简化计算"></textarea>
-            </div>
-            <div class="notes-actions">
-                <button class="btn btn-secondary" onclick="clearNotes()">🗑️ 清空</button>
-                <button class="btn btn-primary" onclick="saveNotes()">💾 保存笔记</button>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        function toggleAnswer(id) {
-            const answer = document.getElementById(id);
-            answer.classList.toggle('hidden');
-        }
-
-        function checkAnswer(element, option, isCorrect, feedbackId) {
-            const quizItem = element.closest('.quiz-item');
-            const options = quizItem.querySelectorAll('.quiz-option');
-            options.forEach(opt => {
-                opt.classList.remove('selected', 'correct', 'wrong');
-                opt.style.pointerEvents = 'none';
-            });
-            
-            if (isCorrect) {
-                element.classList.add('correct');
-            } else {
-                element.classList.add('wrong');
-                options.forEach(opt => {
-                    if (opt.getAttribute('onclick').includes('true')) {
-                        opt.classList.add('correct');
-                    }
-                });
-            }
-            
-            const feedback = document.getElementById(feedbackId);
-            feedback.classList.add('show');
-            feedback.classList.add(isCorrect ? 'correct' : 'wrong');
-            
-            const explanations = {
-                'feedback1': isCorrect ? 
-                    '✅ 正确！自由落体加速度与质量无关，这是伽利略的重要发现。A错在忽略空气阻力条件；B错在g值与纬度有关；D错在v-t图像是过原点的直线。' :
-                    '❌ 错误。C是正确的。自由落体的加速度与质量无关，这是物理学的重要结论。',
-                'feedback2': isCorrect ?
-                    '✅ 正确！设总时间t，则½gt² - ½g(t-1)² = 25，解得t=3s，总高度=½×10×9=45m' :
-                    '❌ 错误。设总时间t，利用最后1s的位移列方程求解。',
-                'feedback3': isCorrect ?
-                    '✅ 正确！最大高度H=v₀²/2g=20m，一半高度10m。由v²=v₀²-2gh=400-200=200，得v=10√2≈14.1m/s' :
-                    '❌ 错误。先求最大高度，再用速度-位移公式求解。'
-            };
-            
-            feedback.textContent = explanations[feedbackId] || (isCorrect ? '✅ 回答正确！' : '❌ 回答错误！');
-        }
-
-        function openNotesPanel() {
-            document.getElementById('notesOverlay').classList.add('show');
-            document.getElementById('notesPanel').classList.add('show');
-            const saved = localStorage.getItem('notes-freefall');
-            if (saved) document.getElementById('notesTextarea').value = saved;
-        }
-
-        function closeNotesPanel() {
-            document.getElementById('notesOverlay').classList.remove('show');
-            document.getElementById('notesPanel').classList.remove('show');
-        }
-
-        function saveNotes() {
-            const notes = document.getElementById('notesTextarea').value;
-            localStorage.setItem('notes-freefall', notes);
-            alert('笔记已保存！');
-        }
-
-        function clearNotes() {
-            if (confirm('确定要清空笔记吗？')) {
-                document.getElementById('notesTextarea').value = '';
-            }
-        }
-
-        function completeLearning() {
-            localStorage.setItem('hero-freefall-progress', '100');
-            alert('🎉 恭喜完成【重力·牛顿】的学习！');
-            document.querySelector('.progress-fill-large').style.width = '100%';
-            document.querySelector('.progress-text-large').textContent = '学习进度 100%';
-        }
-
-        window.onload = function() {
-            const progress = localStorage.getItem('hero-freefall-progress') || '0';
-            document.querySelector('.progress-fill-large').style.width = progress + '%';
-            document.querySelector('.progress-text-large').textContent = '学习进度 ' + progress + '%';
-        };
-    </script>
-</body>
-</html>
+                            <li>上升时间：t上 = v₀/g
