@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电路·欧姆 - 恒定电流 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32; --silver: #c0c0c0; --gold: #ffd700; --platinum: #3eb489;
+            --diamond: #b9f2ff; --star: #e6e6fa; --king: #ff6b35; --dark-bg: #0a0e1a;
+            --card-bg: rgba(20, 25, 45, 0.95); --accent: #ffd700; --accent-gold: #ffb800;
+            --success: #32cd32; --error: #ff4444; --electric-yellow: #ffd700;
+            --electric-orange: #ff8c00; --circuit-green: #00c853;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark-bg); min-height: 100vh; color: #fff; overflow-x: hidden; }
+        .header { background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--accent-gold), var(--king)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; }
+        .logo-text { font-size: 24px; font-weight: 900; background: linear-gradient(90deg, var(--accent-gold), #fff59d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .back-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; color: #fff; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(-5px); }
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 40px 60px; }
+        .hero-header { background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(0,200,83,0.1)); border: 1px solid rgba(255,215,0,0.4); border-radius: 20px; padding: 40px; margin-bottom: 30px; position: relative; overflow: hidden; }
+        .hero-header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,215,0,0.2), transparent); animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        .hero-title-section { display: flex; align-items: center; gap: 30px; position: relative; z-index: 1; }
+        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, var(--electric-yellow), var(--circuit-green)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; box-shadow: 0 20px 40px rgba(255,215,0,0.4); }
+        .hero-meta { flex: 1; }
+        .hero-name-large { font-size: 36px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; background: linear-gradient(90deg, var(--electric-yellow), var(--circuit-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(255,215,0,0.3); color: var(--electric-yellow); border-radius: 20px; font-size: 14px; font-weight: 600; border: 1px solid rgba(255,215,0,0.5); }
+        .hero-desc-large { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+        .hero-progress-large { margin-top: 20px; display: flex; align-items: center; gap: 15px; }
+        .progress-bar-large { flex: 1; max-width: 300px; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+        .progress-fill-large { width: 0%; height: 100%; background: linear-gradient(90deg, var(--electric-yellow), var(--circuit-green)); border-radius: 5px; transition: width 0.5s ease; }
+        .progress-text-large { font-size: 18px; font-weight: 700; color: var(--electric-yellow); }
+        .learning-section { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .section-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--electric-yellow), var(--circuit-green)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .section-title { font-size: 22px; font-weight: 700; }
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .knowledge-card { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
+        .knowledge-card:hover { border-color: var(--electric-yellow); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,215,0,0.2); }
+        .knowledge-card.important { border-color: var(--accent-gold); background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(0,0,0,0.3)); }
+        .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--electric-yellow); }
+        .knowledge-content { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+        .knowledge-content ul { margin: 10px 0; padding-left: 20px; }
+        .formula-box { background: rgba(255,215,0,0.15); border-left: 4px solid var(--electric-yellow); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; font-family: 'Times New Roman', serif; font-size: 20px; color: var(--electric-yellow); text-align: center; }
+        .formula-box.small { font-size: 16px; padding: 12px 15px; }
+        .example-box { background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(0,0,0,0.3)); border: 1px solid rgba(255,215,0,0.3); border-radius: 16px; padding: 25px; margin: 20px 0; }
+        .example-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 18px; font-weight: 700; color: var(--accent-gold); }
+        .example-question { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .example-answer { background: rgba(50,205,50,0.1); border: 1px solid rgba(50,205,50,0.3); padding: 20px; border-radius: 12px; }
+        .example-answer.hidden { display: none; }
+        .toggle-answer { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, var(--electric-yellow), var(--circuit-green)); border: none; border-radius: 25px; color: #000; font-weight: 700; cursor: pointer; margin-top: 15px; transition: all 0.3s ease; }
+        .toggle-answer:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,215,0,0.4); }
+        .quiz-container { margin-top: 20px; }
+        .quiz-item { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .quiz-number { display: inline-flex; width: 30px; height: 30px; background: linear-gradient(135deg, var(--electric-yellow), var(--circuit-green)); border-radius: 50%; align-items: center; justify-content: center; font-weight: 700; color: #000; margin-bottom: 15px; }
+        .quiz-question { font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        .quiz-option { display: flex; align-items: center; gap: 12px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--electric-yellow); }
+        .quiz-option.selected { border-color: var(--circuit-green); background: rgba(0,200,83,0.1); }
+        .quiz-option.correct { border-color: var(--success); background: rgba(50,205,50,0.1); }
+        .quiz-option.wrong { border-color: var(--error); background: rgba(255,68,68,0.1); }
+        .option-letter { width: 28px; height: 28px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .quiz-feedback { margin-top: 15px; padding: 15px 20px; border-radius: 12px; font-weight: 600; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); color: var(--success); }
+        .quiz-feedback.wrong { background: rgba(255,68,68,0.2); color: var(--error); }
+        .action-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 16px; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--electric-yellow), var(--circuit-green)); color: #000; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,215,0,0.4); }
+        .btn-secondary { background: transparent; border: 2px solid var(--electric-yellow); color: var(--electric-yellow); }
+        .btn-secondary:hover { background: var(--electric-yellow); color: #000; }
+        .game-tip { background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,0,0,0.3)); border-left: 4px solid var(--king); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; }
+        .game-tip-title { color: var(--king); font-weight: 700; margin-bottom: 8px; }
+        .tip-card { background: rgba(255,107,53,0.1); border-left: 4px solid var(--king); padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+        .tip-card strong { color: var(--king); }
+        .formula-highlight { background: rgba(255,215,0,0.15); padding: 2px 8px; border-radius: 4px; color: var(--electric-yellow); font-family: 'Times New Roman', serif; }
+        .key-point { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0; }
+        .key-point-icon { font-size: 18px; min-width: 24px; text-align: center; }
+        .key-point-content { flex: 1; }
+        .circuit-diagram { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; margin: 15px 0; text-align: center; font-family: monospace; }
+        @media (max-width: 768px) { .hero-title-section { flex-direction: column; text-align: center; } .knowledge-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">⚡</div>
+            <div class="logo-text">物理王者</div>
+        </a>
+        <a href="index.html" class="back-btn">← 返回英雄列表</a>
+    </header>
+
+    <main class="main-container">
+        <div class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">🔌</div>
+                <div class="hero-meta">
+                    <div class="hero-name-large">电路·欧姆</div>
+                    <span class="hero-tag">选修3-1 · 电学系</span>
+                    <p class="hero-desc-large">掌握闭合电路欧姆定律、电路分析方法，理解电源电动势与内阻，成为电路分析高手！</p>
+                    <div class="hero-progress-large">
+                        <div class="progress-bar-large"><div class="progress-fill-large" id="heroProgress"></div></div>
+                        <span class="progress-text-large" id="progressText">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <div class="section-title">核心知识点</div>
+            </div>
+            <div class="knowledge-grid">
+                <div class="knowledge-card">
+                    <div class="knowledge-title">🔋 电源与电动势</div>
+                    <div class="knowledge-content">
+                        <ul>
+                            <li><strong>电源：</strong>将其他形式能转化为电能的装置</li>
+                            <li><strong>电动势(E)：</strong>反映电源将其他能转化为电能的本领</li>
+                            <li><strong>内阻(r)：</strong>电源内部的电阻</li>
+                            <li><strong>路端电压：</strong>电源两极间的电压</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">⚡ 闭合电路欧姆定律</div>
+                    <div class="knowledge-content">
+                        <div class="formula-box">I = E / (R + r)</div>
+                        <p>或：<strong>E = U外 + U内 = IR + Ir</strong></p>
+                        <div class="formula-box small">路端电压：U = E - Ir</div>
+                        
+                        <div class="game-tip">
+                            <div class="game-tip-title">🎮 王者技巧</div>
+                            <p>外电阻R增大→电流I减小→内电压Ir减小→路端电压U增大。记住：断路时(R→∞)，U = E！</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">🔀 串并联电路</div>
+                    <div class="knowledge-content">
+                        <p><strong>串联电路：</strong></p>
+                        <ul>
+                            <li>电流处处相等：I = I₁ = I₂ = ...</li>
+                            <li>总电压等于各部分电压之和：U = U₁ + U₂ + ...</li>
+                            <li>总电阻：R = R₁ + R₂ + ...</li>
+                        </ul>
+                        <p><strong>并联电路：</strong></p>
+                        <ul>
+                            <li>各支路电压相等：U = U₁ = U₂ = ...</li>
+                            <li>总电流等于各支路电流之和：I = I₁ + I₂ + ...</li>
+                            <li>总电阻：1/R = 1/R₁ + 1/R₂ + ...</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">⚡ 电功率与焦耳定律</div>
+                    <div class="knowledge-content">
+                        <p><strong>电功率：</strong></p>
+                        <div class="formula-box small">P = UI = I²R = U²/R</div>
+                        
+                        <p><strong>焦耳定律（热功率）：</strong></p>
+                        <div class="formula-box small">Q = I²Rt</div>
+                        
+                        <div class="tip-card"
+                            <strong>💡 区分：</strong>纯电阻电路：W = Q；非纯电阻电路（如电动机）：W > Q，电能部分转化为机械能。
+                        </div>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">📊 U-I图像分析</div>
+                    <div class="knowledge-content">
+                        <p><strong>电源U-I图像：</strong></p>
+                        <ul>
+                            <li>纵轴截距 = 电动势E（断路电压）</li>
+                            <li>横轴截距 = 短路电流 I短 = E/r</li>
+                            <li>斜率绝对值 = 内阻r</li>
+                        </ul>
+                        
+                        <p><strong>电阻U-I图像：</strong>过原点的直线，斜率=R</p>
+                        
+                        <p><strong>交点含义：</strong>两图像交点表示该电阻接在该电源上的工作状态</p>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">🔬 电阻测量方法</div>
+                    <div class="knowledge-content">
+                        <p><strong>伏安法：</strong></p>
+                        <ul>
+                            <li><strong>内接法：</strong>电流表内接，适合测大电阻（R >> RA）</li>
+                            <li><strong>外接法：</strong>电流表外接，适合测小电阻（R << RV）</li>
+                        </ul>
+                        
+                        <p>口诀：<strong>"大内偏大，小外偏小"</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <div class="section-title">经典例题</div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-header">📝 例题1：闭合电路计算</div>
+                <div class="example-question">
+                    <p>如图所示电路，电源电动势E=12V，内阻r=1Ω，外电阻R=5Ω。求：(1)电路中的电流；(2)路端电压；(3)电源输出功率。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer(this)">👆 查看解析</button>
+                <div class="example-answer hidden">
+                    <p><strong>解：</strong></p>
+                    <p>(1) 根据闭合电路欧姆定律：</p>
+                    <p>I = E/(R+r) = 12/(5+1) = <strong>2 A</strong></p>
+                    
+                    <p>(2) 路端电压：</p>
+                    <p>U = IR = 2×5 = <strong>10 V</strong></p>
+                    <p>或 U = E-Ir = 12-2×1 = 10 V</p>
+                    
+                    <p>(3) 电源输出功率：</p>
+                    <p>P出 = UI = 10×2 = <strong>20 W</strong></p>
+                    <p>或 P出 = I²R = 4×5 = 20 W</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题2：动态电路分析</div>
+                <div class="example-question">
+                    <p>如图所示电路，电源电动势和内阻恒定，当滑动变阻器滑片P向右移动时，分析各电表示数如何变化？</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer(this)">👆 查看解析</button>
+                <div class="example-answer hidden">
+                    <p><strong>分析思路（串反并同）：</strong></p>
+                    <p>滑片P右移→滑动变阻器阻值Rₚ增大</p>
+                    
+                    <p><strong>总电路：</strong>R总增大→I总减小（电流表示数减小）</p>
+                    
+                    <p><strong>路端电压：</strong>U = E-Ir，I减小→U增大（电压表示数增大）</p>
+                    
+                    <p><strong>定值电阻R₁：</strong>与变阻器串联，电流减小→U₁=IR₁减小</p>
+                    
+                    <p><strong>并联部分：</strong>U并 = U-U₁，U增大、U₁减小→U并增大→I₂增大</p>
+                    
+                    <div class="game-tip">
+                        <div class="game-tip-title">🎮 口诀记忆</div>
+                        <p><strong>"串反并同"</strong>：与变化电阻串联的，变化相反；并联的，变化相同。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题3：最大功率问题</div>
+                <div class="example-question">
+                    <p>电源电动势E，内阻r。外电路为纯电阻R时，R为多大时电源输出功率最大？最大功率是多少？</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer(this)">👆 查看解析</button>
+                <div class="example-answer hidden">
+                    <p><strong>解：</strong></p>
+                    <p>输出功率 P = I²R = [E/(R+r)]²·R = E²R/(R+r)²</p>
+                    
+                    <p>利用数学知识：当<strong>R = r</strong>时，分母最小，P最大。</p>
+                    
+                    <p>最大功率：</p>
+                    <div class="formula-box">Pmax = E²/(4r)</div>
+                    
+                    <div class="tip-card"
+                        <strong>💡 结论：</strong>当外电阻等于内阻时，电源输出功率最大，此时效率只有50%。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <div class="section-title">实战练习</div>
+            </div>
+            <div class="quiz-container">
+                <div class="quiz-item">
+                    <span class="quiz-number">1</span>
+                    <div class="quiz-question">关于电源电动势，下列说法正确的是（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 1, 'A', false)"><span class="option-letter">A</span><span>电源电动势等于路端电压</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 1, 'B', true)"><span class="option-letter">B</span><span>电源电动势反映电源将其他能转化为电能的本领</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 1, 'C', false)"><span class="option-letter">C</span><span>电源电动势随外电阻增大而增大</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 1, 'D', false)"><span class="option-letter">D</span><span>电源内阻越大，电动势越大</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <span class="quiz-number">2</span>
+                    <div class="quiz-question">如图所示电路，当滑动变阻器滑片P向下滑动时，理想电压表示数将（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 2, 'A', false)"><span class="option-letter">A</span><span>变大</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 2, 'B', true)"><span class="option-letter">B</span><span>变小</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 2, 'C', false)"><span class="option-letter">C</span><span>不变</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 2, 'D', false)"><span class="option-letter">D</span><span>无法判断</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <span class="quiz-number">3</span>
+                    <div class="quiz-question">一个电源分别接上8Ω和2Ω的电阻时，两电阻消耗的电功率相等，则电源内阻为（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 3, 'A', false)"><span class="option-letter">A</span><span>1Ω</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 3, 'B', false)"><span class="option-letter">B</span><span>2Ω</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 3, 'C', true)"><span class="option-letter">C</span><span>4Ω</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 3, 'D', false)"><span class="option-letter">D</span><span>8Ω</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="saveProgress()">💾 保存学习进度</button>
+            <a href="index.html" class="btn btn-secondary">🏠 返回主页</a>
+        </div>
+    </main>
+
+    <script>
+        const heroId = 'circuit';
+        const totalQuestions = 3;
+        let answeredCorrectly = 0;
+        let answeredQuestions = new Set();
+
+        function toggleAnswer(btn) {
+            const answer = btn.nextElementSibling;
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                btn.innerHTML = '👇 收起解析';
+            } else {
+                answer.classList.add('hidden');
+                btn.innerHTML = '👆 查看解析';
+            }
+        }
+
+        function selectOption(element, questionNum, option, isCorrect) {
+            if (answeredQuestions.has(questionNum)) return;
+            
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                answeredCorrectly++;
+                document.getElementById('feedback' + questionNum).innerHTML = '✅ 回答正确！继续保持！';
+                document.getElementById('feedback' + questionNum).className = 'quiz-feedback correct show';
+            } else {
+                element.classList.add('wrong');
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) opt.classList.add('correct');
+                });
+                document.getElementById('feedback' + questionNum).innerHTML = '❌ 回答错误，正确答案已标注。';
+                document.getElementById('feedback' + questionNum).className = 'quiz-feedback wrong show';
+            }
+            
+            answeredQuestions.add(questionNum);
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = Math.round((answeredCorrectly / totalQuestions) * 100);
+            document.getElementById('heroProgress').style.width = progress + '%';
+            document.getElementById('progressText').innerText = progress + '%';
+        }
+
+        function saveProgress() {
+            const progress = Math.round((answeredCorrectly / totalQuestions) * 100);
+            localStorage.setItem('hero_' + heroId + '_progress', progress);
+            localStorage.setItem('hero_' + heroId + '_answered', Array.from(answeredQuestions).join(','));
+            alert('✅ 学习进度已保存！完成度：' + progress + '%');
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('hero_' + heroId + '_progress');
+            if (saved) {
+                document.getElementById('heroProgress').style.width = saved + '%';
+                document.getElementById('progressText').innerText = saved + '%';
+            }
+        }
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>

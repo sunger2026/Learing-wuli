@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>碰撞·动量 - 动量守恒 | 物理王者</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bronze: #cd7f32; --silver: #c0c0c0; --gold: #ffd700; --platinum: #3eb489;
+            --diamond: #b9f2ff; --star: #e6e6fa; --king: #ff6b35; --dark-bg: #0a0e1a;
+            --card-bg: rgba(20, 25, 45, 0.95); --accent: #ff6347; --accent-red: #ff4500;
+            --success: #32cd32; --error: #ff4444; --momentum-orange: #ff6347;
+            --momentum-red: #dc143c; --momentum-light: #ffa07a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Noto Sans SC', sans-serif; background: var(--dark-bg); min-height: 100vh; color: #fff; overflow-x: hidden; }
+        .header { background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%); padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--accent), var(--momentum-red)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; }
+        .logo-text { font-size: 24px; font-weight: 900; background: linear-gradient(90deg, var(--momentum-light), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .back-btn { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 25px; color: #fff; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+        .back-btn:hover { background: rgba(255,255,255,0.2); transform: translateX(-5px); }
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 20px 40px 60px; }
+        .hero-header { background: linear-gradient(135deg, rgba(255,99,71,0.3), rgba(220,20,60,0.2)); border: 1px solid rgba(255,99,71,0.5); border-radius: 20px; padding: 40px; margin-bottom: 30px; position: relative; overflow: hidden; }
+        .hero-header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,99,71,0.3), transparent); animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        .hero-title-section { display: flex; align-items: center; gap: 30px; position: relative; z-index: 1; }
+        .hero-avatar { width: 120px; height: 120px; background: linear-gradient(135deg, var(--momentum-orange), var(--momentum-red)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 60px; box-shadow: 0 20px 40px rgba(255,99,71,0.4); }
+        .hero-meta { flex: 1; }
+        .hero-name-large { font-size: 36px; font-weight: 900; margin-bottom: 10px; display: flex; align-items: center; gap: 15px; background: linear-gradient(90deg, var(--momentum-light), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-tag { display: inline-block; padding: 6px 16px; background: rgba(255,99,71,0.3); color: var(--momentum-light); border-radius: 20px; font-size: 14px; font-weight: 600; border: 1px solid rgba(255,99,71,0.5); }
+        .hero-desc-large { font-size: 16px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+        .hero-progress-large { margin-top: 20px; display: flex; align-items: center; gap: 15px; }
+        .progress-bar-large { flex: 1; max-width: 300px; height: 10px; background: rgba(255,255,255,0.1); border-radius: 5px; overflow: hidden; }
+        .progress-fill-large { width: 0%; height: 100%; background: linear-gradient(90deg, var(--momentum-light), var(--momentum-orange)); border-radius: 5px; transition: width 0.5s ease; }
+        .progress-text-large { font-size: 18px; font-weight: 700; color: var(--momentum-light); }
+        .learning-section { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
+        .section-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .section-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--momentum-orange), var(--momentum-red)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .section-title { font-size: 22px; font-weight: 700; }
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .knowledge-card { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
+        .knowledge-card:hover { border-color: var(--momentum-orange); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,99,71,0.3); }
+        .knowledge-card.important { border-color: var(--accent-red); background: linear-gradient(135deg, rgba(255,99,71,0.15), rgba(0,0,0,0.3)); }
+        .knowledge-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--momentum-light); }
+        .knowledge-content { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.7; }
+        .knowledge-content ul { margin: 10px 0; padding-left: 20px; }
+        .formula-box { background: rgba(255,99,71,0.2); border-left: 4px solid var(--momentum-orange); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; font-family: 'Times New Roman', serif; font-size: 20px; color: var(--momentum-light); text-align: center; }
+        .formula-box.small { font-size: 16px; padding: 12px 15px; }
+        .example-box { background: linear-gradient(135deg, rgba(255,99,71,0.15), rgba(0,0,0,0.3)); border: 1px solid rgba(255,99,71,0.3); border-radius: 16px; padding: 25px; margin: 20px 0; }
+        .example-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 18px; font-weight: 700; color: var(--accent-red); }
+        .example-question { background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        .example-answer { background: rgba(50,205,50,0.1); border: 1px solid rgba(50,205,50,0.3); padding: 20px; border-radius: 12px; }
+        .example-answer.hidden { display: none; }
+        .toggle-answer { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: linear-gradient(135deg, var(--momentum-orange), var(--momentum-red)); border: none; border-radius: 25px; color: #fff; font-weight: 700; cursor: pointer; margin-top: 15px; transition: all 0.3s ease; }
+        .toggle-answer:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,99,71,0.4); }
+        .quiz-container { margin-top: 20px; }
+        .quiz-item { background: rgba(0,0,0,0.3); border-radius: 16px; padding: 25px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .quiz-number { display: inline-flex; width: 30px; height: 30px; background: linear-gradient(135deg, var(--momentum-orange), var(--momentum-red)); border-radius: 50%; align-items: center; justify-content: center; font-weight: 700; color: #fff; margin-bottom: 15px; }
+        .quiz-question { font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        .quiz-option { display: flex; align-items: center; gap: 12px; padding: 15px 20px; background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; }
+        .quiz-option:hover { background: rgba(255,255,255,0.1); border-color: var(--momentum-orange); }
+        .quiz-option.selected { border-color: var(--accent-red); background: rgba(255,69,0,0.15); }
+        .quiz-option.correct { border-color: var(--success); background: rgba(50,205,50,0.1); }
+        .quiz-option.wrong { border-color: var(--error); background: rgba(255,68,68,0.1); }
+        .option-letter { width: 28px; height: 28px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+        .quiz-feedback { margin-top: 15px; padding: 15px 20px; border-radius: 12px; font-weight: 600; display: none; }
+        .quiz-feedback.show { display: block; }
+        .quiz-feedback.correct { background: rgba(50,205,50,0.2); color: var(--success); }
+        .quiz-feedback.wrong { background: rgba(255,68,68,0.2); color: var(--error); }
+        .action-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 16px; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, var(--momentum-orange), var(--momentum-red)); color: #fff; }
+        .btn-primary:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,99,71,0.4); }
+        .btn-secondary { background: transparent; border: 2px solid var(--momentum-orange); color: var(--momentum-light); }
+        .btn-secondary:hover { background: var(--momentum-orange); color: #fff; }
+        .game-tip { background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,0,0,0.3)); border-left: 4px solid var(--king); padding: 15px 20px; margin: 15px 0; border-radius: 0 12px 12px 0; }
+        .game-tip-title { color: var(--king); font-weight: 700; margin-bottom: 8px; }
+        .tip-card { background: rgba(255,107,53,0.1); border-left: 4px solid var(--king); padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+        .tip-card strong { color: var(--king); }
+        .formula-highlight { background: rgba(255,99,71,0.2); padding: 2px 8px; border-radius: 4px; color: var(--momentum-light); font-family: 'Times New Roman', serif; }
+        .key-point { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0; }
+        .key-point-icon { font-size: 18px; min-width: 24px; text-align: center; }
+        .key-point-content { flex: 1; }
+        .collision-type { background: rgba(255,99,71,0.1); border-radius: 12px; padding: 15px; margin: 10px 0; border-left: 4px solid var(--momentum-orange); }
+        .collision-type h4 { color: var(--momentum-light); margin-bottom: 8px; }
+        @media (max-width: 768px) { .hero-title-section { flex-direction: column; text-align: center; } .knowledge-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">💥</div>
+            <div class="logo-text">物理王者</div>
+        </a>
+        <a href="index.html" class="back-btn">← 返回英雄列表</a>
+    </header>
+
+    <main class="main-container">
+        <div class="hero-header">
+            <div class="hero-title-section">
+                <div class="hero-avatar">💥</div>
+                <div class="hero-meta">
+                    <div class="hero-name-large">碰撞·动量</div>
+                    <span class="hero-tag">选修3-5 · 力学系</span>
+                    <p class="hero-desc-large">掌握动量定理与动量守恒定律，理解碰撞、反冲与爆炸问题，解锁力学巅峰技能！</p>
+                    <div class="hero-progress-large">
+                        <div class="progress-bar-large"><div class="progress-fill-large" id="heroProgress"></div></div>
+                        <span class="progress-text-large" id="progressText">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <div class="section-title">核心知识点</div>
+            </div>
+            <div class="knowledge-grid">
+                <div class="knowledge-card">
+                    <div class="knowledge-title">⚡ 动量与冲量</div>
+                    <div class="knowledge-content">
+                        <p><strong>动量：</strong>描述物体运动状态的物理量</p>
+                        <div class="formula-box">p = mv</div>
+                        
+                        <p><strong>冲量：</strong>力在时间上的积累效果</p>
+                        <div class="formula-box">I = Ft</div>
+                        
+                        <ul>
+                            <li>动量是矢量，方向与速度方向相同</li>
+                            <li>冲量也是矢量，方向与力的方向相同</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">⚡ 动量定理</div>
+                    <div class="knowledge-content">
+                        <p>物体动量的变化等于所受合外力的冲量</p>
+                        <div class="formula-box">Ft = mv₂ - mv₁ = Δp</div>
+                        
+                        <div class="game-tip"
+                            <div class="game-tip-title">🎮 王者技巧</div>
+                            <p>动量定理是处理<strong>变力作用</strong>和<strong>短暂作用</strong>问题的利器！碰撞、打击、缓冲问题首选。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="knowledge-card important">
+                    <div class="knowledge-title">⚡ 动量守恒定律</div>
+                    <div class="knowledge-content">
+                        <p><strong>条件：</strong>系统不受外力或所受合外力为零</p>
+                        
+                        <div class="formula-box">m₁v₁ + m₂v₂ = m₁v₁' + m₂v₂'</div>
+                        
+                        <div class="tip-card"
+                            <strong>💡 注意：</strong>
+                            <br>1. 动量守恒是<strong>矢量式</strong>，需要规定正方向
+                            <br>2. 某一方向合外力为零，该方向动量守恒
+                            <br>3. 近似守恒：内力远大于外力时（如碰撞、爆炸）
+                        </div>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">💥 碰撞类型</div>
+                    <div class="knowledge-content">
+                        <div class="collision-type"
+                            <h4>🔄 弹性碰撞</h4>
+                            <p>动量守恒 + 动能守恒</p>
+                            <p>特点：无能量损失，碰撞后分离</p>
+                        </div>
+                        
+                        <div class="collision-type"
+                            <h4>🔀 非弹性碰撞</h4>
+                            <p>动量守恒，动能有损失</p>
+                            <p>特点：部分动能转化为内能</p>
+                        </div>
+                        
+                        <div class="collision-type"
+                            <h4>🎯 完全非弹性碰撞</h4>
+                            <p>动量守恒，碰撞后共速</p>
+                            <p>特点：动能损失最大</p>
+                            <div class="formula-box small">v' = (m₁v₁ + m₂v₂)/(m₁ + m₂)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">🚀 反冲运动</div>
+                    <div class="knowledge-content">
+                        <p>系统在内力作用下，一部分向某一方向运动，另一部分向相反方向运动。</p>
+                        
+                        <p><strong>典型应用：</strong></p>
+                        <ul>
+                            <li>火箭发射（向后喷出燃气，火箭向前）</li>
+                            <li>开枪时的后坐力</li>
+                            <li>人船模型（人在船上走，船向后退）</li>
+                        </ul>
+                        
+                        <div class="formula-box small">0 = m₁v₁ + m₂v₂（系统初动量为零时）</div>
+                    </div>
+                </div>
+                <div class="knowledge-card">
+                    <div class="knowledge-title">💣 爆炸问题</div>
+                    <div class="knowledge-content">
+                        <p>爆炸过程特点：</p>
+                        <ul>
+                            <li>内力远大于外力，动量守恒</li>
+                            <li>化学能转化为动能，动能增加</li>
+                            <li>各部分向不同方向飞散</li>
+                        </ul>
+                        
+                        <div class="formula-box">0 = m₁v₁ + m₂v₂（静止爆炸）</div>
+                        
+                        <p><strong>人船模型：</strong>m₁x₁ = m₂x₂（位移关系）</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <div class="section-title">经典例题</div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-header">📝 例题1：动量定理应用</div>
+                <div class="example-question">
+                    <p>一个质量为0.5kg的球以10m/s的速度水平飞来，被球拍击打后以15m/s的速度反向飞回。若球与球拍接触时间为0.02s，求球拍对球的平均作用力。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer(this)">👆 查看解析</button>
+                <div class="example-answer hidden">
+                    <p><strong>解：</strong></p>
+                    
+                    <p>设球飞回方向为正方向</p>
+                    
+                    <p>初动量：p₁ = mv₁ = 0.5×(-10) = -5 kg·m/s</p>
+                    <p>末动量：p₂ = mv₂ = 0.5×15 = 7.5 kg·m/s</p>
+                    
+                    <p>根据动量定理：Ft = p₂ - p₁</p>
+                    
+                    <p>F×0.02 = 7.5 - (-5) = 12.5</p>
+                    
+                    <p>F = 12.5/0.02 = <strong>625 N</strong></p>
+                    
+                    <p>方向与球飞回方向相同</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题2：弹性碰撞</div>
+                <div class="example-question">
+                    <p>质量为m的小球A以速度v₀与静止的质量为2m的小球B发生弹性正碰，求碰撞后两球的速度。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer(this)">👆 查看解析</button>
+                <div class="example-answer hidden">
+                    <p><strong>解：</strong></p>
+                    
+                    <p>设碰撞后A球速度为v₁，B球速度为v₂，v₀方向为正</p>
+                    
+                    <p><strong>动量守恒：</strong></p>
+                    <p>mv₀ = mv₁ + 2mv₂ ...①</p>
+                    
+                    <p><strong>动能守恒：</strong></p>
+                    <p>½mv₀² = ½mv₁² + ½×2mv₂² ...②</p>
+                    
+                    <p>由①：v₀ = v₁ + 2v₂</p>
+                    <p>由②：v₀² = v₁² + 2v₂²</p>
+                    
+                    <p>联立解得：</p>
+                    <p><strong>v₁ = -v₀/3</strong>（负号表示反向）</p>
+                    <p><strong>v₂ = 2v₀/3</strong></p>
+                    
+                    <div class="game-tip"
+                        <div class="game-tip-title">💡 记忆口诀</div>
+                        <p>弹性碰撞结论：<strong>"交换速度"</strong>（质量相等时）；<strong>"一动一静，小撞大，小的反弹"</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-header">📝 例题3：人船模型</div>
+                <div class="example-question">
+                    <p>质量为M=200kg的船静止在水面上，船头到船尾距离L=5m。质量为m=50kg的人从船头走到船尾，不计水的阻力，求船移动的距离。</p>
+                </div>
+                <button class="toggle-answer" onclick="toggleAnswer(this)">👆 查看解析</button>
+                <div class="example-answer hidden">
+                    <p><strong>解：</strong></p>
+                    
+                    <p>系统初动量为零，水平方向动量守恒</p>
+                    
+                    <p>设人相对地面位移为x₁，船相对地面位移为x₂</p>
+                    
+                    <p>由动量守恒：0 = mv₁ + Mv₂（瞬时关系）</p>
+                    <p>积分得：0 = mx₁ + Mx₂（位移关系）</p>
+                    
+                    <p>又：x₁ - x₂ = L（人相对船的位移）</p>
+                    
+                    <p>由0 = mx₁ + Mx₂，得 x₁ = -Mx₂/m</p>
+                    
+                    <p>代入：-Mx₂/m - x₂ = L</p>
+                    
+                    <p>x₂(-M/m - 1) = L</p>
+                    
+                    <p>x₂ = -L·m/(M+m) = -5×50/250 = <strong>-1 m</strong></p>
+                    
+                    <p>船向后移动了1m（负号表示与人行走方向相反）</p>
+                    
+                    <div class="formula-box">一般结论：x船 = -L·m/(M+m)</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="learning-section">
+            <div class="section-header">
+                <div class="section-icon">⚔️</div>
+                <div class="section-title">实战练习</div>
+            </div>
+            <div class="quiz-container">
+                <div class="quiz-item">
+                    <span class="quiz-number">1</span>
+                    <div class="quiz-question">关于动量守恒定律，下列说法正确的是（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 1, 'A', false)"><span class="option-letter">A</span><span>系统的总动量守恒时，系统内每个物体的动量都不变</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 1, 'B', true)"><span class="option-letter">B</span><span>只要系统所受合外力为零，系统动量就守恒</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 1, 'C', false)"><span class="option-letter">C</span><span>系统动量守恒时，系统的机械能也一定守恒</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 1, 'D', false)"><span class="option-letter">D</span><span>动量守恒定律只适用于碰撞问题</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback1"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <span class="quiz-number">2</span>
+                    <div class="quiz-question">两球在光滑水平面上沿同一直线相向运动，发生碰撞后两球都静止，则可以判断碰撞前（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 2, 'A', false)"><span class="option-letter">A</span><span>两球质量相等</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 2, 'B', false)"><span class="option-letter">B</span><span>两球速度大小相等</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 2, 'C', true)"><span class="option-letter">C</span><span>两球动量大小相等、方向相反</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 2, 'D', false)"><span class="option-letter">D</span><span>两球动能相等</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback2"></div>
+                </div>
+
+                <div class="quiz-item">
+                    <span class="quiz-number">3</span>
+                    <div class="quiz-question">质量为m的小球A在光滑水平面上以速度v与静止的质量为3m的小球B发生正碰，碰撞后A球的速度变为v/2，则碰撞后B球的速度为（ ）</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectOption(this, 3, 'A', false)"><span class="option-letter">A</span><span>v/6</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 3, 'B', false)"><span class="option-letter">B</span><span>v/3</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 3, 'C', true)"><span class="option-letter">C</span><span>v/2</span></div>
+                        <div class="quiz-option" onclick="selectOption(this, 3, 'D', false)"><span class="option-letter">D</span><span>2v/3</span></div>
+                    </div>
+                    <div class="quiz-feedback" id="feedback3"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="saveProgress()">💾 保存学习进度</button>
+            <a href="index.html" class="btn btn-secondary">🏠 返回主页</a>
+        </div>
+    </main>
+
+    <script>
+        const heroId = 'momentum';
+        const totalQuestions = 3;
+        let answeredCorrectly = 0;
+        let answeredQuestions = new Set();
+
+        function toggleAnswer(btn) {
+            const answer = btn.nextElementSibling;
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                btn.innerHTML = '👇 收起解析';
+            } else {
+                answer.classList.add('hidden');
+                btn.innerHTML = '👆 查看解析';
+            }
+        }
+
+        function selectOption(element, questionNum, option, isCorrect) {
+            if (answeredQuestions.has(questionNum)) return;
+            
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (isCorrect) {
+                element.classList.add('correct');
+                answeredCorrectly++;
+                document.getElementById('feedback' + questionNum).innerHTML = '✅ 回答正确！继续保持！';
+                document.getElementById('feedback' + questionNum).className = 'quiz-feedback correct show';
+            } else {
+                element.classList.add('wrong');
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) opt.classList.add('correct');
+                });
+                document.getElementById('feedback' + questionNum).innerHTML = '❌ 回答错误，正确答案已标注。';
+                document.getElementById('feedback' + questionNum).className = 'quiz-feedback wrong show';
+            }
+            
+            answeredQuestions.add(questionNum);
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = Math.round((answeredCorrectly / totalQuestions) * 100);
+            document.getElementById('heroProgress').style.width = progress + '%';
+            document.getElementById('progressText').innerText = progress + '%';
+        }
+
+        function saveProgress() {
+            const progress = Math.round((answeredCorrectly / totalQuestions) * 100);
+            localStorage.setItem('hero_' + heroId + '_progress', progress);
+            localStorage.setItem('hero_' + heroId + '_answered', Array.from(answeredQuestions).join(','));
+            alert('✅ 学习进度已保存！完成度：' + progress + '%');
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('hero_' + heroId + '_progress');
+            if (saved) {
+                document.getElementById('heroProgress').style.width = saved + '%';
+                document.getElementById('progressText').innerText = saved + '%';
+            }
+        }
+
+        window.onload = loadProgress;
+    </script>
+</body>
+</html>
